@@ -1,59 +1,264 @@
-# Chủ đề :LIBRARY MANAGEMENT
+### 1. Mục tiêu của hệ thống
 
-## Nhóm 2
+Hệ thống quản lý thư viện được xây dựng nhằm:
 
-## CHƯƠNG 1: GIỚI THIỆU HỆ THỐNG
+* Tin học hóa công tác quản lý thư viện.
+* Giảm thời gian và công sức cho cán bộ thư viện.
+* Quản lý chính xác, hiệu quả sách, độc giả và các hoạt động mượn – trả.
+* Nâng cao chất lượng phục vụ bạn đọc.
 
-### 1.1. Giới thiệu chung
+### 2. Đối tượng sử dụng hệ thống
 
-Trong bối cảnh công nghệ thông tin ngày càng phát triển mạnh mẽ, việc ứng dụng công nghệ vào công tác quản lý là xu hướng tất yếu nhằm nâng cao hiệu quả làm việc và giảm thiểu sai sót. Đối với các thư viện, việc quản lý sách, bạn đọc và các nghiệp vụ mượn – trả bằng phương pháp thủ công không chỉ tốn nhiều thời gian mà còn dễ xảy ra nhầm lẫn, thất lạc dữ liệu.
+* **Quản trị viên (Admin):** Quản lý toàn bộ hệ thống, người dùng và dữ liệu.
+* **Thủ thư:** Thực hiện các nghiệp vụ quản lý sách, độc giả, mượn – trả.
+* **Độc giả:** Tra cứu thông tin sách, theo dõi lịch sử mượn (nếu có).
 
-Hệ thống quản lý thư viện được xây dựng nhằm tin học hóa toàn bộ các nghiệp vụ quản lý thư viện, hỗ trợ cán bộ thư viện trong việc quản lý sách, theo dõi tình trạng mượn – trả, quản lý thông tin bạn đọc và lập các báo cáo thống kê một cách nhanh chóng, chính xác.
+### 3. Yêu cầu chức năng
 
----
+#### 3.1. Quản lý người dùng
 
-### 1.2. Mục tiêu xây dựng hệ thống
+* Đăng nhập, đăng xuất hệ thống.
+* Phân quyền người dùng (Admin, Thủ thư, Độc giả).
+* Thêm, sửa, xóa thông tin người dùng.
 
-Hệ thống quản lý thư viện hướng đến các mục tiêu sau:
+#### 3.2. Quản lý sách
 
-* Tin học hóa công tác quản lý sách và bạn đọc
-* Tự động hóa quy trình mượn – trả sách
-* Giảm thiểu sai sót trong quản lý dữ liệu
-* Nâng cao hiệu quả làm việc của thủ thư
-* Hỗ trợ tra cứu thông tin nhanh chóng
-* Cung cấp các báo cáo, thống kê phục vụ công tác quản lý
+* Thêm mới sách (mã sách, tên sách, tác giả, thể loại, năm xuất bản, số lượng).
+* Cập nhật thông tin sách.
+* Xóa sách khỏi hệ thống.
+* Tìm kiếm sách theo tên, tác giả, thể loại.
 
----
+#### 3.3. Quản lý độc giả
 
-### 1.3. Phạm vi và đối tượng sử dụng
+* Thêm, sửa, xóa thông tin độc giả.
+* Quản lý thẻ thư viện (mã độc giả, ngày cấp, ngày hết hạn).
+* Tìm kiếm độc giả theo tên hoặc mã độc giả.
 
-#### 1.3.1. Phạm vi hệ thống
+#### 3.4. Quản lý mượn – trả sách
 
-Hệ thống quản lý thư viện bao gồm các chức năng chính:
+* Lập phiếu mượn sách.
+* Ghi nhận trả sách.
+* Kiểm tra tình trạng sách (đang mượn, còn trong kho).
+* Tính số ngày mượn và xử lý trễ hạn (nếu có).
 
-* Quản lý danh mục sách
-* Quản lý thông tin bạn đọc
-* Quản lý mượn – trả sách
-* Quản lý tài khoản người dùng
-* Thống kê và báo cáo
+#### 3.5. Báo cáo – thống kê
 
-Hệ thống chưa bao gồm chức năng quản lý tài liệu số (ebook) và dịch vụ mượn sách trực tuyến.
+* Thống kê số lượng sách trong thư viện.
+* Thống kê sách đang được mượn.
+* Thống kê độc giả mượn sách nhiều nhất.
+* Xuất báo cáo theo thời gian (ngày, tháng, năm).
 
----
+### 4. Yêu cầu phi chức năng
 
-#### 1.3.2. Đối tượng sử dụng
+#### 4.1. Yêu cầu về hiệu năng
 
-Các đối tượng chính sử dụng hệ thống gồm:
+* Hệ thống phản hồi nhanh với các thao tác tìm kiếm và cập nhật.
+* Đảm bảo hoạt động ổn định với nhiều người dùng cùng lúc.
 
-* **Thủ thư:** Thực hiện các nghiệp vụ quản lý sách, mượn – trả và quản lý bạn đọc
-* **Bạn đọc:** Tra cứu thông tin sách, theo dõi tình trạng mượn
-* **Quản trị viên:** Quản lý tài khoản người dùng và phân quyền hệ thống
+#### 4.2. Yêu cầu về bảo mật
 
----
+* Bảo mật thông tin người dùng và dữ liệu thư viện.
+* Phân quyền rõ ràng, người dùng chỉ được truy cập chức năng được cấp phép.
 
-### 1.4. Ý nghĩa của đề tài
+#### 4.3. Yêu cầu về giao diện
 
-Việc xây dựng hệ thống quản lý thư viện không chỉ giúp nâng cao hiệu quả quản lý tại thư viện mà còn là cơ hội để sinh viên vận dụng các kiến thức đã học về phân tích và thiết kế hệ thống theo hướng đối tượng, mô hình UML và cơ sở dữ liệu. Đề tài có tính thực tiễn cao và phù hợp với nhu cầu quản lý hiện nay của các thư viện trường học và cơ sở đào tạo.
+* Giao diện thân thiện, dễ sử dụng.
+* Hỗ trợ tiếng Việt.
+* Bố cục rõ ràng, dễ thao tác.
+
+#### 4.4. Yêu cầu về khả năng mở rộng
+
+* Dễ dàng nâng cấp, bổ sung chức năng trong tương lai.
+* Có thể tích hợp với hệ thống khác nếu cần.
+
+### 5. Yêu cầu về công nghệ
+
+* Ngôn ngữ lập trình: HTML, CSS, JS, Express.
+* Cơ sở dữ liệu: MongoDB, MySQL.
+* Môi trường triển khai: Web
+* Sever: NodeJS.
+
+### I. Các tác nhân của hệ thống
+
+#### 1. Quản trị viên
+
+* Vai trò: Quản lý toàn bộ hệ thống
+* Quyền hạn:
+  + Quản lý tài khoản thủ thư và người dùng.
+  + Phân quyền hệ thống.
+  + Cấu hình quy định thư viện (số sách được mượn, số ngày mượn, mức phạt ...).
+  + Xem báo cáo, thống kê tổng hợp.
+  + Sao lưu và phục hồi dữ liệu.
+
+#### 2. Thủ thư
+
+* Vai trò: Quản lý nghiệp vụ thư viện hàng ngày
+* Quyền hạn:
+  + Quản lý đầu sách (thêm, sửa, xóa sách).
+  + Quản lý bản sao sách (số lượng, vị trí)
+  + Quản lý độc giả.
+  + Thực hiện mượn - trả sách.
+  + Gia hạn mượn sách.
+  + Tính và thu tiền phạt.
+  + Lập báo cáo thống kê
+
+#### 3. Độc giả
+
+* Vai trò: Người sử dụng dịch vụ thư viện
+* Quyền hạn:
+
+  + Đăng ký tài khoản.
+  + Tra cứu sách.
+  + Xem tình trạng sách.
+  + Mượn sách.
+  + Trả sách.
+  + Xem lịch sử mượn - trả.
+  + Xem tiền phạt (nếu có).
+
+### II. Phân tích chi tiết hệ thống
+
+#### 1. Chức năng quản lý người dùng
+
+##### 1.1 Quản lý tài khoản
+
+* Đăng ký tài khoản độc giả.
+* Đăng nhập/ đăng xuất.
+* Cập nhật thông tin cá nhân.
+* Khóa/ mở khóa tài khoản.
+
+##### 1.2 Phân quyền
+
+* Quyền hạn:
+  + Admin: Toàn quyền.
+  + Thủ thư: Nghiệp vụ thư viện.
+  + Độc giả: Tra cứu, mượn, trả.
+
+#### 2. Chức năng quản lý sách
+
+##### 2.1 Quản lý đầu sách
+
+* Hệ thống quản lý thông tin ở mức đầu sách, bao gồm:
+  + Mã đầu sách.
+  + Tên sách.
+  + Tác giả.
+  + Thể loại.
+  + Nhà xuất bản.
+  + Năm xuất bản.
+  + Mô tả nội dung.
+* Một đầu sách có thể có nhiều bản sao với trạng thái khác nhau.
+
+##### 2.2 Quản lý bản sao sách
+
+* Hệ thống quản lý chi tiết từng bản sao của một đầu sách:
+  + Mã bản sao.
+  + Mã đầu sách.
+  + Vị trí kệ.
+  + Tình trạng:
+    + Còn trong kho.
+    + Đang được mượn.
+    + Đặt trước.
+    + Hư hỏng.
+    + Mất.
+
+#### 3. Chức năng tra cứu sách
+
+* Ngoài tra cứu cơ bản, hệ thống cho phép:
+  + Hiển thị tổng số bản sao.
+  + Hiện thị số bản đang còn/ đang mượn.
+
+#### 4. Chức năng mượn sách
+
+##### 4.1 Điều kiện được mượn
+
+* Hệ thống chỉ cho phép mượn khi:
+  + Không có sách quá hạn.
+  + Số sách đang mượn < Số sách tối đa cho phép.
+  + Bản sao sách còn trong kho.
+
+##### 4.2 Quy trình mượn sách
+
+* Quy trình mượn sách:
+  + Độc giả yêu cầu mượn sách.
+  + Hệ thống kiểm tra điều kiện mượn.
+  + Thủ thư xác nhận yếu cầu.
+  + Hệ thống tạo phiếu mượn.
+  + Cập nhật trạng thái bản sao -> Đang mượn.
+* Thông tin phiếu mượn:
+  + Mã phiếu.
+  + Độc giả.
+  + Danh sách bản sao mượn.
+  + Ngày mượn.
+  + Ngày trả dự kiến.
+  + Thời gian mượn tối đa.
+
+#### 5. Chức năng trả sách
+
+##### 5.1 Quy trình trả sách
+
+* Độc giả trả sách.
+* Thủ thư kiểm tra tình trạng bản sao.
+* Hệ thống đối chiều ngày trả.
+* Xử lý:
+  + Trả đúng hạn.
+  + Trả trễ.
+  + Hư hỏng.
+  + Mất sách.
+* Cập nhật trạng thái bản sao.
+
+#### 6. Chức năng gia hạn mượn sách
+
+- Điều kiện gia hạn:
+  + Chưa quá hạn.
+  + Không có độc giả khác đặt trước.
+  + Chưa vượt số lần gia hạn cho phép.
+- Thông tin gia hạn:
+  + Ngày gia hạn.
+  + Ngày trả mới.
+  + Số lần gia hạn.
+
+#### 7. Chức năng xử lý tiền phạt
+
+##### 7.1 Các loại vi phạm
+
+- Trả sách trễ hạn.
+- Làm hư hỏng sách.
+- Làm mất sách.
+
+##### 7.2 Cơ chế tính phạt
+
+- Phạt trễ hạn: theo số ngày trễ.
+- Phạt mất/ hỏng: theo % giá trị sách.
+- Có thể cấu hình mức phạt trong hệ thống.
+
+##### 7.3 Xử lý nghiệp vụ
+
+- Ghi nhận vi phạm vào hồ sơ độc giả.
+- Tạm khóa quyền mượn nếu vi phạm nghiêm trọng.
+- Tích hợp thanh toán tiền phạt (nếu có).
+
+#### 8. Chức năng báo cáo và thống kê
+
+##### 8.1 Báo cáo nghiệp vụ
+
+- Danh sách sách đang mượn.
+- Danh sách sách quá hạn.
+- Độc giả vi phạm.
+
+##### 8.2 Thống kê khai thác thư viện
+
+- Tần suất mượn theo thời gian.
+- Sách được mượn nhiều/ ít.
+- Hiệu quả sử dụng tài nguyên.
+- Thống kê theo thể loại.
+
+#### 9. Chức năng cấu hình quy định thư viện
+
+- Admin có thể cấu hình:
+  + Số sách được mượn tối đa.
+  + Thời gian mượn tối đa.
+  + Số lần gia hạn.
+  + Mức phạt.
+
 
 # 1.5.Kịch bản các use case quản lý sách
 
@@ -74,7 +279,6 @@ a)Thêm sách
 
 b)Sửa sách
 
-
 | **Tiêu** **đề**                                       | **Nội** **dung**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Tên** **USE CASE**                                    | Sửa sách                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -89,7 +293,6 @@ b)Sửa sách
 | **Ngoại** **lệ**                                       | **5.a.** Thông tin sách không hợp lệ<br />**5.a.1.** Hệ thống thông báo thông tin không hợp lệ.<br />**5.a.2.** Hệ thống yêu cầu thủ thư nhập lại thông tin.<br />**5.b.** Sách không tồn tại<br />5.b.1. Hệ thống thông báo sách không tồn tại trong CSDL.<br />5.b.2. Hệ thống quay lại danh sách sách.                                                                                                                                                                                      |
 
 c)Xóa sách
-
 
 | **Tiêu** **đề**                                       | **Nội** **dung**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -106,7 +309,6 @@ c)Xóa sách
 
 d)Phân loại (thể loại, tác giả, NXB)
 
-
 | **Tiêu** **đề**                                       | **Nội** **dung**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Tên** **USE CASE**                                    | Phân loại (thể loại, tác giả, NXB)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -122,7 +324,6 @@ d)Phân loại (thể loại, tác giả, NXB)
 
 e)Tìm kiếm
 
-
 | **Tiêu** **đề**                                       | **Nội** **dung**                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Tên** **USE CASE**                                    | **Tìm kiếm sách**                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -135,3 +336,91 @@ e)Tìm kiếm
 | **Kích** **hoạt**                                      | Thủ thư chọn thanh**“Tìm kiếm sách”** trong menu quản lý sách.                                                                                                                                                                                                                                                                                                                                                                                                |
 | **Chuỗi** **sự** **kiện** **chính**      | 1.Hệ thống hiển thị thanh tìm kiếm sách.<br />2. Thủ thư nhập một hoặc nhiều tiêu chí tìm kiếm (tên sách, tác giả, thể loại, NXB, mã sách,…).<br />3. Thủ thư nhấn nút  **Tìm kiếm** .<br />4. Hệ thống kiểm tra dữ liệu tìm kiếm<br />5. Hệ thống truy vấn CSDL và hiển thị danh sách sách phù hợp.<br />6. Thủ thư xem kết quả tìm kiếm.<br />7.Thủ thư thoát khỏi chức năng tìm kiếm sách. |
 | **Ngoại** **lệ**                                       | 4.a. Không nhập tiêu chí tìm kiếm<br />4.a.1. Hệ thống thông báo yêu cầu nhập ít nhất một tiêu chí.<br />4.a.2. Hệ thống quay lại form tìm kiếm<br />5.a. Không tìm thấy kết quả<br />5.a.1. Hệ thống thông báo không tìm thấy sách phù hợp.<br />5.a.2. Hệ thống cho phép thủ thư nhập lại tiêu chí tìm kiếm.                                                                                                          |
+
+=======
+
+## 1. Phạm vi hệ thống (Scope)
+
+Hệ thống **Website Quản lý Thư viện** được xây dựng nhằm hỗ trợ số hóa và tự động hóa các hoạt động quản lý thư viện, thay thế cho các quy trình thủ công truyền thống. Hệ thống phục vụ cho **thư viện bên ngoài** (không giới hạn trong phạm vi trường học), cho phép nhiều nhóm người dùng truy cập và sử dụng thông qua trình duyệt web.
+
+Phạm vi của hệ thống bao gồm các chức năng chính sau:
+
+- **Quản lý tài nguyên thư viện**
+
+  - Quản lý sách, tài liệu (thêm, sửa, xóa, tra cứu)
+  - Quản lý danh mục, thể loại, tác giả, nhà xuất bản
+  - Theo dõi tình trạng sách (còn, đang mượn, hỏng, mất)
+- **Quản lý người dùng**
+
+  - Quản lý thông tin độc giả
+  - Phân quyền sử dụng theo vai trò (độc giả, thủ thư, quản trị viên)
+- **Quản lý mượn – trả**
+
+  - Đăng ký mượn sách
+  - Xác nhận mượn – trả sách
+  - Gia hạn mượn sách
+  - Theo dõi lịch sử mượn – trả và tình trạng quá hạn
+- **Tra cứu và hỗ trợ**
+
+  - Tìm kiếm sách theo nhiều tiêu chí
+  - Thông báo tình trạng mượn sách, quá hạn, phí phạt (nếu có)
+
+Hệ thống **không** bao gồm:
+
+- Quản lý mua sắm sách từ nhà cung cấp
+- Thanh toán trực tuyến (có thể mở rộng trong tương lai)
+- Quản lý kho vật lý chi tiết (vị trí kệ nâng cao)
+
+---
+
+## 2. Đối tượng sử dụng hệ thống (Intended Users)
+
+Hệ thống được thiết kế để phục vụ ba nhóm người dùng chính, mỗi nhóm có quyền hạn và chức năng riêng biệt.
+
+### 2.1. Độc giả
+
+Độc giả là người sử dụng thư viện để tra cứu và mượn tài liệu.
+
+**Chức năng chính:**
+
+- Đăng ký và đăng nhập tài khoản
+- Tra cứu, tìm kiếm sách và tài liệu
+- Xem thông tin chi tiết sách
+- Gửi yêu cầu mượn sách
+- Xem danh sách sách đang mượn và lịch sử mượn – trả
+- Gia hạn mượn sách (nếu được phép)
+- Nhận thông báo về hạn trả sách
+
+---
+
+### 2.2. Thủ thư
+
+Thủ thư là người trực tiếp quản lý hoạt động hằng ngày của thư viện.
+
+**Chức năng chính:**
+
+- Quản lý thông tin sách và tài liệu
+- Quản lý danh mục, thể loại, tác giả
+- Xác nhận yêu cầu mượn – trả sách
+- Cập nhật tình trạng sách
+- Quản lý thông tin độc giả
+- Theo dõi các trường hợp mượn quá hạn
+- Lập báo cáo thống kê
+
+---
+
+### 2.3. Quản trị viên (Administrator)
+
+Quản trị viên là người quản lý toàn bộ hệ thống và chịu trách nhiệm vận hành kỹ thuật.
+
+**Chức năng chính:**
+
+- Quản lý tài khoản người dùng và phân quyền
+- Quản lý cấu hình hệ thống
+- Theo dõi nhật ký hệ thống
+- Sao lưu và phục hồi dữ liệu
+- Đảm bảo an toàn và bảo mật hệ thống
+
+## BIỂU ĐỒ LỚP
+
+<img src="../img/bieudolop.png">
