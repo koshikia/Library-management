@@ -1,4 +1,3 @@
-
 ### 1. Mục tiêu của hệ thống
 
 Hệ thống quản lý thư viện được xây dựng nhằm:
@@ -78,3 +77,184 @@ Hệ thống quản lý thư viện được xây dựng nhằm:
 * Cơ sở dữ liệu: MongoDB, MySQL.
 * Môi trường triển khai: Web
 * Sever: NodeJS.
+
+### I. Các tác nhân của hệ thống
+
+#### 1. Quản trị viên
+
+* Vai trò: Quản lý toàn bộ hệ thống
+* Quyền hạn:
+  + Quản lý tài khoản thủ thư và người dùng.
+  + Phân quyền hệ thống.
+  + Cấu hình quy định thư viện (số sách được mượn, số ngày mượn, mức phạt ...).
+  + Xem báo cáo, thống kê tổng hợp.
+  + Sao lưu và phục hồi dữ liệu.
+
+#### 2. Thủ thư
+
+* Vai trò: Quản lý nghiệp vụ thư viện hàng ngày
+* Quyền hạn:
+  + Quản lý đầu sách (thêm, sửa, xóa sách).
+  + Quản lý bản sao sách (số lượng, vị trí)
+  + Quản lý độc giả.
+  + Thực hiện mượn - trả sách.
+  + Gia hạn mượn sách.
+  + Tính và thu tiền phạt.
+  + Lập báo cáo thống kê
+
+#### 3. Độc giả
+
+* Vai trò: Người sử dụng dịch vụ thư viện
+* Quyền hạn:
+
+  + Đăng ký tài khoản.
+  + Tra cứu sách.
+  + Xem tình trạng sách.
+  + Mượn sách.
+  + Trả sách.
+  + Xem lịch sử mượn - trả.
+  + Xem tiền phạt (nếu có).
+
+### II. Phân tích chi tiết hệ thống
+
+#### 1. Chức năng quản lý người dùng
+
+##### 1.1 Quản lý tài khoản
+
+* Đăng ký tài khoản độc giả.
+* Đăng nhập/ đăng xuất.
+* Cập nhật thông tin cá nhân.
+* Khóa/ mở khóa tài khoản.
+
+##### 1.2 Phân quyền
+
+* Quyền hạn:
+  + Admin: Toàn quyền.
+  + Thủ thư: Nghiệp vụ thư viện.
+  + Độc giả: Tra cứu, mượn, trả.
+
+#### 2. Chức năng quản lý sách
+
+##### 2.1 Quản lý đầu sách
+
+* Hệ thống quản lý thông tin ở mức đầu sách, bao gồm:
+  + Mã đầu sách.
+  + Tên sách.
+  + Tác giả.
+  + Thể loại.
+  + Nhà xuất bản.
+  + Năm xuất bản.
+  + Mô tả nội dung.
+* Một đầu sách có thể có nhiều bản sao với trạng thái khác nhau.
+
+##### 2.2 Quản lý bản sao sách
+
+* Hệ thống quản lý chi tiết từng bản sao của một đầu sách:
+  + Mã bản sao.
+  + Mã đầu sách.
+  + Vị trí kệ.
+  + Tình trạng:
+    + Còn trong kho.
+    + Đang được mượn.
+    + Đặt trước.
+    + Hư hỏng.
+    + Mất.
+
+#### 3. Chức năng tra cứu sách
+
+* Ngoài tra cứu cơ bản, hệ thống cho phép:
+  + Hiển thị tổng số bản sao.
+  + Hiện thị số bản đang còn/ đang mượn.
+
+#### 4. Chức năng mượn sách
+
+##### 4.1 Điều kiện được mượn
+
+* Hệ thống chỉ cho phép mượn khi:
+  + Không có sách quá hạn.
+  + Số sách đang mượn < Số sách tối đa cho phép.
+  + Bản sao sách còn trong kho.
+
+##### 4.2 Quy trình mượn sách
+
+* Quy trình mượn sách:
+  + Độc giả yêu cầu mượn sách.
+  + Hệ thống kiểm tra điều kiện mượn.
+  + Thủ thư xác nhận yếu cầu.
+  + Hệ thống tạo phiếu mượn.
+  + Cập nhật trạng thái bản sao -> Đang mượn.
+* Thông tin phiếu mượn:
+  + Mã phiếu.
+  + Độc giả.
+  + Danh sách bản sao mượn.
+  + Ngày mượn.
+  + Ngày trả dự kiến.
+  + Thời gian mượn tối đa.
+
+#### 5. Chức năng trả sách
+
+##### 5.1 Quy trình trả sách
+
+* Độc giả trả sách.
+* Thủ thư kiểm tra tình trạng bản sao.
+* Hệ thống đối chiều ngày trả.
+* Xử lý:
+  + Trả đúng hạn.
+  + Trả trễ.
+  + Hư hỏng.
+  + Mất sách.
+* Cập nhật trạng thái bản sao.
+
+#### 6. Chức năng gia hạn mượn sách
+
+- Điều kiện gia hạn:
+  + Chưa quá hạn.
+  + Không có độc giả khác đặt trước.
+  + Chưa vượt số lần gia hạn cho phép.
+- Thông tin gia hạn:
+  + Ngày gia hạn.
+  + Ngày trả mới.
+  + Số lần gia hạn.
+
+#### 7. Chức năng xử lý tiền phạt
+
+##### 7.1 Các loại vi phạm
+
+- Trả sách trễ hạn.
+- Làm hư hỏng sách.
+- Làm mất sách.
+
+##### 7.2 Cơ chế tính phạt
+
+- Phạt trễ hạn: theo số ngày trễ.
+- Phạt mất/ hỏng: theo % giá trị sách.
+- Có thể cấu hình mức phạt trong hệ thống.
+
+##### 7.3 Xử lý nghiệp vụ
+
+- Ghi nhận vi phạm vào hồ sơ độc giả.
+- Tạm khóa quyền mượn nếu vi phạm nghiêm trọng.
+- Tích hợp thanh toán tiền phạt (nếu có).
+
+#### 8. Chức năng báo cáo và thống kê
+
+##### 8.1 Báo cáo nghiệp vụ
+
+- Danh sách sách đang mượn.
+- Danh sách sách quá hạn.
+- Độc giả vi phạm.
+
+##### 8.2 Thống kê khai thác thư viện
+
+- Tần suất mượn theo thời gian.
+- Sách được mượn nhiều/ ít.
+- Hiệu quả sử dụng tài nguyên.
+- Thống kê theo thể loại.
+
+#### 9. Chức năng cấu hình quy định thư viện
+
+- Admin có thể cấu hình:
+  + Số sách được mượn tối đa.
+  + Thời gian mượn tối đa.
+  + Số lần gia hạn.
+  + Mức phạt.
