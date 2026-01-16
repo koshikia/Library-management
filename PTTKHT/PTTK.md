@@ -1,82 +1,38 @@
-### 1. Mục tiêu của hệ thống
+## Mục tiêu của hệ thống quản lý thư viện
 
-Hệ thống quản lý thư viện được xây dựng nhằm:
+### 1. Mục tiêu tổng quát
 
-* Tin học hóa công tác quản lý thư viện.
-* Giảm thời gian và công sức cho cán bộ thư viện.
-* Quản lý chính xác, hiệu quả sách, độc giả và các hoạt động mượn – trả.
-* Nâng cao chất lượng phục vụ bạn đọc.
+Hệ thống quản lý thư viện được xây dựng nhằm tin học hóa toàn bộ các hoạt động quản lý trong thư viện, thay thế các phương pháp quản lý thủ công truyền thống. Hệ thống giúp quản lý tập trung dữ liệu, nâng cao hiệu quả hoạt động và đáp ứng tốt hơn nhu cầu tra cứu, mượn – trả sách của bạn đọc.
 
-### 2. Đối tượng sử dụng hệ thống
+---
 
-* **Quản trị viên (Admin):** Quản lý toàn bộ hệ thống, người dùng và dữ liệu.
-* **Thủ thư:** Thực hiện các nghiệp vụ quản lý sách, độc giả, mượn – trả.
-* **Độc giả:** Tra cứu thông tin sách, theo dõi lịch sử mượn (nếu có).
+### 2. Mục tiêu về quản lý tài nguyên thư viện
 
-### 3. Yêu cầu chức năng
+Hệ thống hỗ trợ quản lý đầy đủ và chính xác thông tin về sách như tên sách, tác giả, thể loại, nhà xuất bản, số lượng và tình trạng sách. Việc cập nhật dữ liệu được thực hiện nhanh chóng, giúp thủ thư dễ dàng theo dõi và kiểm soát tài nguyên thư viện, hạn chế tình trạng thất lạc hoặc sai sót thông tin.
 
-#### 3.1. Quản lý người dùng
+---
 
-* Đăng nhập, đăng xuất hệ thống.
-* Phân quyền người dùng (Admin, Thủ thư, Độc giả).
-* Thêm, sửa, xóa thông tin người dùng.
+### 3. Mục tiêu về quản lý bạn đọc
 
-#### 3.2. Quản lý sách
+Hệ thống cho phép quản lý thông tin bạn đọc một cách khoa học, bao gồm cấp thẻ, gia hạn, theo dõi tình trạng thẻ và lịch sử mượn – trả. Qua đó, thư viện có thể kiểm soát chặt chẽ quyền mượn sách và nâng cao ý thức trách nhiệm của bạn đọc.
 
-* Thêm mới sách (mã sách, tên sách, tác giả, thể loại, năm xuất bản, số lượng).
-* Cập nhật thông tin sách.
-* Xóa sách khỏi hệ thống.
-* Tìm kiếm sách theo tên, tác giả, thể loại.
+---
 
-#### 3.3. Quản lý độc giả
+### 4. Mục tiêu về quản lý mượn – trả sách
 
-* Thêm, sửa, xóa thông tin độc giả.
-* Quản lý thẻ thư viện (mã độc giả, ngày cấp, ngày hết hạn).
-* Tìm kiếm độc giả theo tên hoặc mã độc giả.
+Hệ thống tự động hóa quy trình mượn – trả sách, hỗ trợ lập phiếu mượn, phiếu trả, tính toán thời hạn mượn và tiền phạt khi trả trễ hoặc làm hư hỏng, mất sách. Điều này giúp giảm thời gian xử lý và tăng độ chính xác trong công tác quản lý.
 
-#### 3.4. Quản lý mượn – trả sách
+---
 
-* Lập phiếu mượn sách.
-* Ghi nhận trả sách.
-* Kiểm tra tình trạng sách (đang mượn, còn trong kho).
-* Tính số ngày mượn và xử lý trễ hạn (nếu có).
+### 5. Mục tiêu về thống kê và báo cáo
 
-#### 3.5. Báo cáo – thống kê
+Hệ thống cung cấp các chức năng thống kê, báo cáo về tình hình sử dụng sách, số lượt mượn, sách quá hạn và các thông tin liên quan. Những báo cáo này giúp nhà quản lý dễ dàng theo dõi, đánh giá hoạt động thư viện và đưa ra các quyết định phù hợp.
 
-* Thống kê số lượng sách trong thư viện.
-* Thống kê sách đang được mượn.
-* Thống kê độc giả mượn sách nhiều nhất.
-* Xuất báo cáo theo thời gian (ngày, tháng, năm).
+---
 
-### 4. Yêu cầu phi chức năng
+### 6. Mục tiêu về bảo mật và mở rộng
 
-#### 4.1. Yêu cầu về hiệu năng
-
-* Hệ thống phản hồi nhanh với các thao tác tìm kiếm và cập nhật.
-* Đảm bảo hoạt động ổn định với nhiều người dùng cùng lúc.
-
-#### 4.2. Yêu cầu về bảo mật
-
-* Bảo mật thông tin người dùng và dữ liệu thư viện.
-* Phân quyền rõ ràng, người dùng chỉ được truy cập chức năng được cấp phép.
-
-#### 4.3. Yêu cầu về giao diện
-
-* Giao diện thân thiện, dễ sử dụng.
-* Hỗ trợ tiếng Việt.
-* Bố cục rõ ràng, dễ thao tác.
-
-#### 4.4. Yêu cầu về khả năng mở rộng
-
-* Dễ dàng nâng cấp, bổ sung chức năng trong tương lai.
-* Có thể tích hợp với hệ thống khác nếu cần.
-
-### 5. Yêu cầu về công nghệ
-
-* Ngôn ngữ lập trình: HTML, CSS, JS, Express.
-* Cơ sở dữ liệu: MongoDB, MySQL.
-* Môi trường triển khai: Web
-* Sever: NodeJS.
+Hệ thống đảm bảo an toàn và bảo mật dữ liệu thông qua cơ chế phân quyền người dùng. Đồng thời, hệ thống được thiết kế linh hoạt, dễ dàng mở rộng và nâng cấp trong tương lai nhằm đáp ứng các nhu cầu phát triển của thư viện.
 
 ### I. Các tác nhân của hệ thống
 
@@ -258,3 +214,168 @@ Hệ thống quản lý thư viện được xây dựng nhằm:
   + Thời gian mượn tối đa.
   + Số lần gia hạn.
   + Mức phạt.
+
+# 1.5.Kịch bản các use case quản lý sách
+
+a)Thêm sách
+
+| **Tiêu** **đề**                                        | **Nội** **dung**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Tên** **USE CASE**                                     | **Thêm** **sách**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Tá** **h** **c** **nhân** **chín** | **Thủ** **thư**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Mức**                                                        | **3**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Người** **chịu** **trách** **nhiệm**:  | **Người** **quản** **lý** **thư** **viện**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Tiền** **điều** **kiện**:                     | **Thủ** **thư** **đã** **đăng** **nhập** **vào** **hệ** **thống**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Đảm** **bảo** **tối** **thiểu**        | **Hệ** **thống** **loại** **bỏ** **các** **thông** **tin** **đã** **thêm** **và** **quay** **lui** **bước** **trước**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Đảm** **bảo** **thành** **công**       | **Thông tin** **về** **sách** **mới** **được** **bổ** **sung** **vào** **CSDL**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Kích** **hoạt**                                       | **Thủ** **thư** **chọn** **chức** **năng** **cập** **nhật** **sách** **trong** **menu**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Chuỗi** **sự** **kiện** **chính**       | 1.**Hệ** **thống** **hiển** **thị** **Form** **thêm** **sách** **và** **yêu** **cầu** **thủ** **thư** **nhập** **vào** **thông** **tin** **sách** <br />2. **Thủ** **thư** **nhập** **thông** **tin** **về** **sách** **mới** **và** **nhấn** **Submit** <br />3. **Hệ** **thống** **kiểm** **tra** **thông** **tin** **sách** **và** **xác** **nhận** **thông** **tin** **sách** **hợp** **lệ** <br />4. **Hệ** **thống** **nhập** **thông** **tin** **sách** **mới** **vào** **CSDL** <br />5. **Hệ** **thống** **thông** **báo** **đã** **nhập** **thành** **công** <br />6. **Thủ** **thư** **thoát** **khỏi** **chức** **năng** **thêm** **sách**                                                                                                                                                                 |
+| **Ngoại** **lệ**                                        | **3.a.** **Hệ** **thống** **thông** **báo** **sách** **đã** **có** **trong** **CSDL** <br />**3.a.1.** **Hệ** **thống** **hỏi** **thủ** **thư** **có** **thêm** **số** **lượng** **sách** **hay** **không** <br />**3.a.2.** **Thủ** **thư** **thêm** **số** **lượng** **sách** <br />**3.a.3.** **Hệ** **thống** **thêm** **số** **lượng** **cho** **sách** **đã** **có** <br />**3.a.4.** **Hệ** **thống** **thông** **báo** **nhập** **thành** **công** <br />**3.b.** **Hệ** **thống** **thông** **báo** **thông** **tin** **sách** **không** **hợp** **lệ** <br />**3.b.1.** **Hệ** **thống** **yêu** **cầu** **thủ** **thư** **nhập** **lại** **thông** **tin** <br />**3.b.2.** **Thủ** **thư** **nhập** **lại** **thông** **tin** **sách** |
+
+b)Sửa sách
+
+| **Tiêu** **đề**                                       | **Nội** **dung**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Tên** **USE CASE**                                    | Sửa sách                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Tác** **nhân** **chính**                     | **Thủ** **thư**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| **Mức**                                                       | **3**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Người** **chịu** **trách** **nhiệm**: | **Người** **quản** **lý** **thư** **viện**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Tiền** **điều** **kiện**:                    | Thủ thư đã đăng nhập vào hệ**thống**<br />**Sách cần sửa  đã tồn tại trong CSDL .**                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **Đảm** **bảo** **tối** **thiểu**       | Không có thay đổi nào được lưu nếu thao tác thất bại.<br />Hệ thống giữ nguyên dữ liệu ban đầu của sách.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Đảm** **bảo** **thành** **công**      | **Thông tin** **về** **sách** **mới** **được** **bổ** **sung** **vào** **CSDL**                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Kích** **hoạt**                                      | Thủ thư chọn chức năng Sửa sách  từ menu quản lý sách.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Chuỗi** **sự** **kiện** **chính**      | 1.Hệ thống hiển thị**danh sách sách** .<br />2. Thủ thư chọn một sách cần sửa.<br />3. Hệ thống hiển thị **form sửa sách** với thông tin hiện tại.<br />4. Thủ thư chỉnh sửa thông tin sách và nhấn  **Submit** .<br />5. Hệ thống kiểm tra tính hợp lệ của thông tin đã chỉnh sửa.<br />6. Hệ thống cập nhật thông tin sách vào  **Cơ sở dữ liệu** .<br />7.Hệ thống thông báo  **sửa sách thành công** .<br />8.Thủ thư thoát khỏi chức năng sửa sách. |
+| **Ngoại** **lệ**                                       | **5.a.** Thông tin sách không hợp lệ<br />**5.a.1.** Hệ thống thông báo thông tin không hợp lệ.<br />**5.a.2.** Hệ thống yêu cầu thủ thư nhập lại thông tin.<br />**5.b.** Sách không tồn tại<br />5.b.1. Hệ thống thông báo sách không tồn tại trong CSDL.<br />5.b.2. Hệ thống quay lại danh sách sách.                                                                                                                                                                                      |
+
+c)Xóa sách
+
+| **Tiêu** **đề**                                       | **Nội** **dung**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Tên** **USE CASE**                                    | **Xóa sách**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **Tác** **nhân** **chính**                      | **Thủ** **thư**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Mức**                                                       | **3**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **Người** **chịu** **trách** **nhiệm**: | **Người** **quản** **lý** **thư** **viện**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Tiền** **điều** **kiện**:                    | **Thủ** **thư** **đã** **đăng** **nhập** **vào** **hệ** thống<br />Sách **cần xóa  đã tồn tại trong CSDL .<br />Sách  không đang được mượn .**                                                                                                                                                                                                                                                                                                                                                             |
+| **Đảm** **bảo** **tối** **thiểu**       | Không có thay đổi nào xảy ra nếu thao tác thất bại hoặc bị hủy.<br />Dữ liệu hệ thống được giữ nguyên trạng thái ban đầu.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **Đảm** **bảo** **thành** **công**      | Thông tin sách được**xóa khỏi CSDL** .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **Kích** **hoạt**                                      | Thủ thư chọn chức năng**“Xóa sách”** trong menu quản lý sách.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Chuỗi** **sự** **kiện** **chính**      | 1.Hệ thống hiển thị**danh sách sách**.<br />2. Thủ thư chọn sách cần xóa.<br />3. Hệ thống hiển thị thông báo  **xác nhận xóa sách**.<br />4. Thủ thư xác nhận thao tác xóa.<br />5. Hệ thống xóa thông tin sách khỏi  **Cơ sở dữ liệu** .<br />6. Hệ thống thông báo  **xóa sách thành công** .<br />7.Thủ thư thoát khỏi chức năng xóa sách.                                                                                                                                                    |
+| **Ngoại** **lệ**                                       | **4.a.** Thủ thư hủy thao tác xóa<br />4.a.1. Hệ thống quay lại danh sách sách.<br />4.a.2. Không có dữ liệu nào bị thay đổi.<br />5.a. Sách đang được mượn<br />5.a.1. Hệ thống thông báo sách đang được mượn, không thể xóa.<br />5.a.2. Hệ thống đề xuất thủ thư  **ngừng cho mượn hoặc ẩn sách** .<br />5.a.3. Hệ thống quay lại danh sách sách.<br />2.a. Sách không tồn tại<br />2.a.1. Hệ thống thông báo sách không tồn tại trong CSDL.<br />2.a.2. Hệ thống quay lại danh sách sách. |
+
+d)Phân loại (thể loại, tác giả, NXB)
+
+| **Tiêu** **đề**                                       | **Nội** **dung**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Tên** **USE CASE**                                    | Phân loại (thể loại, tác giả, NXB)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **Tác** **nhân** **chính**                      | **Thủ** **thư**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Mức**                                                       | **3**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| **Người** **chịu** **trách** **nhiệm**: | **Người** **quản** **lý** **thư** **viện**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Tiền** **điều** **kiện**:                    | **Thủ** **thư** **đã** **đăng** **nhập** **vào** **hệ** **thống<br />Sách cần phân loại  **đã tồn tại trong CSDL** .**                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Đảm** **bảo** **tối** **thiểu**       | Không có thay đổi nào được lưu nếu thao tác thất bại.<br />Dữ liệu sách giữ nguyên trạng thái ban đầu.                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| **Đảm** **bảo** **thành** **công**      | Sách được gán**đúng thể loại, tác giả và nhà xuất bản** trong CSDL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Kích** **hoạt**                                      | Thủ thư chọn chức năng**“Phân loại sách”** trong menu quản lý sách.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **Chuỗi** **sự** **kiện** **chính**      | 1.Hệ thống hiển thị danh sách sách.<br />2. Thủ thư chọn một sách cần phân loại.<br />3. Hệ thống hiển thị form phân loại sách (thể loại, tác giả, nhà xuất bản).<br />4. Thủ thư chọn hoặc nhập mới thể loại, tác giả, nhà xuất bản.<br />5. Hệ thống kiểm tra tính hợp lệ của thông tin phân loại.<br />6. Hệ thống cập nhật thông tin phân loại cho sách trong  **CSDL** .<br />7.Hệ thống thông báo  **phân loại sách thành công** .<br />8.Thủ thư thoát khỏi chức năng phân loại sách.       |
+| **Ngoại** **lệ**                                       | **4.a.** Thể loại / Tác giả / NXB chưa tồn tại<br />4.a.1. Hệ thống thông báo dữ liệu chưa tồn tại.<br />4.a.2. Hệ thống hỏi thủ thư có muốn **thêm mới** không.<br />4.a.3. Thủ thư nhập thông tin mới.<br />4.a.4. Hệ thống lưu dữ liệu mới vào CSDL.<br />4.a.5. Hệ thống gán dữ liệu mới cho sách.<br />5.a. Thông tin phân loại không hợp lệ<br />5.a.1. Hệ thống thông báo thông tin không hợp lệ.<br />5.a.2. Hệ thống yêu cầu thủ thư nhập lại.<br />5.a.3. Thủ thư nhập lại thông tin phân loại. |
+
+e)Tìm kiếm
+
+| **Tiêu** **đề**                                       | **Nội** **dung**                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Tên** **USE CASE**                                    | **Tìm kiếm sách**                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Tác** **nhân** **chính**                      | **Thủ** **thư**                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Mức**                                                       | **3**                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Người** **chịu** **trách** **nhiệm**: | **Người** **quản** **lý** **thư** **viện**                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Tiền** **điều** **kiện**:                    | **Thủ** **thư** **đã** **đăng** **nhập** **vào** **hệ** **thống**                                                                                                                                                                                                                                                                                                                                              |
+| **Đảm** **bảo** **tối** **thiểu**       | Không có dữ liệu nào bị thay đổi trong CSDL.<br />Trạng thái hệ thống không bị ảnh hưởng.                                                                                                                                                                                                                                                                                                                                                               |
+| **Đảm** **bảo** **thành** **công**      | Danh sách sách phù hợp với tiêu chí tìm kiếm được hiển thị.                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Kích** **hoạt**                                      | Thủ thư chọn thanh**“Tìm kiếm sách”** trong menu quản lý sách.                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Chuỗi** **sự** **kiện** **chính**      | 1.Hệ thống hiển thị thanh tìm kiếm sách.<br />2. Thủ thư nhập một hoặc nhiều tiêu chí tìm kiếm (tên sách, tác giả, thể loại, NXB, mã sách,…).<br />3. Thủ thư nhấn nút  **Tìm kiếm** .<br />4. Hệ thống kiểm tra dữ liệu tìm kiếm<br />5. Hệ thống truy vấn CSDL và hiển thị danh sách sách phù hợp.<br />6. Thủ thư xem kết quả tìm kiếm.<br />7.Thủ thư thoát khỏi chức năng tìm kiếm sách. |
+| **Ngoại** **lệ**                                       | 4.a. Không nhập tiêu chí tìm kiếm<br />4.a.1. Hệ thống thông báo yêu cầu nhập ít nhất một tiêu chí.<br />4.a.2. Hệ thống quay lại form tìm kiếm<br />5.a. Không tìm thấy kết quả<br />5.a.1. Hệ thống thông báo không tìm thấy sách phù hợp.<br />5.a.2. Hệ thống cho phép thủ thư nhập lại tiêu chí tìm kiếm.                                                                                                          |
+
+=======
+
+## 1. Phạm vi hệ thống (Scope)
+
+Hệ thống **Website Quản lý Thư viện** được xây dựng nhằm hỗ trợ số hóa và tự động hóa các hoạt động quản lý thư viện, thay thế cho các quy trình thủ công truyền thống. Hệ thống phục vụ cho **thư viện bên ngoài** (không giới hạn trong phạm vi trường học), cho phép nhiều nhóm người dùng truy cập và sử dụng thông qua trình duyệt web.
+
+Phạm vi của hệ thống bao gồm các chức năng chính sau:
+
+- **Quản lý tài nguyên thư viện**
+
+  - Quản lý sách, tài liệu (thêm, sửa, xóa, tra cứu)
+  - Quản lý danh mục, thể loại, tác giả, nhà xuất bản
+  - Theo dõi tình trạng sách (còn, đang mượn, hỏng, mất)
+- **Quản lý người dùng**
+
+  - Quản lý thông tin độc giả
+  - Phân quyền sử dụng theo vai trò (độc giả, thủ thư, quản trị viên)
+- **Quản lý mượn – trả**
+
+  - Đăng ký mượn sách
+  - Xác nhận mượn – trả sách
+  - Gia hạn mượn sách
+  - Theo dõi lịch sử mượn – trả và tình trạng quá hạn
+- **Tra cứu và hỗ trợ**
+
+  - Tìm kiếm sách theo nhiều tiêu chí
+  - Thông báo tình trạng mượn sách, quá hạn, phí phạt (nếu có)
+
+Hệ thống **không** bao gồm:
+
+- Quản lý mua sắm sách từ nhà cung cấp
+- Thanh toán trực tuyến (có thể mở rộng trong tương lai)
+- Quản lý kho vật lý chi tiết (vị trí kệ nâng cao)
+
+---
+
+## 2. Đối tượng sử dụng hệ thống (Intended Users)
+
+Hệ thống được thiết kế để phục vụ ba nhóm người dùng chính, mỗi nhóm có quyền hạn và chức năng riêng biệt.
+
+### 2.1. Độc giả
+
+Độc giả là người sử dụng thư viện để tra cứu và mượn tài liệu.
+
+**Chức năng chính:**
+
+- Đăng ký và đăng nhập tài khoản
+- Tra cứu, tìm kiếm sách và tài liệu
+- Xem thông tin chi tiết sách
+- Gửi yêu cầu mượn sách
+- Xem danh sách sách đang mượn và lịch sử mượn – trả
+- Gia hạn mượn sách (nếu được phép)
+- Nhận thông báo về hạn trả sách
+
+---
+
+### 2.2. Thủ thư
+
+Thủ thư là người trực tiếp quản lý hoạt động hằng ngày của thư viện.
+
+**Chức năng chính:**
+
+- Quản lý thông tin sách và tài liệu
+- Quản lý danh mục, thể loại, tác giả
+- Xác nhận yêu cầu mượn – trả sách
+- Cập nhật tình trạng sách
+- Quản lý thông tin độc giả
+- Theo dõi các trường hợp mượn quá hạn
+- Lập báo cáo thống kê
+
+---
+
+### 2.3. Quản trị viên (Administrator)
+
+Quản trị viên là người quản lý toàn bộ hệ thống và chịu trách nhiệm vận hành kỹ thuật.
+
+**Chức năng chính:**
+
+- Quản lý tài khoản người dùng và phân quyền
+- Quản lý cấu hình hệ thống
+- Theo dõi nhật ký hệ thống
+- Sao lưu và phục hồi dữ liệu
+- Đảm bảo an toàn và bảo mật hệ thống
+
+## BIỂU ĐỒ LỚP
+
+<img src="../img/bieudolop.png">
