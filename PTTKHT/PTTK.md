@@ -29,7 +29,9 @@
   + Biểu đồ Class: Mô tả cấu trúc dữ liệu và mối quan hệ giữa các lớp.
   + Biểu đồ Sequence: Mô tả trình tự tương tác giữa các đối tượng trong hệ thống
   + Biểu đồ Activity: Mô tả quy trình hoạt động của các tác nhân và hệ thống.
+
 # II. Xác định tác nhân, phân tích chi tiết hệ thống
+
 ## 1. Các tác nhân trong hệ thống
 
 ### 1.1 Quản trị viên
@@ -210,3 +212,13 @@
   + Thời gian mượn tối đa.
   + Số lần gia hạn.
   + Mức phạt.
+# CHƯƠNG 5:THIẾT KẾ HỆ THỐNG
+## BIỂU ĐỒ LỚP
+<img src="../img/bieudolop.png">
+
+## BIỂU ĐỒ TUẦN TỰ
+### Biểu đồ tuần tự Đăng ký
+<img src="../img/dangkysequence.png">
+
+### Biểu đồ tuần tự Đăng nhập
+<img src="../img/dangnhapsequence.png">
