@@ -1,82 +1,38 @@
-### 1. Mục tiêu của hệ thống
+## Mục tiêu của hệ thống quản lý thư viện
 
-Hệ thống quản lý thư viện được xây dựng nhằm:
+### 1. Mục tiêu tổng quát
 
-* Tin học hóa công tác quản lý thư viện.
-* Giảm thời gian và công sức cho cán bộ thư viện.
-* Quản lý chính xác, hiệu quả sách, độc giả và các hoạt động mượn – trả.
-* Nâng cao chất lượng phục vụ bạn đọc.
+Hệ thống quản lý thư viện được xây dựng nhằm tin học hóa toàn bộ các hoạt động quản lý trong thư viện, thay thế các phương pháp quản lý thủ công truyền thống. Hệ thống giúp quản lý tập trung dữ liệu, nâng cao hiệu quả hoạt động và đáp ứng tốt hơn nhu cầu tra cứu, mượn – trả sách của bạn đọc.
 
-### 2. Đối tượng sử dụng hệ thống
+---
 
-* **Quản trị viên (Admin):** Quản lý toàn bộ hệ thống, người dùng và dữ liệu.
-* **Thủ thư:** Thực hiện các nghiệp vụ quản lý sách, độc giả, mượn – trả.
-* **Độc giả:** Tra cứu thông tin sách, theo dõi lịch sử mượn (nếu có).
+### 2. Mục tiêu về quản lý tài nguyên thư viện
 
-### 3. Yêu cầu chức năng
+Hệ thống hỗ trợ quản lý đầy đủ và chính xác thông tin về sách như tên sách, tác giả, thể loại, nhà xuất bản, số lượng và tình trạng sách. Việc cập nhật dữ liệu được thực hiện nhanh chóng, giúp thủ thư dễ dàng theo dõi và kiểm soát tài nguyên thư viện, hạn chế tình trạng thất lạc hoặc sai sót thông tin.
 
-#### 3.1. Quản lý người dùng
+---
 
-* Đăng nhập, đăng xuất hệ thống.
-* Phân quyền người dùng (Admin, Thủ thư, Độc giả).
-* Thêm, sửa, xóa thông tin người dùng.
+### 3. Mục tiêu về quản lý bạn đọc
 
-#### 3.2. Quản lý sách
+Hệ thống cho phép quản lý thông tin bạn đọc một cách khoa học, bao gồm cấp thẻ, gia hạn, theo dõi tình trạng thẻ và lịch sử mượn – trả. Qua đó, thư viện có thể kiểm soát chặt chẽ quyền mượn sách và nâng cao ý thức trách nhiệm của bạn đọc.
 
-* Thêm mới sách (mã sách, tên sách, tác giả, thể loại, năm xuất bản, số lượng).
-* Cập nhật thông tin sách.
-* Xóa sách khỏi hệ thống.
-* Tìm kiếm sách theo tên, tác giả, thể loại.
+---
 
-#### 3.3. Quản lý độc giả
+### 4. Mục tiêu về quản lý mượn – trả sách
 
-* Thêm, sửa, xóa thông tin độc giả.
-* Quản lý thẻ thư viện (mã độc giả, ngày cấp, ngày hết hạn).
-* Tìm kiếm độc giả theo tên hoặc mã độc giả.
+Hệ thống tự động hóa quy trình mượn – trả sách, hỗ trợ lập phiếu mượn, phiếu trả, tính toán thời hạn mượn và tiền phạt khi trả trễ hoặc làm hư hỏng, mất sách. Điều này giúp giảm thời gian xử lý và tăng độ chính xác trong công tác quản lý.
 
-#### 3.4. Quản lý mượn – trả sách
+---
 
-* Lập phiếu mượn sách.
-* Ghi nhận trả sách.
-* Kiểm tra tình trạng sách (đang mượn, còn trong kho).
-* Tính số ngày mượn và xử lý trễ hạn (nếu có).
+### 5. Mục tiêu về thống kê và báo cáo
 
-#### 3.5. Báo cáo – thống kê
+Hệ thống cung cấp các chức năng thống kê, báo cáo về tình hình sử dụng sách, số lượt mượn, sách quá hạn và các thông tin liên quan. Những báo cáo này giúp nhà quản lý dễ dàng theo dõi, đánh giá hoạt động thư viện và đưa ra các quyết định phù hợp.
 
-* Thống kê số lượng sách trong thư viện.
-* Thống kê sách đang được mượn.
-* Thống kê độc giả mượn sách nhiều nhất.
-* Xuất báo cáo theo thời gian (ngày, tháng, năm).
+---
 
-### 4. Yêu cầu phi chức năng
+### 6. Mục tiêu về bảo mật và mở rộng
 
-#### 4.1. Yêu cầu về hiệu năng
-
-* Hệ thống phản hồi nhanh với các thao tác tìm kiếm và cập nhật.
-* Đảm bảo hoạt động ổn định với nhiều người dùng cùng lúc.
-
-#### 4.2. Yêu cầu về bảo mật
-
-* Bảo mật thông tin người dùng và dữ liệu thư viện.
-* Phân quyền rõ ràng, người dùng chỉ được truy cập chức năng được cấp phép.
-
-#### 4.3. Yêu cầu về giao diện
-
-* Giao diện thân thiện, dễ sử dụng.
-* Hỗ trợ tiếng Việt.
-* Bố cục rõ ràng, dễ thao tác.
-
-#### 4.4. Yêu cầu về khả năng mở rộng
-
-* Dễ dàng nâng cấp, bổ sung chức năng trong tương lai.
-* Có thể tích hợp với hệ thống khác nếu cần.
-
-### 5. Yêu cầu về công nghệ
-
-* Ngôn ngữ lập trình: HTML, CSS, JS, Express.
-* Cơ sở dữ liệu: MongoDB, MySQL.
-* Môi trường triển khai: Web
-* Sever: NodeJS.
+Hệ thống đảm bảo an toàn và bảo mật dữ liệu thông qua cơ chế phân quyền người dùng. Đồng thời, hệ thống được thiết kế linh hoạt, dễ dàng mở rộng và nâng cấp trong tương lai nhằm đáp ứng các nhu cầu phát triển của thư viện.
 
 ### I. Các tác nhân của hệ thống
 
@@ -258,7 +214,6 @@ Hệ thống quản lý thư viện được xây dựng nhằm:
   + Thời gian mượn tối đa.
   + Số lần gia hạn.
   + Mức phạt.
-
 
 # 1.5.Kịch bản các use case quản lý sách
 
