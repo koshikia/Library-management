@@ -379,3 +379,22 @@ Quản trị viên là người quản lý toàn bộ hệ thống và chịu tr
 ## BIỂU ĐỒ LỚP
 
 <img src="../img/bieudolop.png">
+
+# CHƯƠNG 5:THIẾT KẾ HỆ THỐNG
+
+## 5.3. Biểu đồ hoạt động
+
+### 5.3.1. Biểu đồ hoạt động đăng ký
+<img src="../img/dangkyact.png">
+
+### 5.3.2. Biểu đồ hoạt động đăng nhập
+<img src="../img/dangnhapact.png">
+
+### 5.3.3. Biểu đồ hoạt động lấy lại mật khẩu
+<img src="../img/quenmkact.png">
+
+### 5.3.4. Biểu đồ hoạt động cấp mã sinh viên
+<img src="../img/capmaact.png">
+
+### 5.3.5. Biểu đồ hoạt động muợn sách
+<img src="../img/muonsach.png">
