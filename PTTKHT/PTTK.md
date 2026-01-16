@@ -13,6 +13,11 @@
   - Hỗ trợ tra cứu sách nhanh chóng, chính xác.
   - Cung cấp các chức năng thống kê, báo cáo phục vụ công tác quản lý.
   - Nâng cao hiệu quả làm việc của thủ thư và chất lượng phục vụ bạn đọc.
+  * Tin học hóa toàn bộ hoạt động quản lý thư viện.
+  * Quản lý tập trung thông tin sách, bạn đọc và quá trình mượn - trả.
+  * Hỗ trợ tra cứu sách nhanh chóng, chính xác.
+  * Cung cấp các chức năng thống kê, báo cáo phục vụ công tác quản lý.
+  * Nâng cao hiệu quả làm việc của thủ thư và chất lượng phục vụ bạn đọc.
 
 ## 3. Phạm vi và đối tượng sử dụng
 
@@ -21,6 +26,9 @@
   - Quản trị viên (Admin).
   - Thủ thư.
   - Độc giả.
+  * Quản trị viên (Admin).
+  * Thủ thư.
+  * Độc giả.
 
 ## 4. Phương pháp nghiên cứu (Phân tích hướng đối tượng - UML)
 
@@ -73,6 +81,17 @@
 
 ### 2.1 Chức năng quản lý người dùng
 
+- Biểu đồ Use Case: Mô tả các chức năng của hệ thống và mối quan hệ với tác nhân.
+- Biểu đồ Class: Mô tả cấu trúc dữ liệu và mối quan hệ giữa các lớp.
+- Biểu đồ Sequence: Mô tả trình tự tương tác giữa các đối tượng trong hệ thống
+- Biểu đồ Activity: Mô tả quy trình hoạt động của các tác nhân và hệ thống.
+
+# II. Xác định tác nhân, phân tích chi tiết hệ thống
+
+## 1. Các tác nhân trong hệ thống
+
+### 1.1 Quản trị viên
+
 #### 2.1.1 Quản lý tài khoản
 
 - Đăng ký tài khoản độc giả.
@@ -80,12 +99,16 @@
 - Cập nhật thông tin cá nhân.
 - Khóa/ mở khóa tài khoản.
 
+### 1.2 Thủ thư
+
 #### 2.1.2 Phân quyền
 
 - Quyền hạn:
   - Admin: Toàn quyền.
   - Thủ thư: Nghiệp vụ thư viện.
   - Độc giả: Tra cứu, mượn, trả.
+
+### 1.3 Độc giả
 
 ### 2.2 Chức năng quản lý sách
 
@@ -114,11 +137,68 @@
     - Hư hỏng.
     - Mất.
 
+## 2. Phân tích chi tiết hệ thống
+
+### 2.1 Chức năng quản lý người dùng
+
+#### 2.1.1 Quản lý tài khoản
+
 ### 2.3 Chức năng tra cứu sách
 
 - Ngoài tra cứu cơ bản, hệ thống cho phép:
   - Hiển thị tổng số bản sao.
   - Hiện thị số bản đang còn/ đang mượn.
+
+#### 2.1.2 Phân quyền
+
+### 2.4 Chức năng mượn sách
+
+#### 2.4.1 Điều kiện được mượn
+
+- Hệ thống chỉ cho phép mượn khi:
+  - Không có sách quá hạn.
+  - Số sách đang mượn < Số sách tối đa cho phép.
+  - Bản sao sách còn trong kho.
+
+### 2.2 Chức năng quản lý sách
+
+##### 2.2.1 Quản lý đầu sách
+
+#### 2.4.2 Quy trình mượn sách
+
+- Quy trình mượn sách:
+  - Độc giả yêu cầu mượn sách.
+  - Hệ thống kiểm tra điều kiện mượn.
+  - Thủ thư xác nhận yếu cầu.
+  - Hệ thống tạo phiếu mượn.
+  - Cập nhật trạng thái bản sao -> Đang mượn.
+- Thông tin phiếu mượn:
+  - Mã phiếu.
+  - Độc giả.
+  - Danh sách bản sao mượn.
+  - Ngày mượn.
+  - Ngày trả dự kiến.
+  - Thời gian mượn tối đa.
+
+#### 2.2.2 Quản lý bản sao sách
+
+### 2.5 Chức năng trả sách
+
+#### 2.5.1 Quy trình trả sách
+
+### 2.3 Chức năng tra cứu sách
+
+- Độc giả trả sách.
+- Thủ thư kiểm tra tình trạng bản sao.
+- Hệ thống đối chiều ngày trả.
+- Xử lý:
+
+* Trả đúng hạn.
+  - Trả trễ.
+  - Hư hỏng.
+  - Mất sách.
+
+- Cập nhật trạng thái bản sao.
 
 ### 2.4 Chức năng mượn sách
 
@@ -153,12 +233,10 @@
 - Thủ thư kiểm tra tình trạng bản sao.
 - Hệ thống đối chiều ngày trả.
 - Xử lý:
-
-* Trả đúng hạn.
+  - Trả đúng hạn.
   - Trả trễ.
   - Hư hỏng.
   - Mất sách.
-
 - Cập nhật trạng thái bản sao.
 
 ### 2.6 Chức năng gia hạn mượn sách
@@ -299,3 +377,8 @@ Thực hiện phân quyền truy cập theo vai trò.
 Admin thiết lập các quy định hoạt động của thư viện.
 Bao gồm thời gian mượn, số sách mượn và mức phạt.
 Các quy định được áp dụng thống nhất toàn hệ thống.
+
+- Số sách được mượn tối đa.
+- Thời gian mượn tối đa.
+- Số lần gia hạn.
+- Mức phạt.
