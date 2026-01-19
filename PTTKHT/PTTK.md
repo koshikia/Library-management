@@ -324,7 +324,7 @@ Các quy định được áp dụng thống nhất toàn hệ thống.
 <img src="../img/dangnhapsequence.png">
 
 ### 5.2.3. Biểu đồ tuần tự Quên mật khẩu
-<img src="../img/quenmatkhausequence.png">
+<img src="../img/Quenmatkhausequence.png">
 # V. THIẾT KẾ HỆ THỐNG
 
 ## 5.3. Biểu đồ hoạt động
