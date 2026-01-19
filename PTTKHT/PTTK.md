@@ -8,11 +8,13 @@
 ## 2. Mục tiêu của hệ thống
 
 - Mục tiêu chính của hệ thống quản lý thư viện là:
+
   - Tin học hóa toàn bộ hoạt động quản lý thư viện.
   - Quản lý tập trung thông tin sách, bạn đọc và quá trình mượn - trả.
   - Hỗ trợ tra cứu sách nhanh chóng, chính xác.
   - Cung cấp các chức năng thống kê, báo cáo phục vụ công tác quản lý.
   - Nâng cao hiệu quả làm việc của thủ thư và chất lượng phục vụ bạn đọc.
+
   * Tin học hóa toàn bộ hoạt động quản lý thư viện.
   * Quản lý tập trung thông tin sách, bạn đọc và quá trình mượn - trả.
   * Hỗ trợ tra cứu sách nhanh chóng, chính xác.
@@ -23,9 +25,11 @@
 
 - Phạm vi hệ thống: Hệ thống được xây dựng để quản lý các hoạt động cơ bản của một thư viện như: Quản lý sách, quản lý bạn đọc, mượn - trả sách và thống kê báo cáo.
 - Đối tượng sử dụng:
+
   - Quản trị viên (Admin).
   - Thủ thư.
   - Độc giả.
+
   * Quản trị viên (Admin).
   * Thủ thư.
   * Độc giả.
@@ -378,23 +382,40 @@ Admin thiết lập các quy định hoạt động của thư viện.
 Bao gồm thời gian mượn, số sách mượn và mức phạt.
 Các quy định được áp dụng thống nhất toàn hệ thống.
 
+# CHƯƠNG 5:THIẾT KẾ HỆ THỐNG
+
+## 5.1. Biểu đồ lớp
+
 <img src="../img/bieudolop.png">
 
-# CHƯƠNG 5:THIẾT KẾ HỆ THỐNG
+## 5.2. Biểu đồ tuần tự
+### 5.2.1. Biểu đồ tuần tự đăng ký
+<img src="../img/dangkysequence.png">
+
+### 5.2.2. Biểu đồ tuần tự đăng nhập
+<img src="../img/dangnhapsequence.png">
+
+### 5.2.3. Biểu đồ tuần tự Quên mật khẩu
+<img src="../img/quenmatkhausequence.png">
 
 ## 5.3. Biểu đồ hoạt động
 
 ### 5.3.1. Biểu đồ hoạt động đăng ký
+
 <img src="../img/dangkyact.png">
 
 ### 5.3.2. Biểu đồ hoạt động đăng nhập
+
 <img src="../img/dangnhapact.png">
 
 ### 5.3.3. Biểu đồ hoạt động lấy lại mật khẩu
+
 <img src="../img/quenmkact.png">
 
 ### 5.3.4. Biểu đồ hoạt động cấp mã sinh viên
+
 <img src="../img/capmaact.png">
 
 ### 5.3.5. Biểu đồ hoạt động muợn sách
+
 <img src="../img/muonsach.png">
