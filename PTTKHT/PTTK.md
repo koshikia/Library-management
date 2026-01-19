@@ -8,11 +8,13 @@
 ## 2. Mục tiêu của hệ thống
 
 - Mục tiêu chính của hệ thống quản lý thư viện là:
+
   - Tin học hóa toàn bộ hoạt động quản lý thư viện.
   - Quản lý tập trung thông tin sách, bạn đọc và quá trình mượn - trả.
   - Hỗ trợ tra cứu sách nhanh chóng, chính xác.
   - Cung cấp các chức năng thống kê, báo cáo phục vụ công tác quản lý.
   - Nâng cao hiệu quả làm việc của thủ thư và chất lượng phục vụ bạn đọc.
+
   * Tin học hóa toàn bộ hoạt động quản lý thư viện.
   * Quản lý tập trung thông tin sách, bạn đọc và quá trình mượn - trả.
   * Hỗ trợ tra cứu sách nhanh chóng, chính xác.
@@ -23,9 +25,11 @@
 
 - Phạm vi hệ thống: Hệ thống được xây dựng để quản lý các hoạt động cơ bản của một thư viện như: Quản lý sách, quản lý bạn đọc, mượn - trả sách và thống kê báo cáo.
 - Đối tượng sử dụng:
+
   - Quản trị viên (Admin).
   - Thủ thư.
   - Độc giả.
+
   * Quản trị viên (Admin).
   * Thủ thư.
   * Độc giả.
@@ -44,98 +48,38 @@
 
 ### 1.1 Quản trị viên
 
-- Vai trò: Quản lý toàn bộ hệ thống
-- Quyền hạn:
-  - Quản lý tài khoản thủ thư và người dùng.
-  - Phân quyền hệ thống.
-  - Cấu hình quy định thư viện (số sách được mượn, số ngày mượn, mức phạt ...).
-  - Xem báo cáo, thống kê tổng hợp.
-  - Sao lưu và phục hồi dữ liệu.
+* Vai trò: Quản lý toàn bộ hệ thống
+* Quyền hạn:
+  + Quản lý tài khoản thủ thư và người dùng.
+  + Phân quyền hệ thống.
+  + Cấu hình quy định thư viện (số sách được mượn, số ngày mượn, mức phạt ...).
+  + Xem báo cáo, thống kê tổng hợp.
+  + Sao lưu và phục hồi dữ liệu.
 
 ### 1.2 Thủ thư
 
-- Vai trò: Quản lý nghiệp vụ thư viện hàng ngày
-- Quyền hạn:
-  - Quản lý đầu sách (thêm, sửa, xóa sách).
-  - Quản lý bản sao sách (số lượng, vị trí)
-  - Quản lý độc giả.
-  - Thực hiện mượn - trả sách.
-  - Gia hạn mượn sách.
-  - Tính và thu tiền phạt.
-  - Lập báo cáo thống kê
+* Vai trò: Quản lý nghiệp vụ thư viện hàng ngày
+* Quyền hạn:
+  + Quản lý đầu sách (thêm, sửa, xóa sách).
+  + Quản lý bản sao sách (số lượng, vị trí)
+  + Quản lý độc giả.
+  + Thực hiện mượn - trả sách.
+  + Gia hạn mượn sách.
+  + Tính và thu tiền phạt.
+  + Lập báo cáo thống kê
 
 ### 1.3 Độc giả
 
-- Vai trò: Người sử dụng dịch vụ thư viện
-- Quyền hạn:
+* Vai trò: Người sử dụng dịch vụ thư viện
+* Quyền hạn:
 
-  - Đăng ký tài khoản.
-  - Tra cứu sách.
-  - Xem tình trạng sách.
-  - Mượn sách.
-  - Trả sách.
-  - Xem lịch sử mượn - trả.
-  - Xem tiền phạt (nếu có).
-
-## 2. Phân tích chi tiết hệ thống
-
-### 2.1 Chức năng quản lý người dùng
-
-- Biểu đồ Use Case: Mô tả các chức năng của hệ thống và mối quan hệ với tác nhân.
-- Biểu đồ Class: Mô tả cấu trúc dữ liệu và mối quan hệ giữa các lớp.
-- Biểu đồ Sequence: Mô tả trình tự tương tác giữa các đối tượng trong hệ thống
-- Biểu đồ Activity: Mô tả quy trình hoạt động của các tác nhân và hệ thống.
-
-# II. Xác định tác nhân, phân tích chi tiết hệ thống
-
-## 1. Các tác nhân trong hệ thống
-
-### 1.1 Quản trị viên
-
-#### 2.1.1 Quản lý tài khoản
-
-- Đăng ký tài khoản độc giả.
-- Đăng nhập/ đăng xuất.
-- Cập nhật thông tin cá nhân.
-- Khóa/ mở khóa tài khoản.
-
-### 1.2 Thủ thư
-
-#### 2.1.2 Phân quyền
-
-- Quyền hạn:
-  - Admin: Toàn quyền.
-  - Thủ thư: Nghiệp vụ thư viện.
-  - Độc giả: Tra cứu, mượn, trả.
-
-### 1.3 Độc giả
-
-### 2.2 Chức năng quản lý sách
-
-##### 2.2.1 Quản lý đầu sách
-
-- Hệ thống quản lý thông tin ở mức đầu sách, bao gồm:
-  - Mã đầu sách.
-  - Tên sách.
-  - Tác giả.
-  - Thể loại.
-  - Nhà xuất bản.
-  - Năm xuất bản.
-  - Mô tả nội dung.
-- Một đầu sách có thể có nhiều bản sao với trạng thái khác nhau.
-
-#### 2.2.2 Quản lý bản sao sách
-
-- Hệ thống quản lý chi tiết từng bản sao của một đầu sách:
-  - Mã bản sao.
-  - Mã đầu sách.
-  - Vị trí kệ.
-  - Tình trạng:
-    - Còn trong kho.
-    - Đang được mượn.
-    - Đặt trước.
-    - Hư hỏng.
-    - Mất.
+  + Đăng ký tài khoản.
+  + Tra cứu sách.
+  + Xem tình trạng sách.
+  + Mượn sách.
+  + Trả sách.
+  + Xem lịch sử mượn - trả.
+  + Xem tiền phạt (nếu có).
 
 ## 2. Phân tích chi tiết hệ thống
 
@@ -143,112 +87,100 @@
 
 #### 2.1.1 Quản lý tài khoản
 
-### 2.3 Chức năng tra cứu sách
-
-- Ngoài tra cứu cơ bản, hệ thống cho phép:
-  - Hiển thị tổng số bản sao.
-  - Hiện thị số bản đang còn/ đang mượn.
+* Đăng ký tài khoản độc giả.
+* Đăng nhập/ đăng xuất.
+* Cập nhật thông tin cá nhân.
+* Khóa/ mở khóa tài khoản.
 
 #### 2.1.2 Phân quyền
 
-### 2.4 Chức năng mượn sách
-
-#### 2.4.1 Điều kiện được mượn
-
-- Hệ thống chỉ cho phép mượn khi:
-  - Không có sách quá hạn.
-  - Số sách đang mượn < Số sách tối đa cho phép.
-  - Bản sao sách còn trong kho.
+* Quyền hạn:
+  + Admin: Toàn quyền.
+  + Thủ thư: Nghiệp vụ thư viện.
+  + Độc giả: Tra cứu, mượn, trả.
 
 ### 2.2 Chức năng quản lý sách
 
 ##### 2.2.1 Quản lý đầu sách
 
-#### 2.4.2 Quy trình mượn sách
-
-- Quy trình mượn sách:
-  - Độc giả yêu cầu mượn sách.
-  - Hệ thống kiểm tra điều kiện mượn.
-  - Thủ thư xác nhận yếu cầu.
-  - Hệ thống tạo phiếu mượn.
-  - Cập nhật trạng thái bản sao -> Đang mượn.
-- Thông tin phiếu mượn:
-  - Mã phiếu.
-  - Độc giả.
-  - Danh sách bản sao mượn.
-  - Ngày mượn.
-  - Ngày trả dự kiến.
-  - Thời gian mượn tối đa.
+* Hệ thống quản lý thông tin ở mức đầu sách, bao gồm:
+  + Mã đầu sách.
+  + Tên sách.
+  + Tác giả.
+  + Thể loại.
+  + Nhà xuất bản.
+  + Năm xuất bản.
+  + Mô tả nội dung.
+* Một đầu sách có thể có nhiều bản sao với trạng thái khác nhau.
 
 #### 2.2.2 Quản lý bản sao sách
 
-### 2.5 Chức năng trả sách
-
-#### 2.5.1 Quy trình trả sách
+* Hệ thống quản lý chi tiết từng bản sao của một đầu sách:
+  + Mã bản sao.
+  + Mã đầu sách.
+  + Vị trí kệ.
+  + Tình trạng:
+    + Còn trong kho.
+    + Đang được mượn.
+    + Đặt trước.
+    + Hư hỏng.
+    + Mất.
 
 ### 2.3 Chức năng tra cứu sách
 
-- Độc giả trả sách.
-- Thủ thư kiểm tra tình trạng bản sao.
-- Hệ thống đối chiều ngày trả.
-- Xử lý:
-
-* Trả đúng hạn.
-  - Trả trễ.
-  - Hư hỏng.
-  - Mất sách.
-
-- Cập nhật trạng thái bản sao.
+* Ngoài tra cứu cơ bản, hệ thống cho phép:
+  + Hiển thị tổng số bản sao.
+  + Hiện thị số bản đang còn/ đang mượn.
 
 ### 2.4 Chức năng mượn sách
 
 #### 2.4.1 Điều kiện được mượn
 
-- Hệ thống chỉ cho phép mượn khi:
-  - Không có sách quá hạn.
-  - Số sách đang mượn < Số sách tối đa cho phép.
-  - Bản sao sách còn trong kho.
+* Hệ thống chỉ cho phép mượn khi:
+  + Không có sách quá hạn.
+  + Số sách đang mượn < Số sách tối đa cho phép.
+  + Bản sao sách còn trong kho.
 
 #### 2.4.2 Quy trình mượn sách
 
-- Quy trình mượn sách:
-  - Độc giả yêu cầu mượn sách.
-  - Hệ thống kiểm tra điều kiện mượn.
-  - Thủ thư xác nhận yếu cầu.
-  - Hệ thống tạo phiếu mượn.
-  - Cập nhật trạng thái bản sao -> Đang mượn.
-- Thông tin phiếu mượn:
-  - Mã phiếu.
-  - Độc giả.
-  - Danh sách bản sao mượn.
-  - Ngày mượn.
-  - Ngày trả dự kiến.
-  - Thời gian mượn tối đa.
+* Quy trình mượn sách:
+  + Độc giả yêu cầu mượn sách.
+  + Hệ thống kiểm tra điều kiện mượn.
+  + Thủ thư xác nhận yếu cầu.
+  + Hệ thống tạo phiếu mượn.
+  + Cập nhật trạng thái bản sao -> Đang mượn.
+* Thông tin phiếu mượn:
+  + Mã phiếu.
+  + Độc giả.
+  + Danh sách bản sao mượn.
+  + Ngày mượn.
+  + Ngày trả dự kiến.
+  + Thời gian mượn tối đa.
 
 ### 2.5 Chức năng trả sách
 
 #### 2.5.1 Quy trình trả sách
 
-- Độc giả trả sách.
-- Thủ thư kiểm tra tình trạng bản sao.
-- Hệ thống đối chiều ngày trả.
-- Xử lý:
-  - Trả đúng hạn.
-  - Trả trễ.
-  - Hư hỏng.
-  - Mất sách.
-- Cập nhật trạng thái bản sao.
+* Độc giả trả sách.
+* Thủ thư kiểm tra tình trạng bản sao.
+* Hệ thống đối chiều ngày trả.
+* Xử lý:
+  + Trả đúng hạn.
+  + Trả trễ.
+  + Hư hỏng.
+  + Mất sách.
+* Cập nhật trạng thái bản sao.
 
 ### 2.6 Chức năng gia hạn mượn sách
 
 - Điều kiện gia hạn:
-  - Chưa quá hạn.
-  - Không có độc giả khác đặt trước.
-  - Chưa vượt số lần gia hạn cho phép.
+  + Chưa quá hạn.
+  + Không có độc giả khác đặt trước.
+  + Chưa vượt số lần gia hạn cho phép.
 - Thông tin gia hạn:
-  - Ngày gia hạn.
-  - Ngày trả mới.
-  - Số lần gia hạn.
+  + Ngày gia hạn.
+  + Ngày trả mới.
+  + Số lần gia hạn.
 
 ### 2.7 Chức năng xử lý tiền phạt
 
@@ -288,10 +220,10 @@
 ### 2.9 Chức năng cấu hình quy định thư viện
 
 - Admin có thể cấu hình:
-  - Số sách được mượn tối đa.
-  - Thời gian mượn tối đa.
-  - Số lần gia hạn.
-  - Mức phạt
+  + Số sách được mượn tối đa.
+  + Thời gian mượn tối đa.
+  + Số lần gia hạn.
+  + Mức phạt.
 
 # III. BIỂU ĐỒ USE CASE
 
@@ -380,21 +312,26 @@ Các quy định được áp dụng thống nhất toàn hệ thống.
 
 <img src="../img/bieudolop.png">
 
-# CHƯƠNG 5:THIẾT KẾ HỆ THỐNG
+# V. THIẾT KẾ HỆ THỐNG
 
 ## 5.3. Biểu đồ hoạt động
 
 ### 5.3.1. Biểu đồ hoạt động đăng ký
+
 <img src="../img/dangkyact.png">
 
 ### 5.3.2. Biểu đồ hoạt động đăng nhập
+
 <img src="../img/dangnhapact.png">
 
 ### 5.3.3. Biểu đồ hoạt động lấy lại mật khẩu
+
 <img src="../img/quenmkact.png">
 
 ### 5.3.4. Biểu đồ hoạt động cấp mã sinh viên
+
 <img src="../img/capmaact.png">
 
 ### 5.3.5. Biểu đồ hoạt động muợn sách
+
 <img src="../img/muonsach.png">
