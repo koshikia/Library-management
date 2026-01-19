@@ -241,35 +241,79 @@
 
 <img src="../img/Book_useCase.png">
 
-## 2 Mô tả hoạt động cơ bản của từng use case
+## 2 Vai trò của các Actor
 
-### 2.1 Đăng nhập
+### 2.1 Vai trò của độc giả
 
-Người dùng đăng nhập hệ thống bằng cách nhập tên đăng nhập và mật khẩu để truy cập vào hệ thống. Hệ thống kiểm tra thông tin đăng nhập với dữ liệu đã lưu trên cơ sở dữ liệu. Nếu hợp lệ, người dùng được phép sử dung các chức năng theo quyền của người dùng. Nếu không hợp lệ, hệ thống hiển thị thông báo lỗi và yêu cầu đăng nhập lại.
+| Thuộc tính             | Mô tả                                                                                                                                                                                                      |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên actor              | Độc giả                                                                                                                                                                                                    |
+| Mô tả                  | Độc giả xây dựng hệ thống tra sách, theo dõi việc mượn/trả và thực hiện các yêu cầu<br />dịch vụ như đặt trước hoặc xin gia hạn. Độc giả tương tác thông qua giao diện hệ thống<br /> sau khi đăng nhập.   |
+| Mục tiêu               | Giúp độc giả tìm được sách cần đọc, sử dụng dịch vụ thư viện thuận tiện, quản lý việc<br /> mượn sách và tránh vi phạm quá hạn.                                                                            |
+| Vai trò                | Người sử dụng dịch vụ thư viện trên hệ thống; chủ động tra cứu, gửi yêu cầu đặt<br />trước/gia hạn và theo dõi lịch sử mượn.                                                                               |
+| Trách nhiệm            | - Đăng nhập hệ thống để sử dụng chức năng cá nhân<br />- Tra cứu thông tin sách<br />- Đặt trước sách khi sách không sẵn có<br />- Gửi yêu cầu gia hạn mượn<br />- Xem danh sách đang mượn và lịch sử mượn |
+| Yêu cầu đối với actor: | Có tài khoản hợp lệ; cung cấp thông tin cá nhân chính xác; tuân thủ quy định<br /> mượn–trả và thời hạn mượn của thư viện.                                                                                 |
+| Use case tương ứng     | - Đăng nhập<br />- Tra cứu thông tin sách<br />- Đặt trước sách<br />- Yêu cầu gia hạn thời gian mượn<br />Xem danh sách mượn/lịch sử mượn                                                                 |
 
-### 2.2 Tra cứu thông tin sách
+### 2.2 vai trò của Thủ Thư
 
-Độc giả thực hiện chức năng tìm kiếm thông tin sách bằng cách tra cứu theo tên sách, tác giả hoặc thể loại phù hợp. Hệ thống xử lý yêu cầu và hiển thị danh sách phù hợp. Độc giả có thể xem thông tin chi tiết và tình trạng của từng cuốn sách.
+| Thuộc tính         | Mô tả                                                                                                                                                                                                                                                                                                                                          |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên actor          | Thủ thư                                                                                                                                                                                                                                                                                                                                        |
+| Mô tả              | Thủ thư vận hành các nghiệp vụ chính của thư viện: quản lý sách, quản lý độc giả,<br /> xử lý mượn–trả,gia hạn, đặt trước và thu tiền phạt. Thủ thư cập nhật dữ liệu để <br />đảm bảo hoạt động thư viện chính xác.                                                                                                                            |
+| Mục tiêu           | Đảm bảo quy trình mượn–trả diễn ra đúng quy định, dữ liệu sách/độc giả luôn<br />cập nhật, hỗ trợ quản lý vận hành và báo cáo.                                                                                                                                                                                                                 |
+| Vai trò            | Nhân viên nghiệp vụ trực tiếp xử lý giao dịch mượn–trả và quản trị dữ liệu hoạt<br />động hằng ngày của thư viện.                                                                                                                                                                                                                              |
+| Trách nhiệm        | - Đăng nhập hệ thống để thao tác nghiệp vụ<br />- Quản lý đầu sách và cập nhật thông tin sách<br />- Quản lý bản sao (Mã vạch, tình trạng)<br />- Quản lý đọc giả (thêm/sửa/khóa thẻ)<br />- Lập phiếu mượn, xử lý trả sách<br />- Tính và thu tiền phạt khi quá hạn<br />- Xử lý đặt trước, duyệt gia hạn mượn<br />- Thống kê và lập báo cáo |
+| Yêu cầu với actor  | Có tài khoản thủ thư và quyền thao tác; nhập liệu chính xác; tuân thủ quy trình<br /> nghiệp vụ và quy định thư viện.                                                                                                                                                                                                                          |
+| Use case tương ứng | - Đăng nhập<br />- Quản lý đầu sách<br />- Quản lý bản sao (gán mã vạch, tình trạng)<br />- Quản lý độc giả (thêm/sửa/khóa thẻ)<br />- Lập phiếu mượn<br />- Trả sách<br />- Tính và thu tiền phạt (xử lý quá hạn)<br />- Xử lý đặt trước<br />- Gia hạn mượn<br />- Thống kê báo cáo                                                          |
 
-### 2.3 Đặt trước sách
+### 2.3 Vai trò của Admin hệ thống
 
-Độc giả gửi yêu cầu đặt trước đối với sách đang muốn mượn. Hệ thống ghi nhận yêu cầu và vào danh sách chờ. Khi có sách, hệ thống gửi thông báo đến độc giả đến lấy sách.
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                         |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên actor             | Admin hê thống                                                                                                                                                                                                                |
+| Mô tả                 | Admin chịu trách nhiệm quản trị hệ thống: quản lý tài khoản người dùng và phân quyền,<br /> cấu hình các quy định vận hành áp dụng chung cho toàn hệ thống thư viện.                                                          |
+| Mục tiêu              | Đảm bảo hệ thống hoạt động ổn định, an toàn; quyền truy cập đúng vai trò; các quy định<br />được cấu hình thống nhất và dễ quản lý                                                                                            |
+| Vai trò               | Quản trị viên hệ thống, kiểm soát quyền truy cập và thiết lập cấu hình/quy định hệ thống.                                                                                                                                     |
+| Trách nhiệm           | - Đăng nhập hệ thống với quyền quản trị<br />- Quản lý tài khoản và phân quyền hệ thống<br />- Cấu hính quy định (Thời gian mượn, mức phạt, giới hạn mượn...)<br />- Theo dõi và đảm bảo tính nhất quán dữ liệu theo quy định |
+| Yêu cầu đối với actor | Có tài khoản admin; hiểu cấu trúc quyền và quy định thư viện; cấu hình đúng để không<br /> ảnh hưởng vận hành.                                                                                                                |
+| Use case tương ứng    | - Đăng nhập<br />- Quản lý tài khoản và phân quyền hệ thống<br />- Cấu hình quy định                                                                                                                                          |
 
-### 2.4 Yêu cầu gia hạn mượn sách
+## 3 kịch bản hoạt động use case
 
-Độc giả yêu cầu gia hạn sách đối với sách đang mượn. Hệ thống chuyển yêu cầu đến thủ thư để xem xét yêu cầu. Sau khi được duyệt, hạn trả sách mới sẽ được cập nhật cho độc giả.
+### 3.1 Use case đăng ký
 
-### 2.5 Xem danh sách mượn / lịch sử mượn sách
+| Mục            | Nội dung                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case   | Đăng ký                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Actor chính    | Độc giả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Mô tả          | Use case cho phép người dùng mới (độc giả) tạo tài khoản để sử dụng các dịch vụ của hệ thống quản lý thư viện<br /> như tra cứu sách, mượn sách, đặt trước và gia hạn mượn.                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Tiền điều kiện | - Cung cấp thông tin xác thực                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Hậu điều kiện  | - Tài khoản độc giả được tạo thành công và lưu trong cơ sở dữ liệu<br />- Người dùng cố thể đăng nhập để sử dụng hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Luông chính    | - Người dùng truy cập website hệ thống thư viện<br />- Chọn chức năng đăng ký<br />- Hệ thống hiển thị form đăng ký tài khoản<br />-Người dùng nhập đầy đủ thông tin cá nhân (họ tên, email, số điện thoại,mật khẩu,<br />địa chỉ...)<br />- Người dùng xác nhận đăng ký<br />- Hệ thống kiểm tra tính hợp lệ của thông tin (định dạng email, độ mạnh mật khẩu, dữ liệu bắt buộc)<br />- Hệ hống kiểm tra email/số điện thoại có tồn tại trong hệ thống hay không<br />- Hệ thống lưu trữ thông tin tài khoản vào co sở dũ liệu<br />-Hệ thống thông báo đăng ký thành công |
+| Luồng phụ      | - Nếu thông tin không hợp lệ: Hệ thống hiển thị thông báo lỗi và yêu cầu người dùng nhập lại<br />- Email hoặc số điện thoại đã tồn tại: Hệ thống thông báo tài khoản đã tồn tại, yêu cầu sử dụng thông tin khác<br />- Người dùng nhập thiếu thông tin :Hệ thống yêu cầu bổ sung thông tin bắt bu                                                                                                                                                                                                                                                                          |
+| Kết quả        | Tài khoản độc giả được tạo thành công                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
-Độc giả xem danh sách đang mượn. Hệ thống hiển thị lịch sử các lần mượn sách trước đây. Thông tin giúp độc giả theo dõi tình trạng mượn sách của mình.
+### 3.2 Use case đăng nhập
 
-### 2.6 Quản lý đầu sách
+**Bảng: Quy trình đăng nhập**
 
-Thủ thư thực hiện thêm, sửa hoặc xóa thông tin đầu sách.
-Các thông tin bao gồm tên sách, tác giả, thể loại và nhà xuất bản. Dữ liệu được lưu và cập nhật trong hệ thống thư viện.
+| Mục                  | Nội dung                                                                                                                                                                                                                       |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Tên Use case         | Đăng nhập                                                                                                                                                                                                                      |
+| Mô tả                | Cho phép người dùng truy cập hệ thống thư viện theo quyền được cấp                                                                                                                                                             |
+| Actor chính          | Độc giả/ thủ thư/ admin                                                                                                                                                                                                        |
+| Điều kiện tiên quyết | Người dùng đã có tài khoản hợp lệ trong hệ thống                                                                                                                                                                               |
+| Hậu điều kiện        | Người dùng được xác thực và truy cập vào giao diện tương ứng với vai trò                                                                                                                                                       |
+| Luồng chính          | - Người dùng truy cập hệ thống và chọn chức năng đăng nhập<br />- Nhập tên đăng nhập và mật khẩu<br />- Hệ thống kiểm tra thống tin xác thực<br />- Nếu hợp lệ, hệ thống cho phép truy cập các chức năng tương ứng với vai trò |
+| Luồng phụ            | - Nếu tên đnăg nhập hoặc sai mật, hệ thống thông báo lỗi<br />- Người dùng nhập lại thông tin đăng nhập                                                                                                                        |
+| Kết quả              | -  Người dùng đăng nhập thành công  và sử dụng hệ thống theo quyền được cấp                                                                                                                                                    |
 
-### 2.7 Quản lý bản sao (gán mã vạch, tình trạng)
+### Use case đăng ký
 
+<<<<<<< HEAD
+`<img src="../img/bieudolop.png">`
+=======
 Thủ thư quản lý từng bản sao cụ thể của sách.
 Mỗi bản sao được gán mã vạch và trạng thái sử dụng.
 Hệ thống cập nhật tình trạng để phục vụ mượn và trả sách.
@@ -315,6 +359,7 @@ Các quy định được áp dụng thống nhất toàn hệ thống.
 ## 5.1. Biểu đồ lớp
 
 <img src="../img/bieudolop.png">
+>>>>>>> 8726732bcb9eefb8a17bd4cce640d42e17268a3b
 
 ## 5.2. Biểu đồ tuần tự
 ### 5.2.1. Biểu đồ tuần tự đăng ký
