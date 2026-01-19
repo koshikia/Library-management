@@ -398,3 +398,15 @@ Các quy định được áp dụng thống nhất toàn hệ thống.
 
 ### 5.3.5. Biểu đồ hoạt động muợn sách
 <img src="../img/muonsach.png">
+
+### 5.3.6. Biểu đồ hoạt thêm sách mới
+<img src="../img/addsach.png">
+
+### 5.3.7. Biểu đồ hoạt động cập nhật sách
+<img src="../img/updatesach.png">
+
+### 5.3.8. Biểu đồ hoạt động xóa sách
+<img src="../img/deletesach.png">
+
+### 5.3.9. Biểu đồ hoạt động quản lý mượn sách
+<img src="../img/quanlymuon.png">
