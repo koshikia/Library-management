@@ -310,8 +310,21 @@ Admin thiết lập các quy định hoạt động của thư viện.
 Bao gồm thời gian mượn, số sách mượn và mức phạt.
 Các quy định được áp dụng thống nhất toàn hệ thống.
 
+# CHƯƠNG 5:THIẾT KẾ HỆ THỐNG
+
+## 5.1. Biểu đồ lớp
+
 <img src="../img/bieudolop.png">
 
+## 5.2. Biểu đồ tuần tự
+### 5.2.1. Biểu đồ tuần tự đăng ký
+<img src="../img/dangkysequence.png">
+
+### 5.2.2. Biểu đồ tuần tự đăng nhập
+<img src="../img/dangnhapsequence.png">
+
+### 5.2.3. Biểu đồ tuần tự Quên mật khẩu
+<img src="../img/quenmatkhausequence.png">
 # V. THIẾT KẾ HỆ THỐNG
 
 ## 5.3. Biểu đồ hoạt động
