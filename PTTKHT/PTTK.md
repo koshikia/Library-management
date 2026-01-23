@@ -812,8 +812,6 @@ Chương 4 đã trình bày đầy đủ và chi tiết các Use Case của hệ
 
 <img src="../img/sequencediagram/quydinh_sqd.png">
 
-# V. THIẾT KẾ HỆ THỐNG
-
 ## 5.3. Biểu đồ hoạt động
 
 ### 5.3.1. Biểu đồ hoạt động đăng ký
