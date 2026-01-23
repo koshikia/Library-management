@@ -46,19 +46,53 @@
 
 # Chương 2 Xác định tác nhân, phân tích chi tiết hệ thống
 
+<<<<<<< HEAD
+- Vai trò: Quản lý toàn bộ hệ thống
+- Quyền hạn:
+  - Quản lý tài khoản thủ thư và người dùng.
+  - Phân quyền hệ thống.
+  - Cấu hình quy định thư viện (số sách được mượn, số ngày mượn, mức phạt ...).
+  - Xem báo cáo, thống kê tổng hợp.
+  - Sao lưu và phục hồi dữ liệu.
+=======
 ## 2.1 Giới thiệu về hệ thống thư viện hiện tại
+>>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
     Thư viện hiện tại (tại trường học/đơn vị) đang thực hiện công tác quản lý sách, bạn đọc và nghiệp vụ mượn – trả chủ yếu theo phương thức thủ công hoặc bán tin học hóa. Các thông tin về đầu sách, bản sao sách, độc giả và lịch sử mượn – trả được ghi chép rời rạc trên sổ sách hoặc các tệp Excel độc lập.
 
+<<<<<<< HEAD
+- Vai trò: Quản lý nghiệp vụ thư viện hàng ngày
+- Quyền hạn:
+  - Quản lý đầu sách (thêm, sửa, xóa sách).
+  - Quản lý bản sao sách (số lượng, vị trí)
+  - Quản lý độc giả.
+  - Thực hiện mượn - trả sách.
+  - Gia hạn mượn sách.
+  - Tính và thu tiền phạt.
+  - Lập báo cáo thống kê
+=======
     Việc tra cứu sách và quản lý tình trạng mượn – trả phụ thuộc nhiều vào kinh nghiệm của thủ thư, gây tốn thời gian và dễ phát sinh sai sót. Hệ thống hiện tại chưa có một phần mềm quản lý tập trung, đồng bộ và hỗ trợ truy cập trực tuyến cho người dùng.
+>>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
 ## 2.2 Quy trình nghiệp vụ hiện tại
 
+<<<<<<< HEAD
+- Vai trò: Người sử dụng dịch vụ thư viện
+- Quyền hạn:
+  - Đăng ký tài khoản.
+  - Tra cứu sách.
+  - Xem tình trạng sách.
+  - Mượn sách.
+  - Trả sách.
+  - Xem lịch sử mượn - trả.
+  - Xem tiền phạt (nếu có).
+=======
 ### 2.2.1 Quản lý sách
 
 - Khi có sách mới, thủ thư tiến hành ghi nhận thông tin sách (tên sách, tác giả, nhà xuất bản, năm xuất bản, thể loại, số lượng) vào sổ hoặc file Excel.
 - Mỗi đầu sách có thể có nhiều bản sao, tuy nhiên việc quản lý chi tiết từng bản sao (vị trí kệ, tình trạng) chưa được thực hiện đầy đủ.
 - Việc cập nhật thông tin sách khi sách bị hư hỏng, mất hoặc thanh lý chủ yếu được thực hiện thủ công, thiếu tính thống nhất.
+>>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
 ### 2.2.2 Quy trình mượn – trả sách
 
@@ -70,22 +104,159 @@
 
 ### 2.2.3 Quản lý độc giả
 
+<<<<<<< HEAD
+- Đăng ký tài khoản độc giả.
+- Đăng nhập/ đăng xuất.
+- Cập nhật thông tin cá nhân.
+- Khóa/ mở khóa tài khoản.
+=======
 - Thông tin độc giả (họ tên, mã sinh viên, lớp/đơn vị, số điện thoại) được lưu trữ rời rạc.
 - Việc cấp thẻ, gia hạn hoặc khóa thẻ dộc giả được thực hiện thủ công.
 - Chưa có cơ chế phân quyền người dùng rõ ràng giữa thủ thư và người quản lý.
+>>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
 ## 2.3 Những hạn chế của hệ thống hiện tại
 
+<<<<<<< HEAD
+- Quyền hạn:
+  - Admin: Toàn quyền.
+  - Thủ thư: Nghiệp vụ thư viện.
+  - Độc giả: Tra cứu, mượn, trả.
+=======
 - Công tác quản lý chủ yếu dựa trên phương pháp thủ công nên dễ xảy ra sai sót, thất lạc dữ liệu.
 - Tốn nhiều thời gian trong việc tra cứu sách, theo dõi mượn – trả và lập báo cáo thống kê.
 - Dữ liệu không được tập trung, khó đồng bộ và khó mở rộng khi số lượng sách và độc giả tăng lên.
 - Không hỗ trợ tra cứu trực tuyến cho độc giả.
 - Khả năng bảo mật thấp, dễ mất dữ liệu khi xảy ra sự cố.
+>>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
 ## 2.4 Nhu cầu xây dựng hệ thống mới
 
     Trước những hạn chế của hệ thống hiện tại, việc xây dựng một hệ thống quản lý thư viện dựa trên nền tảng web là hết sức cần thiết. Hệ thống mới cần đáp ứng các yêu cầu sau:
 
+<<<<<<< HEAD
+- Hệ thống quản lý thông tin ở mức đầu sách, bao gồm:
+  - Mã đầu sách.
+  - Tên sách.
+  - Tác giả.
+  - Thể loại.
+  - Nhà xuất bản.
+  - Năm xuất bản.
+  - Mô tả nội dung.
+- Một đầu sách có thể có nhiều bản sao với trạng thái khác nhau.
+
+#### 2.2.2 Quản lý bản sao sách
+
+- Hệ thống quản lý chi tiết từng bản sao của một đầu sách:
+  - Mã bản sao.
+  - Mã đầu sách.
+  - Vị trí kệ.
+  - Tình trạng:
+    - Còn trong kho.
+    - Đang được mượn.
+    - Đặt trước.
+    - Hư hỏng.
+    - Mất.
+
+### 2.3 Chức năng tra cứu sách
+
+- Ngoài tra cứu cơ bản, hệ thống cho phép:
+  - Hiển thị tổng số bản sao.
+  - Hiện thị số bản đang còn/ đang mượn.
+
+### 2.4 Chức năng mượn sách
+
+#### 2.4.1 Điều kiện được mượn
+
+- Hệ thống chỉ cho phép mượn khi:
+  - Không có sách quá hạn.
+  - Số sách đang mượn < Số sách tối đa cho phép.
+  - Bản sao sách còn trong kho.
+
+#### 2.4.2 Quy trình mượn sách
+
+- Quy trình mượn sách:
+  - Độc giả yêu cầu mượn sách.
+  - Hệ thống kiểm tra điều kiện mượn.
+  - Thủ thư xác nhận yếu cầu.
+  - Hệ thống tạo phiếu mượn.
+  - Cập nhật trạng thái bản sao -> Đang mượn.
+- Thông tin phiếu mượn:
+  - Mã phiếu.
+  - Độc giả.
+  - Danh sách bản sao mượn.
+  - Ngày mượn.
+  - Ngày trả dự kiến.
+  - Thời gian mượn tối đa.
+
+### 2.5 Chức năng trả sách
+
+#### 2.5.1 Quy trình trả sách
+
+- Độc giả trả sách.
+- Thủ thư kiểm tra tình trạng bản sao.
+- Hệ thống đối chiều ngày trả.
+- Xử lý:
+  - Trả đúng hạn.
+  - Trả trễ.
+  - Hư hỏng.
+  - Mất sách.
+- Cập nhật trạng thái bản sao.
+
+### 2.6 Chức năng gia hạn mượn sách
+
+- Điều kiện gia hạn:
+  - Chưa quá hạn.
+  - Không có độc giả khác đặt trước.
+  - Chưa vượt số lần gia hạn cho phép.
+- Thông tin gia hạn:
+  - Ngày gia hạn.
+  - Ngày trả mới.
+  - Số lần gia hạn.
+
+### 2.7 Chức năng xử lý tiền phạt
+
+#### 2.7.1 Các loại vi phạm
+
+- Trả sách trễ hạn.
+- Làm hư hỏng sách.
+- Làm mất sách.
+
+#### 2.7.2 Cơ chế tính phạt
+
+- Phạt trễ hạn: theo số ngày trễ.
+- Phạt mất/ hỏng: theo % giá trị sách.
+- Có thể cấu hình mức phạt trong hệ thống.
+
+#### 2.7.3 Xử lý nghiệp vụ
+
+- Ghi nhận vi phạm vào hồ sơ độc giả.
+- Tạm khóa quyền mượn nếu vi phạm nghiêm trọng.
+- Tích hợp thanh toán tiền phạt (nếu có).
+
+### 2.8 Chức năng báo cáo và thống kê
+
+#### 2.8.1 Báo cáo nghiệp vụ
+
+- Danh sách sách đang mượn.
+- Danh sách sách quá hạn.
+- Độc giả vi phạm.
+
+#### 2.8.2 Thống kê khai thác thư viện
+
+- Tần suất mượn theo thời gian.
+- Sách được mượn nhiều/ ít.
+- Hiệu quả sử dụng tài nguyên.
+- Thống kê theo thể loại.
+
+### 2.9 Chức năng cấu hình quy định thư viện
+
+- Admin có thể cấu hình:
+  - Số sách được mượn tối đa.
+  - Thời gian mượn tối đa.
+  - Số lần gia hạn.
+  - Mức phạt.
+=======
 - Tin học hóa toàn bộ công tác quản lý thư viện.
 - Quản lý tập trung thông tin sách, bản sao sách, độc giả và nghiệp vụ mượn – trả.
 - Hỗ trợ tra cứu sách nhanh chóng, chính xác cho độc giả.
@@ -93,6 +264,7 @@
 - Phân quyền người dùng rõ ràng (quản trị viên, thủ thư, độc giả).
 - Đảm bảo tính bảo mật, an toàn dữ liệu và khả năng mở rộng trong tương lai.
   Việc xây dựng hệ thống quản lý thư viện mới sẽ góp phần nâng cao hiệu quả quản lý, tiết kiệm thời gian, công sức và đáp ứng tốt hơn nhu cầu khai thác tài nguyên thư viện.
+>>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
 # III. BIỂU ĐỒ USE CASE
 
@@ -109,6 +281,26 @@
 ### 1.3 Biểu đồ use case đặt trước sách
 
 <img src="../img/Book_useCase.png">
+
+### 1.4 Biểu đồ use case thống kê báo cáo
+
+<img src="../img/BaoCaoUC.png">
+
+### 1.5 Biểu đồ use case mượn sách
+
+<img src="../img/MuonSachUC.png">
+
+### 1.6 Biểu đồ use case phân quyền hệ thống
+
+<img src="../img/PhanQuyenUC.png">
+
+### 1.7 Biểu đồ use case quản lý bản sao sách
+
+<img src="../img/QuanLySachUC.png">
+
+### 1.8 Biểu đồ use case gia hạn mượn sách
+
+<img src="../img/GiaHanMuonUC.png">
 
 ## 2 Vai trò của các Actor
 
@@ -167,6 +359,18 @@
 
 **Bảng: Quy trình đăng nhập**
 
+<<<<<<< HEAD
+| Mục               | Nội dung                                                                                                                                                                                                                                                                 |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Đăng nhập                                                                                                                                                                                                                                                              |
+| Mô tả            | Cho phép người dùng truy cập hệ thống thư viện theo quyền được cấp                                                                                                                                                                                          |
+| Actor chính       | Độc giả/ thủ thư/ admin                                                                                                                                                                                                                                              |
+| Tiền điều kiện | - Người dùng đã có tài khoản hợp lệ trong hệ thống                                                                                                                                                                                                            |
+| Hậu điều kiện  | - Người dùng được xác thực và truy cập vào giao diện tương ứng với vai trò                                                                                                                                                                               |
+| Luồng chính      | - Người dùng truy cập hệ thống và chọn chức năng đăng nhập<br />- Nhập tên đăng nhập và mật khẩu<br />- Hệ thống kiểm tra thống tin xác thực<br />- Nếu hợp lệ, hệ thống cho phép truy cập các chức năng tương ứng với vai trò |
+| Luồng phụ        | - Nếu tên đnăg nhập hoặc sai mật, hệ thống thông báo lỗi<br />- Người dùng nhập lại thông tin đăng nhập                                                                                                                                              |
+| Kết quả          | -  Người dùng đăng nhập thành công  và sử dụng hệ thống theo quyền được cấp                                                                                                                                                                           |
+=======
 | Mục                      | Nội dung                                                                                                                                                                                                                                                                 |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Tên Use case             | Đăng nhập                                                                                                                                                                                                                                                              |
@@ -177,9 +381,13 @@
 | Luồng chính             | - Người dùng truy cập hệ thống và chọn chức năng đăng nhập<br />- Nhập tên đăng nhập và mật khẩu<br />- Hệ thống kiểm tra thống tin xác thực<br />- Nếu hợp lệ, hệ thống cho phép truy cập các chức năng tương ứng với vai trò |
 | Luồng phụ               | - Nếu tên đnăg nhập hoặc sai mật, hệ thống thông báo lỗi<br />- Người dùng nhập lại thông tin đăng nhập                                                                                                                                              |
 | Kết quả                 | -  Người dùng đăng nhập thành công  và sử dụng hệ thống theo quyền được cấp                                                                                                                                                                           |
+>>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
-### Use case đăng ký
+### 3.3 Use case tra cứu thông tin sách
 
+<<<<<<< HEAD
+**Bảng: Quy trình tra cứu thông tin sách**
+=======
 <<<<<<< HEAD
 `<img src="../img/bieudolop.png">`
 ===
@@ -187,42 +395,228 @@
 Thủ thư quản lý từng bản sao cụ thể của sách.
 Mỗi bản sao được gán mã vạch và trạng thái sử dụng.
 Hệ thống cập nhật tình trạng để phục vụ mượn và trả sách.
+>>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
-### 2.8 Quản lý độc giả
+| Mục               | Nội dung                                                                                                                                                                                                                                                                                 |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Tra cứu thông tin sách                                                                                                                                                                                                                                                                 |
+| Actor chính       | Độc giả                                                                                                                                                                                                                                                                                |
+| Mô tả            | Cho phép độc giả tìm kiếm sách và xem thông tin chi tiết, tình trạng sách.                                                                                                                                                                                                   |
+| Tiền điều kiện | - Độc giả đã đăng nhập vào hệ thống                                                                                                                                                                                                                                           |
+| Hậu điều kiện  | - Danh sách/chi tiết sách được hiển thị cho độc giả.                                                                                                                                                                                                                          |
+| Luông chính      | -  Độc giả đã đăng nhập vào hệ thống<br />-  Nhập từ khóa tìm kiếm (tên sách / tên tác giả / thể loại)<br />-Hệ thống tìm kiếm và trả về danh sách phù hợp<br />- Độc giả chọn sách để xem chi tiết (Mô tả, số lượng, tình trạng ...) |
+| Luồng phụ        | - Nếu không có kết quả => hệ thống thông báo không tìm thấy sách                                                                                                                                                                                                             |
+| Kết quả          | Độc giả xem được thông tin và tình trạng sách cần tìm                                                                                                                                                                                                                        |
 
-Thủ thư tạo mới, chỉnh sửa hoặc khóa thẻ của độc giả. Thông tin độc giả được quản lý tập trung trong hệ thống. Việc quản lý giúp kiểm soát quyền mượn sách của độc giả.
+### 3.4 Xem danh sách mượn/ lịch sử mượn
 
-### 2.9 Lập phiếu mượn
+**Bảng: quy trình xem danh sách mượn/ lịch sử mượn**
 
-Thủ thư kiểm tra thông tin thẻ của độc giả và tình trạng sách. Sau đó lập phiếu mượn cho độc giả. Hệ thống ghi nhận ngày mượn và cập nhật hạn trả sách.
+| Mục               | Nội dung                                                                                                                                                                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Xem danh sách mượn / lịch sử mượn                                                                                                                                                                                                    |
+| Actor chính       | Độc giả                                                                                                                                                                                                                                  |
+| Mô tả            | Cho phép độc giả theo dõi sách đang mượn và các lần mượn trước đây.                                                                                                                                                       |
+| Tiền điều kiện | - Độc giả đã đăng nhập vào hệ thống                                                                                                                                                                                             |
+| Hậu điều kiện  | - Thông tin mượn sách được hiển thị đầy đủ                                                                                                                                                                                    |
+| Luồng chính      | - Độc giả chọn chức năng xem danh sách mượn/ lịch sử mượn<br />- Hệ thống tải dữ liệu mượn, tạo và xem lịch xử mượn<br />- Hệ thống hiển thị danh sách (Tên sách, ngày mượn, hạn trả, trạng thái..) |
+| Luồng phụ        | - Nếu chưa từng mượn sách → hiển thị danh sách trống và thông báo phù hợp                                                                                                                                                 |
+| Kết quả          | Độc giả xem được tình trạng mượn và lịch sử mượn của mình                                                                                                                                                                  |
 
-### 2.10 Trả sách
+### 3.5 Đặt trước sách
 
-Thủ thư tiếp nhận sách do độc giả trả lại.
-Hệ thống cập nhật trạng thái sách sang đã trả.
-Nếu sách quá hạn, hệ thống chuyển sang xử lý tiền phạt.
+**Bảng: quy trình đặt trước sách**
 
-### 2.11 Xử lý quá hạn (tính và thu tiền phạt)
+| Mục               | Nội dung                                                                                                                                                                                                                                                               |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Đặt trước sách                                                                                                                                                                                                                                                     |
+| Actor chính       | Độc giả                                                                                                                                                                                                                                                              |
+| Mô tả            | Cho phép độc giả đặt trước khi sách đang được mượn/không sẵn có.                                                                                                                                                                                      |
+| Tiền điều kiện | - Độc giả đã đăng nhập vào hệ thống, sách ở trạng thái không sẵn có để mượn<br />ngay.                                                                                                                                                            |
+| Hậu điều kiện  | -Yêu cầu đặt trước được lưu và xếp hàng chờ.                                                                                                                                                                                                              |
+| Luồng chính      | - Độc giả chọn sách muốn đặt trước<br />- Chọn chức năng đặt trước<br />-  Hệ thống kiểm tra điều kiện đặt trước (tình trạng sách, giới hạn đặt...)<br />- Hệ thống ghi nhận yêu cầu và thông báo đặt trước thành công |
+| Luồng phụ        | -  Nếu sách còn sẵn  => Hệ thống không cho đặt trước mà gợi ý mượn trực tiếp<br />- Nếu độc giả đã đặt trước sách => Hệ thống thông báo yêu cầu đã tồn tại                                                                     |
+| Kết quả          | Độc giả đặt trước thành công và chờ đến lượt nhận sách                                                                                                                                                                                                 |
 
-Hệ thống xác định số ngày quá hạn trả sách. Tiền phạt được tính theo quy định của thư viện. Thủ thư thu tiền và cập nhật trạng thái hoàn tất.
+### 3.6 Yêu cầu gia hạn mượn sách
 
-### 2.12 Thống kê báo cáo
+**Bảng: Quy trình gia hạn mượn sách**
 
-Thủ thư yêu cầu tạo báo cáo thống kê.
-Hệ thống tổng hợp dữ liệu mượn, trả và vi phạm.
-Báo cáo phục vụ công tác quản lý thư viện.
+| Mục               | nội dung                                                                                                                                                                                                                                       |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Yêu cầu gia hạn thời gian mượn                                                                                                                                                                                                            |
+| Actor chính       | Độc giả                                                                                                                                                                                                                                      |
+| Mô tả            | Cho phép độc giả gửi yêu cầu gia hạn sách đang mượn                                                                                                                                                                                 |
+| Tiền điều kiện | - Độc giả đã đăng nhập vào hệ thống, đang có sách mượn; chưa quá hạn (tùy quy định).                                                                                                                                    |
+| Hậu điều kiện  | - Yêu cầu gia hạn được tạo và gửi đến thủ thư xử lý                                                                                                                                                                              |
+| Luồng chính      | - Độc giả truy cập vào danh sách đang mượn<br />- Chọn sách cần gia hạn và chọn "Yêu cầu gia hạn"<br />- Hệ thống kiểm tra điều kiện gia hạn<br />- Hệ thống ghi nhận yêu cầu và thông báo đã gửi yêu cầu |
+| Luồng phụ        | - Nếu sách có người đặt trước => Hệ thống từ chối gia hạn<br />- Nếu vượt số lần gia hạn tối đa => Hệ thống từ chối và thông báo lý do                                                                            |
+| Kết quả          | Yêu cầu gia hạn được gửi thành công để chờ duyệt                                                                                                                                                                                   |
 
-### 2.13 Quản lý tài khoản và phân quyền hệ thống
+### 3.7 xử lý gia hạn mượn (Thủ thư)
 
-Admin tạo và quản lý tài khoản người dùng hệ thống.
-Thực hiện phân quyền truy cập theo vai trò.
-Đảm bảo an toàn và kiểm soát hệ thống.
+**Bảng: Quy trình xử lý yêu cầu gia hạn**
 
-### 2.14 cấu hình quy định
+| Mục               | Nội dung                                                                                                                                                                                                                                                                           |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Gia hạn mượn                                                                                                                                                                                                                                                                     |
+| Actor chính       | Thủ thư                                                                                                                                                                                                                                                                           |
+| Mô tả            | Thủ thư duyệt hoặc từ chối yêu cầu gia hạn của độc giả.                                                                                                                                                                                                                |
+| Tiền điều kiện | - Thủ thư đã đăng nhập; tồn tại yêu cầu gia hạn hợp lệ.                                                                                                                                                                                                               |
+| Hậu điều kiện  | - Hạn trả được cập nhật hoặc yêu cầu bị từ chối và ghi nhận lý do                                                                                                                                                                                                  |
+| Luông chính      | - Thủ thư mở danh sách yêu cầu gia hạn<br />- Chọn một yêu cầu cần xử lý<br />- Hệ thống hiển thị thông tin mượn và điều kiện liên quan<br />- Thủ thư chọn “Duyệt”<br />- Hệ thống cập nhật hạn trả mới và thông báo cho độc giả |
+| Luồng phụ        | - Thủ thư chọn “Từ chối” => hệ thống ghi nhận lý do và thông báo cho độc giả                                                                                                                                                                                      |
+| Kết quả          | Yêu cầu gia hạn được xử lý xong (duyệt hoặc từ chối)                                                                                                                                                                                                                    |
 
-Admin thiết lập các quy định hoạt động của thư viện.
-Bao gồm thời gian mượn, số sách mượn và mức phạt.
-Các quy định được áp dụng thống nhất toàn hệ thống.
+### 3.8 Lập phiếu mượn
+
+**Bảng: quy trình xử lý lập phiếu mượn**
+
+| Mục               | Nội dung                                                                                                                                                                                                                                                                                                                                                            |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Lập phiếu mượn                                                                                                                                                                                                                                                                                                                                                   |
+| Actor chính       | Thủ thư                                                                                                                                                                                                                                                                                                                                                            |
+| Mô tả            | Ghi nhận giao dịch cho độc giả mượn sách và cập nhật trạng thái sách.                                                                                                                                                                                                                                                                                  |
+| Tiền điều kiện | - Thủ thư đã đăng nhập; thẻ độc giả hợp lệ; sách còn sẵn.                                                                                                                                                                                                                                                                                           |
+| Hậu điều kiện  | - Phiếu mượn được tạo; sách chuyển trạng thái “Đang mượn”.                                                                                                                                                                                                                                                                                          |
+| Luông chính      | - Thủ thư chọn chức năng lập phiếu mượn<br />- Nhập/ quét mã thẻ độc giả<br />- Quét/ chọn bản sao cần mượn<br />- Hệ thống kiểm tra điều kiện mượn (giới hạn số lượng, nợ phạt...)<br />- Hệ thống tạo phiếu mượn và thiết lập hạn trả<br />- Hệ thống cập nhật trạng thái bản sao sang "Đang mượn" |
+| Luồng phụ        | - Nếu thẻ bị khóa/hết hạn => hệ thống từ chối lập phiếu<br />- Nếu vượt số lượng sách cho phép => hệ thống từ chối<br />- Nếu sách không sẵn → hệ thống từ chối và gợi ý đặt trước                                                                                                                                       |
+| Kết quả          | Phiếu mượn được lập thành công và ghi nhận trên hệ thống                                                                                                                                                                                                                                                                                               |
+
+### 3.9 Trả sách
+
+**Bảng: Quy trình trả sách**
+
+| Mục               | Nội dung                                                                                                                                                                                                                                                                                     |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Trả sách                                                                                                                                                                                                                                                                                    |
+| Actor chính       | Thủ thư                                                                                                                                                                                                                                                                                     |
+| Mô tả            | Xử lý việc độc giả trả sách, cập nhật trạng thái và kiểm tra quá hạn.                                                                                                                                                                                                         |
+| Tiền điều kiện | - Thủ thư đã đăng nhập; sách đang ở trạng thái “Đang mượn”.                                                                                                                                                                                                                 |
+| Hậu điều kiện  | - Sách chuyển trạng thái “Có sẵn”; nếu quá hạn phát sinh xử lý phạt.                                                                                                                                                                                                          |
+| Luông chính      | - Thủ thư chọn chức năng trả sách<br />- Nhập mã vạch bản sao sách trả<br />- Hệ thống tìm phiếu mượn tương ứng<br />- Hệ thống cập nhật trạng thái sách sang "Có sẵn/Đã trả"<br />- Hệ thống kiểm tra hạn trả và số ngày quá hạn (nếu có) |
+| Luồng phụ        | - Nếu không tìm thấy phiếu mượn => thông báo lỗi (sai mã vạch/không tồn tại)<br />- Nếu quá hạn => hệ thống chuyển sang use case "Tính và thu tiền phạt "                                                                                                           |
+| Kết quả          | Trả sách thành công; dữ liệu mượn–trả được cập nhật                                                                                                                                                                                                                            |
+
+### 3.10 Tính và thu tiền phạt (Xử lý quá hạn)
+
+**Bảng: Quy trình xử lý quá hạn**
+
+| Mục               | Nội dung                                                                                                                                                                                                                                                                                                                    |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Tính và thu tiền phạt                                                                                                                                                                                                                                                                                                    |
+| Actor chính       | Thủ thư                                                                                                                                                                                                                                                                                                                    |
+| Mô tả            | Tính tiền phạt khi độc giả trả sách trễ hạn và ghi nhận thanh toán.                                                                                                                                                                                                                                             |
+| Tiền điều kiện | - Có giao dịch trả sách quá hạn hoặc độc giả đang có khoản phạt.                                                                                                                                                                                                                                              |
+| Hậu điều kiện  | - Khoản phạt được thanh toán/ghi nhận, cập nhật vào hồ sơ độc giả.                                                                                                                                                                                                                                           |
+| Luông chính      | - Hệ thống xác định số ngày quá hạn dựa trên hạn trả<br />- Tính tiền phạt theo quy định (mức phạt/ngày)<br />- Hiển thị số tiền phạt cho thủ thư và độc giả<br />- Thủ thư xác nhận đã thu tiền<br />- Hệ thống lưu thông tin thanh toán và cập nhật trạng thái phạt |
+| Luồng phụ        | - Nếu độc giả chưa thanh toán => hệ thống ghi nhận còn nợ và có thể hạn chế mượn tiếp                                                                                                                                                                                                                    |
+| Kết quả          | Tiền phạt được xử lý và lưu vào hệ thống                                                                                                                                                                                                                                                                         |
+
+### 3.11 Xử lý đặt trước
+
+**Bảng: Quy trình xử lý đặt trước**
+
+| Mục               | Nội dung                                                                                                                                                                                                                                                                                                    |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Tên Use case      | Xử lý đặt trước                                                                                                                                                                                                                                                                                        |
+| Actor chính       | Thủ thư                                                                                                                                                                                                                                                                                                    |
+| Mô tả            | Quản lý danh sách đặt trước và ưu tiên cấp sách cho người đặt trước khi sách sẵn có.                                                                                                                                                                                                   |
+| Tiền điều kiện | - Thủ thư đã đăng nhập vào hệ thống; tồn tại yêu cầu đặt trước.                                                                                                                                                                                                                           |
+| Hậu điều kiện  | - Yêu cầu được cập nhật trạng thái (đã sẵn sàng/đã hủy/đã xử lý).                                                                                                                                                                                                                       |
+| Luồng chính      | - Thủ thư xem danh sách yêu cầu đặt trước<br />- Khi sách được trả, hệ thống xác định người đặt trước theo thứ tự<br />- Thủ thư xác nhận giữ sách cho độc giả đặt trước<br />- Hệ thống cập nhật trạng thái yêu cầu và gửi thông báo cho độc giả |
+| Luồng phụ        | - Nếu độc giả không đến nhận trong thời hạn quy định => hủy đặt trước và<br />chuyển người tiếp theo                                                                                                                                                                                  |
+| Kết quả          | Đặt trước được xử lý, đảm bảo ưu tiên đúng người chờ                                                                                                                                                                                                                                      |
+
+### 3.12 Quản lý đầu sách
+
+\*\*Bảng : Quy trình quản lý đầu sách
+
+| Mục               | Nội dung                                                                                                                                                                                                |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Quản lý đầu sách                                                                                                                                                                                    |
+| Actor chính       | Thủ thư                                                                                                                                                                                                |
+| Mô tả            | Thêm/sửa/xóa thông tin đầu sách (tên, tác giả, thể loại, NXB…).                                                                                                                             |
+| Tiền điều kiện | - Thủ thư đã đăng nhập vào hệ thống                                                                                                                                                           |
+| Hậu điều kiện  | - Thông tin đầu sách được cập nhật vào hệ thống.                                                                                                                                            |
+| Luồng chính      | - Thủ thư chọn chức năng quản lý đầu sách<br />- Chọn thao tác thêm/sửa/xóa<br />- Nhập/chỉnh sửa thông tin đầu sách<br />- Hệ thống kiểm tra dữ liệu và lưu thay đổi |
+| Luồng phụ        | - Nếu thiếu dữ liệu bắt buộc => yêu cầu nhập lại<br />- Nếu xóa đầu sách còn bản sao đang mượn => hệ thống từ chối xóa                                                        |
+| Kết quả          | Danh mục đầu sách được cập nhật chính xác                                                                                                                                                     |
+
+### 3.13 Quản lý bản sao
+
+**Bảng: Quy trình xử lý bản sao**
+
+| Mục               | Nội dung                                                                                                                                                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Quản lý bản sao sách                                                                                                                                                                                                                                |
+| Actor chính       | Thủ thư                                                                                                                                                                                                                                               |
+| Mô tả            | Quản lý từng bản sao vật lý của sách: gán mã vạch và cập nhật tình trạng                                                                                                                                                                |
+| Tiền điều kiện | - Thủ thư đã đăng nhập vào hệ thống; đầu sách đã tồn tại.                                                                                                                                                                             |
+| Hậu điều kiện  | - Bản sao được tạo/cập nhật trạng thái trong hệ thống.                                                                                                                                                                                      |
+| Luồng chính      | - Thủ thư chọn chức năng quản lý bản sao<br />-  Chọn đầu sách liên quan<br />- Thêm bản sao mói và gán mã vạch<br />- Cập nhật tình trạng (có sẵn/đang mượn/hư hỏng/mất)<br />- Hệ thống lưu thông tin bản sao |
+| Luồng phụ        | - Nếu mã vạch trùng → hệ thống yêu cầu nhập mã khá                                                                                                                                                                                         |
+| Kết quả          | Bản sao sách được theo dõi chính xác và đồng bộ trạng thái                                                                                                                                                                                |
+
+### 3.14 Quản lý độc giả
+
+**Bảng : Quy trình quản lý độc giả**
+
+| Mục               | Nội dung                                                                                                                                                                                            |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Quản lý độc giả                                                                                                                                                                                 |
+| Actor chính       | Thủ thư                                                                                                                                                                                            |
+| Mô tả            | Quản lý thông tin độc giả và trạng thái thẻ thư viện.                                                                                                                                    |
+| Tiền điều kiện | - Thủ thư đã đăng nhập vào hệ thống.                                                                                                                                                      |
+| Hậu điều kiện  | - Hồ sơ độc giả được cập nhật, thẻ có thể bị khóa/mở theo quy định..                                                                                                              |
+| Luồng chính      | - Thủ thư chọn chức năng quản lý độc giả<br /> - Thêm mới hoặc cập nhật thông tin độc giả<br />- Nếu cần, thủ thư khóa thẻ độc giả<br />- Hệ thống lưu thay đổi |
+| Luồng phụ        | - Nếu email/sđt trùng => hệ thống báo lỗi và yêu cầu chỉnh sửa                                                                                                                          |
+| Kết quả          | Thông tin độc giả được quản lý tập trung và chính xác                                                                                                                                   |
+
+### 3.15 Thống kê báo cáo
+
+**Bảng: Quy trình thống kê báo cáo**
+
+| Mục               | Nội dung                                                                                                                                                                                                             |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Thống kê báo cáo                                                                                                                                                                                                  |
+| Actor chính       | Thủ thư                                                                                                                                                                                                             |
+| Mô tả            | Tổng hợp dữ liệu phục vụ quản lý thư viện (mượn nhiều, quá hạn, tồn kho…).                                                                                                                          |
+| Tiền điều kiện | - Thủ thư đã đăng nhập vào hệ thống                                                                                                                                                                        |
+| Hậu điều kiện  | - Báo cáo được tạo và hiển thị/xuất ra file.                                                                                                                                                               |
+| Luồng chính      | - Thủ thư chọn chức năng thống kê báo cáo<br />- Chọn loại báo cáo và khoảng thời gian<br />- Hệ thống tổng hợp dữ liệu và hiển thị kết quả<br />- Thủ thư xem hoặc xuất báo cáo |
+| Luồng phụ        | - Nếu không có dữ liệu trong khoảng thời gian → báo cáo rỗng và thông báo phù hợp                                                                                                                   |
+| Kết quả          | Báo cáo được tạo thành công phục vụ quản lý                                                                                                                                                               |
+
+### Quản lý tài khoản và phân quyền hệ thống
+
+**Bảng: Quy trình quản lý tài khoản và phân quyền hệ thống**
+
+| Mục               | Nội dung                                                                                                                                                                                                                          |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Quản lý tài khoản và phân quyền hệ thống                                                                                                                                                                                  |
+| Actor chính       | Admin                                                                                                                                                                                                                              |
+| Mô tả            | Quản lý tài khoản người dùng hệ thống và phân quyền truy cập chức năng.                                                                                                                                             |
+| Tiền điều kiện | - Admin đã đăng nhập bằng tài khoản quản trị                                                                                                                                                                            |
+| Hậu điều kiện  | - Tài khoản/quyền được cập nhật và có hiệu lực.                                                                                                                                                                       |
+| Luồng chính      | - Admin chọn chức năng quản lý tài khoản và phân quyền hệ thống<br />- Tạo mới/sửa/xóa/kháo tài khoản người dùng<br />- Gán vai trò và quyền truy cập chức năng<br />- Hệ thống lưu thay đổi |
+| Luồng phụ        | - Nếu tài khoản trùng tên đăng nhập => hệ thống báo lỗi<br />- Nếu xóa tài khoản đang hoạt động nghiệp vụ => hệ thống yêu cầu khó thay vì xóa                                                        |
+| Kết quả          | Tài khoản và quyền truy cập được quản lý chặt chẽ, đúng vai trò                                                                                                                                                     |
+
+### 3.17 Cấu hình quy định
+
+**Bảng: Quy trình cài đặt cấu hình hệ thống**
+
+| Mục               | Nội dung                                                                                                                                                                                                                                                                        |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use case      | Cấu hình quy định                                                                                                                                                                                                                                                            |
+| Actor chính       | Admin                                                                                                                                                                                                                                                                            |
+| Mô tả            | Thiết lập các quy định chung: số ngày mượn, mức phạt, số sách tối đa…                                                                                                                                                                                            |
+| Tiền điều kiện | - Admin đã đăng nhập bằng tài khoản quản trị                                                                                                                                                                                                                          |
+| Hậu điều kiện  | - Quy định mới được lưu và áp dụng toàn hệ thống.                                                                                                                                                                                                                  |
+| Luồng chính      | - Admin mở chức năng cấu hình quy định<br />- Nhập/điều chỉnh tham số quy định<br />- Hệ thống kiểm tra hợp lệ (giá trị số, giới hạn...)<br />- Admin xác nhận lưu định dạng cấu hình<br />- Hệ thống cập nhật và áp dụng quy định |
+| Luồng phụ        | -Nếu tham số không hợp lệ => hệ thống báo lỗi và yêu cầu nhập lại                                                                                                                                                                                                  |
+| Kết quả          | Quy định thư viện được cập nhật và áp dụng thống nhất                                                                                                                                                                                                              |
 
 # CHƯƠNG 4. ĐẶC TẢ USE CASE HỆ THỐNG QUẢN LÝ THƯ VIỆN
 
@@ -547,7 +941,6 @@ Chương 4 đã trình bày đầy đủ và chi tiết các Use Case của hệ
 ## 5.1. Biểu đồ lớp
 
 <img src="../img/bieudolop.png">
->>>>>>> 8726732bcb9eefb8a17bd4cce640d42e17268a3b
 
 ## 5.2. Biểu đồ tuần tự
 
