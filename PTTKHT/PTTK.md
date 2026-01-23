@@ -186,7 +186,6 @@ Việc xây dựng hệ thống quản lý thư viện mới sẽ góp phần n�
 
 **Bảng: Quy trình đăng nhập**
 
-<<<<<<< HEAD
 | Mục               | Nội dung                                                                                                                                                                                                                                                                 |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Tên Use case      | Đăng nhập                                                                                                                                                                                                                                                              |
@@ -197,32 +196,10 @@ Việc xây dựng hệ thống quản lý thư viện mới sẽ góp phần n�
 | Luồng chính      | - Người dùng truy cập hệ thống và chọn chức năng đăng nhập<br />- Nhập tên đăng nhập và mật khẩu<br />- Hệ thống kiểm tra thống tin xác thực<br />- Nếu hợp lệ, hệ thống cho phép truy cập các chức năng tương ứng với vai trò |
 | Luồng phụ        | - Nếu tên đnăg nhập hoặc sai mật, hệ thống thông báo lỗi<br />- Người dùng nhập lại thông tin đăng nhập                                                                                                                                              |
 | Kết quả          | -  Người dùng đăng nhập thành công  và sử dụng hệ thống theo quyền được cấp                                                                                                                                                                           |
-=======
-| Mục                      | Nội dung                                                                                                                                                                                                                                                                 |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tên Use case             | Đăng nhập                                                                                                                                                                                                                                                              |
-| Mô tả                   | Cho phép người dùng truy cập hệ thống thư viện theo quyền được cấp                                                                                                                                                                                          |
-| Actor chính              | Độc giả/ thủ thư/ admin                                                                                                                                                                                                                                              |
-| Điều kiện tiên quyết | Người dùng đã có tài khoản hợp lệ trong hệ thống                                                                                                                                                                                                              |
-| Hậu điều kiện         | Người dùng được xác thực và truy cập vào giao diện tương ứng với vai trò                                                                                                                                                                                 |
-| Luồng chính             | - Người dùng truy cập hệ thống và chọn chức năng đăng nhập<br />- Nhập tên đăng nhập và mật khẩu<br />- Hệ thống kiểm tra thống tin xác thực<br />- Nếu hợp lệ, hệ thống cho phép truy cập các chức năng tương ứng với vai trò |
-| Luồng phụ               | - Nếu tên đnăg nhập hoặc sai mật, hệ thống thông báo lỗi<br />- Người dùng nhập lại thông tin đăng nhập                                                                                                                                              |
-| Kết quả                 | -  Người dùng đăng nhập thành công  và sử dụng hệ thống theo quyền được cấp                                                                                                                                                                           |
->>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
 ### 3.3.3 Use case tra cứu thông tin sách
 
-<<<<<<< HEAD
 **Bảng: Quy trình tra cứu thông tin sách**
-=======
-<<<<<<< HEAD
-`<img src="../img/bieudolop.png">`
-===
-
-Thủ thư quản lý từng bản sao cụ thể của sách.
-Mỗi bản sao được gán mã vạch và trạng thái sử dụng.
-Hệ thống cập nhật tình trạng để phục vụ mượn và trả sách.
->>>>>>> 47c6d6e23dbe8759d08daa7dcec55f3b22950705
 
 | Mục               | Nội dung                                                                                                                                                                                                                                                                                 |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
