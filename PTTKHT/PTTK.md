@@ -774,7 +774,7 @@ Chương 4 đã trình bày đầy đủ và chi tiết các Use Case của hệ
 
 ### 5.2.7. Biểu đồ tuần tự Lập phiếu mượn
 
-<img src="../img/sequencediagram/lapphieumuon_sqd.png">
+<img src="../img/sequencediagram/Lapphieumuon_sqd.png">
 
 ### 5.2.8. Biểu đồ tuần tự Đặt trước sách
 
