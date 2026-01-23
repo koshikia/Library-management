@@ -849,3 +849,15 @@ Chương 4 đã trình bày đầy đủ và chi tiết các Use Case của hệ
 ### 5.3.9. Biểu đồ hoạt động quản lý mượn sách
 
 <img src="../img/quanlymuon.png">
+
+### 5.3.10. Biểu đồ hoạt động đặt trước sách của đọc giả
+<img src="../img/dattruoc.png">
+
+### 5.3.11. Biểu đồ hoạt động gia hạn mượn sách của đọc giả
+<img src="../img/giahan.png">
+
+### 5.3.11. Biểu đồ hoạt động trả sách của đọc giả
+<img src="../img/trasach.png">
+
+### 5.3.11. Biểu đồ hoạt động tra cứu lịch sử mượn sách của đọc giả
+<img src="../img/xemlichsu.png">
