@@ -744,73 +744,22 @@ Chương 4 đã trình bày đầy đủ và chi tiết các Use Case của hệ
 
 ## 5.1. Biểu đồ lớp
 
-<img src="../img/classdiagram/bieudolop1.png">
+<img src="../img/bieudolop.png">
 
 ## 5.2. Biểu đồ tuần tự
 
 ### 5.2.1. Biểu đồ tuần tự đăng ký
 
-<img src="../img/sequencediagram/dangkysequence.png">
+<img src="../img/dangkysequence.png">
 
 ### 5.2.2. Biểu đồ tuần tự đăng nhập
 
-<img src="../img/sequencediagram/dangnhapsequence.png">
+<img src="../img/dangnhapsequence.png">
 
-### 5.2.3. Biểu đồ tuần tự Tra cứu thông tin sách
+### 5.2.3. Biểu đồ tuần tự Quên mật khẩu
 
-<img src="../img/sequencediagram/tracuusach_sqd.png">
-
-### 5.2.4. Biểu đồ tuần tự Đặt trước sách
-
-<img src="../img/sequencediagram/dattruocsach_sqd.png">
-
-### 5.2.5. Biểu đồ tuần tự Yêu cầu gia hạn mượn
-
-<img src="../img/sequencediagram/yeucaugiahan_sqd.png">
-
-### 5.2.6. Biểu đồ tuần tự Xử lí gia hạn mượn
-
-<img src="../img/sequencediagram/xuligiahan_sqd.png">
-
-### 5.2.7. Biểu đồ tuần tự Lập phiếu mượn
-
-<img src="../img/sequencediagram/Lapphieumuon_sqd.png">
-
-### 5.2.8. Biểu đồ tuần tự Đặt trước sách
-
-<img src="../img/sequencediagram/dattruocsach_sqd.png">
-
-### 5.2.9. Biểu đồ tuần tự Trả sách và Xử lí quá hạn
-
-<img src="../img/sequencediagram/trasach_xuliquahan_sqd.png">
-
-### 5.2.10. Biểu đồ tuần tự Quản lý đầu sách (Thêm mới)
-
-<img src="../img/sequencediagram/themdausach_sqd.png">
-
-### 5.2.11. Biểu đồ tuần tự Quản lý đầu sách (Sửa)
-
-<img src="../img/sequencediagram/suadausach_sqd.png">
-
-### 5.2.12. Biểu đồ tuần tự Quản lý đầu sách (Xóa)
-
-<img src="../img/sequencediagram/xoadausach_sqd.png">
-
-### 5.2.13. Biểu đồ tuần tự Quản lý bản sao sách (Thêm mới)
-
-<img src="../img/sequencediagram/thembansao_sqd.png">
-
-### 5.2.14. Biểu đồ tuần tự Quản lý độc giả (Thêm mới)
-
-<img src="../img/sequencediagram/themdocgia_sqd.png">
-
-### 5.2.15. Biểu đồ tuần tự Thống kê báo cáo
-
-<img src="../img/sequencediagram/thongkebaocao_sqd.png">
-
-### 5.2.16. Biểu đồ tuần tự Cấu hình quy định hệ thống
-
-<img src="../img/sequencediagram/quydinh_sqd.png">
+<img src="../img/quenmatkhausequence.png">
+# V. THIẾT KẾ HỆ THỐNG
 
 ## 5.3. Biểu đồ hoạt động
 
@@ -849,15 +798,3 @@ Chương 4 đã trình bày đầy đủ và chi tiết các Use Case của hệ
 ### 5.3.9. Biểu đồ hoạt động quản lý mượn sách
 
 <img src="../img/quanlymuon.png">
-
-### 5.3.10. Biểu đồ hoạt động đặt trước sách của đọc giả
-<img src="../img/dattruoc.png">
-
-### 5.3.11. Biểu đồ hoạt động gia hạn mượn sách của đọc giả
-<img src="../img/giahan.png">
-
-### 5.3.11. Biểu đồ hoạt động trả sách của đọc giả
-<img src="../img/trasach.png">
-
-### 5.3.11. Biểu đồ hoạt động tra cứu lịch sử mượn sách của đọc giả
-<img src="../img/xemlichsu.png">
