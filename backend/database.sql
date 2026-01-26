@@ -8,5 +8,19 @@ CREATE TABLE IF NOT EXISTS book (
     year INT
 );
 
-INSERT INTO book (title, author, year)
-VALUES ('Book 1', 'Admin', 2026);
+CREATE TABLE IF NOT EXISTS DauSach (
+    maDauSach VARCHAR(20) PRIMARY KEY,
+    tenSach NVARCHAR(255) NOT NULL,
+    tacGia NVARCHAR(255),
+    theLoai NVARCHAR(100),
+    nhaXuatBan NVARCHAR(255),
+    namXuatBan INT,
+    moTa TEXT,
+    soLuongDangCo INT
+);
+CREATE TABLE IF NOT EXISTS BanSaoSach (
+    maVach VARCHAR(50) PRIMARY KEY,
+    maDauSach VARCHAR(20),
+    trangThai ENUM('Có Sẵn', 'Đang Mượn', 'Hỏng', 'Mất') DEFAULT 'Có Sẵn',
+    FOREIGN KEY (maDauSach) REFERENCES DauSach(maDauSach)
+);
