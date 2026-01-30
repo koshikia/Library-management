@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập</title>
+</head>
+<body>
+<h2>Đăng nhập</h2>
+
+<form id="loginForm">
+    <input type="email" placeholder="Email" id="email" required><br>
+    <input type="password" placeholder="Mật khẩu" id="matKhau" required><br>
+    <button type="submit">Đăng nhập</button>
+</form>
+
+<p>Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const res = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            email: email.value,
+            matKhau: matKhau.value
+        }),
+        credentials: "include"
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        alert(data.message);
+        return;
+    }
+
+    // Phân quyền
+    if (data.vaiTro === "DOCGIA") {
+        alert("Chào Độc giả");
+        window.location.href = "docgia.html";
+    } else if (data.vaiTro === "THUTHU") {
+        alert("Chào Thủ thư");
+        window.location.href = "thuthu.html";
+    } else if (data.vaiTro === "ADMIN") {
+        alert("Chào Admin");
+        window.location.href = "admin.html";
+    }
+});
+</script>
+</body>
+</html>

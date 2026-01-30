@@ -1,0 +1,14 @@
+<h1>ddđ</h1>
+<script>
+fetch("/api/me")
+  .then(res => {
+    if (!res.ok) location.href = "/login.html";
+    return res.json();
+  })
+  .then(user => {
+    if (user.vaiTro !== "ADMIN") {
+        alert("Bạn không có quyền");
+        location.href = "/login.html";
+    }
+  });
+</script>

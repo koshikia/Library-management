@@ -9,32 +9,14 @@ CREATE TABLE IF NOT EXISTS book (
 );
 
 CREATE TABLE IF NOT EXISTS NguoiDung (
-    maNguoiDung INT AUTO_INCREMENT PRIMARY KEY,
-    hoTen VARCHAR(255),
-    email VARCHAR(255),
-    soDienThoai VARCHAR(255),
-    diaChi VARCHAR(255),
-    tenDangNhap VARCHAR(255),
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    hoTen VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE,
     matKhau VARCHAR(255),
-    trangThai ENUM('Độc giả', 'Thủ thư', 'Quản trị viên') 
-        NOT NULL DEFAULT 'Độc giả',
-);
-CREATE TABLE IF NOT EXISTS QuanTriVien (
-    maNguoiDung INT PRIMARY KEY,
+    vaiTro ENUM('DOCGIA', 'THUTHU', 'ADMIN') DEFAULT 'DOCGIA',
+    ngayTao DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 
-    CONSTRAINT fk_qtv_nguoidung
-    FOREIGN KEY (maNguoiDung)
-    REFERENCES NguoiDung(maNguoiDung)
-    ON DELETE CASCADE
-);
 
-INSERT INTO NguoiDung (
-    hoTen, tenDangNhap, matKhau, trangThai
-) VALUES (
-    'Admin', 'admin', '123456', 'Quản trị viên'
-);
-
-INSERT INTO QuanTriVien (maNguoiDung)
-VALUES (LAST_INSERT_ID());
 
 
