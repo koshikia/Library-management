@@ -1,5 +1,4 @@
 const db = require('../db');
-const bcrypt = require('bcryptjs');
 
 exports.login = (req, res) => {
     const { email, matKhau } = req.body;
@@ -10,37 +9,32 @@ exports.login = (req, res) => {
         });
     }
 
-    // Lấy user theo email
     const sql = `
         SELECT id, hoTen, email, matKhau, vaiTro
-        FROM nguoidung
+        FROM NguoiDung
         WHERE email = ?
+        LIMIT 1
     `;
 
-    db.query(sql, [email], async (err, results) => {
+    db.query(sql, [email], (err, results) => {
         if (err) {
-            return res.status(500).json(err);
+            console.error('Lỗi SQL:', err);
+            return res.status(500).json({ message: 'Lỗi server' });
         }
 
         if (results.length === 0) {
-            return res.status(401).json({
-                message: 'Email hoặc mật khẩu không đúng'
-            });
+            return res.status(401).json({ message: 'Sai email hoặc mật khẩu' });
         }
 
         const user = results[0];
 
-        // So sánh mật khẩu (KHÔNG JWT)
-        const isMatch = await bcrypt.compare(matKhau, user.matKhau);
-        if (!isMatch) {
-            return res.status(401).json({
-                message: 'Email hoặc mật khẩu không đúng'
-            });
+        // ⚠️ TEST TRƯỚC: so sánh mật khẩu thường
+        if (user.matKhau !== matKhau) {
+            return res.status(401).json({ message: 'Sai email hoặc mật khẩu' });
         }
 
-        // Đăng nhập thành công
-        res.json({
-            message: '✅ Đăng nhập thành công',
+        res.status(200).json({
+            message: 'Đăng nhập thành công',
             user: {
                 id: user.id,
                 hoTen: user.hoTen,
