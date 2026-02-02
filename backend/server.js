@@ -8,6 +8,7 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/pics', express.static('pics'));
 
 app.use(cors({
     origin: true,
@@ -22,6 +23,13 @@ app.use(session({
 
 
 // server
+// ktra login
+app.get("/api/me", (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: "Chưa đăng nhập" });
+    }
+    res.json(req.session.user);
+});
 // trỏ tới thư mục frontend
 app.use(express.static(path.join(__dirname, "../frontend")));
 
@@ -82,16 +90,25 @@ app.post("/api/login", (req, res) => {
         });
     });
 });
-
-
-// ktra login
-app.get("/api/me", (req, res) => {
-    if (!req.session.user) {
-        return res.status(401).json({ message: "Chưa đăng nhập" });
+//API admin 
+app.get("/admin", (req, res) => {
+    if (!req.session.user || req.session.user.vaiTro !== "ADMIN") {
+        return res.redirect("/login.html");
     }
-    res.json(req.session.user);
-});
 
+    res.sendFile(__dirname + "/protected/admin.html");
+});
+//API lấy dữ liệu sách 
+app.get("/api/dausach", (req, res) => {
+    const sql = "SELECT * FROM DauSach";
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            return res.status(500).json({ message: "Lỗi truy vấn CSDL" });
+        }
+        res.json(result);
+    });
+});
 // đăng xuất
 app.post("/api/logout", (req, res) => {
     req.session.destroy(() => {

@@ -17,6 +17,23 @@ CREATE TABLE IF NOT EXISTS NguoiDung (
     ngayTao DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS DauSach (
+    maDauSach VARCHAR(20) PRIMARY KEY,
+    tenSach VARCHAR(255) NOT NULL,
+    tacGia VARCHAR(255),
+    theLoai VARCHAR(100),
+    nhaXuatBan VARCHAR(255),
+    namXuatBan INT,
+    moTa TEXT,
+    tongSoLuong INT DEFAULT 0
+) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS BanSaoSach (
+    maVach VARCHAR(50) PRIMARY KEY,
+    maDauSach VARCHAR(20) NOT NULL,
+    trangThai ENUM('CO_SAN', 'DANG_MUON', 'HU_HONG', 'MAT') DEFAULT 'CO_SAN',
 
-
+    FOREIGN KEY (maDauSach)
+        REFERENCES DauSach(maDauSach)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;

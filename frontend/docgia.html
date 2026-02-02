@@ -1,55 +1,58 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý sách</title>
+    <title>Danh sách đầu sách</title>
+    <style>
+        .book {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            gap: 15px;
+        }
+        img {
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Thêm sách</h2>
-    <input type="text" id="title" placeholder="Tên sách"><br><br>
-    <input type="text" id="author" placeholder="Tác giả"><br><br>
-    <input type="number" id="year" placeholder="Năm xuất bản"><br><br>
-    <button onclick="addBook()">Thêm sách</button>
 
-    <hr>
+<h2>Danh sách đầu sách</h2>
+<div id="bookList"></div>
 
-    <h2>Danh sách sách</h2>
-    <button onclick="loadBooks()">Hiển thị sách</button>
+<script>
+fetch("/api/dausach", {
+    credentials: "include"
+})
+.then(res => {
+    if (!res.ok) {
+        alert("Chưa đăng nhập");
+        location.href = "/login.html";
+    }
+    return res.json();
+})
+.then(books => {
+    const container = document.getElementById("bookList");
 
-    <ul id="bookList"></ul>
+    books.forEach(book => {
+        const div = document.createElement("div");
+        div.className = "book";
 
-    <script>
-        function addBook() {
-            fetch('/api/book', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    title: document.getElementById('title').value,
-                    author: document.getElementById('author').value,
-                    year: document.getElementById('year').value
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                alert(data.message);
-            });
-        }
+        div.innerHTML = `
+            <img src="${book.anhBia || 'no-image.png'}">
+            <div>
+                <h3>${book.tenSach}</h3>
+                <p><b>Tác giả:</b> ${book.tacGia || "Đang cập nhật"}</p>
+                <p><b>Thể loại:</b> ${book.theLoai || ""}</p>
+                <p><b>Năm XB:</b> ${book.namXuatBan || ""}</p>
+                <p>${book.moTa || ""}</p>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+});
+</script>
 
-        function loadBooks() {
-            fetch('/api/book')
-            .then(res => res.json())
-            .then(data => {
-                const list = document.getElementById('bookList');
-                list.innerHTML = '';
-                data.forEach(book => {
-                    const li = document.createElement('li');
-                    li.textContent = `${book.title} - ${book.author} (${book.year})`;
-                    list.appendChild(li);
-                });
-            });
-        }
-    </script>
 </body>
 </html>
