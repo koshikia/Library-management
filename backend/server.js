@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, "..", "frontend")));
 
 //ROUTE HOME
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "loginPage.html"));
+  res.sendFile(path.join(__dirname, "..", "frontend", "docgia.html"));
 });
 
 // TEST
