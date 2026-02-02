@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Trang thủ thư - Quản lý thư viện</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+
+    <nav class="sidebar">
+        <h1>Trang tổng quan <span class="sticker">✨</span></h1>
+
+        <h2>📚 Thư viện</h2>
+        <ul>
+            <li class="active"><a href="#">📊 Dashboard</a></li>
+            <li><a href="#">📚 Quản lý sách</a></li>
+            <li><a href="#">👤 Quản lý độc giả</a></li>
+            <li><a href="#">🔄 Mượn - Trả sách</a></li>
+            <li><a href="#">⚠️ Vi phạm</a></li>
+            <li><a href="#">📈 Báo cáo</a></li>
+            <li><a href="#">⚙️ Cài đặt</a></li>
+        </ul>
+    </nav>
+
+    <main class="main">
+        <header class="header">
+            <div class="breadcrumb">Hệ thống quản lý thư viện / <b>Dashboard</b></div>
+            <div class="user-info">
+                <span>👩 <b>Thủ thư</b></span> | 
+                <a href="#" style="text-decoration: none; color: #e74c3c;">Đăng xuất</a>
+            </div>
+        </header>
+
+        <section class="content">
+            <h1>Trang tổng quan</h1>
+
+            <div class="cards">
+                <div class="card">
+                    <h3>📚 Tổng số sách</h3>
+                    <p>1,200</p>
+                </div>
+                <div class="card">
+                    <h3>📖 Sách đang mượn</h3>
+                    <p>320</p>
+                </div>
+                <div class="card">
+                    <h3>👤 Độc giả</h3>
+                    <p>540</p>
+                </div>
+                <div class="card">
+                    <h3>⏰ Quá hạn</h3>
+                    <p style="color: #be3d61;">15</p> </div>
+            </div>
+
+            <div class="table-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Danh sách sách mới</h2>
+                <button style="padding: 8px 15px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">+ Thêm sách</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã sách</th>
+                            <th>Tên sách</th>
+                            <th>Tác giả</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th> </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>S001</td>
+                            <td>Lập trình Web</td>
+                            <td>Nguyễn Văn Anh</td>
+                            <td><span class="status status-available">Còn</span></td>
+                            <td><button>Sửa</button></td>
+                        </tr>
+                        <tr>
+                            <td>S002</td>
+                            <td>Cơ sở dữ liệu</td>
+                            <td>Trần Thị Huyền</td>
+                            <td><span class="status status-borrowed">Đang mượn</span></td>
+                            <td><button>Sửa</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
