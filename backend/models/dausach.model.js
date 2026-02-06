@@ -10,13 +10,13 @@ class DauSachModel {
     }
 
     static create(data) {
-        const sql = `INSERT INTO DauSach (maDauSach, tenSach, tacGia, theLoai, nhaXuatBan, namXuatBan, moTa, tongSoLuong) VALUES (?, ?, ?, ?, ?, ?, ?, 0)`;
-        return db.query(sql, [data.maDauSach, data.tenSach, data.tacGia, data.theLoai, data.nhaXuatBan, data.namXuatBan, data.moTa]);
+        const sql = `INSERT INTO DauSach (maDauSach, tenSach, tacGia, theLoai, nhaXuatBan, namXuatBan, moTa, hinhAnh, tongSoLuong) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)`;
+        return db.query(sql, [data.maDauSach, data.tenSach, data.tacGia, data.theLoai, data.nhaXuatBan, data.namXuatBan, data.moTa, data.hinhAnh]);
     }
 
     static update(id, data) {
-        const sql = `UPDATE DauSach SET tenSach = ?, tacGia = ?, theLoai = ?, nhaXuatBan = ?, namXuatBan = ?, moTa = ? WHERE maDauSach = ?`;
-        return db.query(sql, [data.tenSach, data.tacGia, data.theLoai, data.nhaXuatBan, data.namXuatBan, data.moTa, id]);
+        const sql = `UPDATE DauSach SET tenSach = ?, tacGia = ?, theLoai = ?, nhaXuatBan = ?, namXuatBan = ?, moTa = ?, hinhAnh = ? WHERE maDauSach = ?`;
+        return db.query(sql, [data.tenSach, data.tacGia, data.theLoai, data.nhaXuatBan, data.namXuatBan, data.moTa, data.hinhAnh, id]);
     }
 
     static delete(id) {

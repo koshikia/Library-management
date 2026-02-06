@@ -30,6 +30,7 @@ CREATE TABLE DauSach (
     nhaXuatBan VARCHAR(255),
     namXuatBan INT,
     moTa TEXT,
+    hinhAnh VARCHAR(500) DEFAULT NULL,
     tongSoLuong INT DEFAULT 0
 ) ENGINE=InnoDB;
 
