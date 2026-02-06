@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tài Khoản</title>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Đăng Ký Thành Viên</h2>
+        
+        <form id="registerForm">
+            
+            <div class="form-group">
+                <label for="hoTen">Họ và Tên</label>
+                <input type="text" id="hoTen" placeholder="Nguyễn Văn A" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="example@gmail.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="matKhau">Mật khẩu</label>
+                <input type="password" id="matKhau" placeholder="Nhập mật khẩu..." required>
+            </div>
+
+            <button type="submit">Đăng Ký Ngay</button>
+        </form>
+
+        <div class="login-link">
+            Đã có tài khoản? <a href="login.html">Đăng nhập tại đây</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", async e => {
+            e.preventDefault();
+            const data = {
+                hoTen: document.getElementById('hoTen').value,  
+                email: document.getElementById('email').value,
+                matKhau: document.getElementById('matKhau').value
+            };
+            try {
+                const res = await fetch("http://localhost:3000/api/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                    credentials: "include"
+                });
+                const result = await res.json();
+                alert(result.message);
+                if (res.ok) {
+                    window.location.href = "login.html";
+                }
+            } catch (error) {
+                console.error("Lỗi:", error);
+                alert("Không thể kết nối đến server!");
+            }
+        });
+    </script>
+
+</body>
+</html>

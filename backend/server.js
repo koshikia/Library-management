@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 
-require('./db'); // ✅ KẾT NỐI MYSQL
+require('./config/db'); // ✅ KẾT NỐI MYSQL
 
-const authRoute = require('./routes/auth.route');
+
+const borrowRoutes = require('./routes/borrowRoutes');
 
 const app = express();
 const PORT = 3000;
@@ -12,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/auth', authRoute);
+app.use('/api/borrows', borrowRoutes);
 
 app.get('/test', (req, res) => {
     res.send('SERVER IS RUNNING');
