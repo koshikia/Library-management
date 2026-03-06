@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Quản lý vi phạm thư viện</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, Arial;
+}
+
+body{
+background:#fff1f5;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:230px;
+height:100vh;
+background:#ec4899;
+color:white;
+padding:20px;
+}
+
+.sidebar h2{
+text-align:center;
+margin-bottom:30px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li{
+padding:12px;
+border-radius:6px;
+margin-bottom:10px;
+cursor:pointer;
+}
+
+.sidebar ul li:hover{
+background:#db2777;
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+padding:25px;
+}
+
+/* HEADER */
+
+.header{
+font-size:26px;
+font-weight:bold;
+margin-bottom:20px;
+color:#be185d;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+margin-bottom:20px;
+}
+
+/* FORM */
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+}
+
+input,select{
+padding:9px;
+border:1px solid #f9a8d4;
+border-radius:6px;
+}
+
+input:focus{
+outline:none;
+border-color:#f472b6;
+box-shadow:0 0 5px #f9a8d4;
+}
+
+/* BUTTON */
+
+button{
+background:#f43f5e;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#e11d48;
+}
+
+/* SEARCH */
+
+.search{
+margin-bottom:10px;
+width:260px;
+padding:8px;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+th{
+background:#ec4899;
+color:white;
+}
+
+tr:hover{
+background:#fff0f6;
+}
+
+/* DELETE */
+
+.delete{
+background:#dc2626;
+}
+
+.delete:hover{
+background:#b91c1c;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>📚 Library</h2>
+
+<ul>
+<li>Dashboard</li>
+<li>Mượn sách</li>
+<li>Trả sách</li>
+<li><b>Vi phạm</b></li>
+<li>Độc giả</li>
+<li>Sách</li>
+</ul>
+
+</div>
+
+<div class="main">
+
+<div class="header">
+⚠ Quản lý vi phạm nội quy
+</div>
+
+<div class="card">
+
+<h3>Thêm vi phạm</h3>
+
+<div class="form-grid">
+
+<input id="masv" placeholder="Mã sinh viên">
+<input id="tensv" placeholder="Tên sinh viên">
+
+<select id="vipham">
+<option>Không giữ trật tự</option>
+<option>Làm hỏng sách</option>
+<option>Không trả sách đúng hạn</option>
+<option>Ăn uống trong thư viện</option>
+</select>
+
+<input type="date" id="ngay">
+
+</div>
+
+<br>
+
+<button onclick="them()">Thêm vi phạm</button>
+
+</div>
+
+<div class="card">
+
+<input class="search" id="search" placeholder="Tìm sinh viên..." onkeyup="tim()">
+
+<table>
+
+<thead>
+<tr>
+<th>Mã SV</th>
+<th>Tên SV</th>
+<th>Vi phạm</th>
+<th>Ngày</th>
+<th>Hành động</th>
+</tr>
+</thead>
+
+<tbody id="table"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+let data = JSON.parse(localStorage.getItem("vipham")) || [];
+
+function render(){
+
+let table=document.getElementById("table");
+table.innerHTML="";
+
+data.forEach((i,index)=>{
+
+table.innerHTML+=`
+<tr>
+<td>${i.masv}</td>
+<td>${i.tensv}</td>
+<td>${i.vipham}</td>
+<td>${i.ngay}</td>
+<td>
+<button class="delete" onclick="xoa(${index})">Xóa</button>
+</td>
+</tr>
+`;
+
+});
+
+localStorage.setItem("vipham",JSON.stringify(data));
+
+}
+
+function them(){
+
+let masv=document.getElementById("masv").value;
+let tensv=document.getElementById("tensv").value;
+let vipham=document.getElementById("vipham").value;
+let ngay=document.getElementById("ngay").value;
+
+if(masv=="" || tensv==""){
+alert("Nhập đầy đủ thông tin");
+return;
+}
+
+data.push({masv,tensv,vipham,ngay});
+
+render();
+
+}
+
+function xoa(index){
+
+if(confirm("Bạn muốn xóa vi phạm?")){
+data.splice(index,1);
+render();
+}
+
+}
+
+function tim(){
+
+let value=document.getElementById("search").value.toLowerCase();
+let rows=document.querySelectorAll("#table tr");
+
+rows.forEach(r=>{
+r.style.display=r.innerText.toLowerCase().includes(value)?"":"none";
+});
+
+}
+
+render();
+
+</script>
+
+</body>
+</html>
