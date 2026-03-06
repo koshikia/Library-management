@@ -9,32 +9,32 @@ CREATE TABLE IF NOT EXISTS book (
 );
 
 CREATE TABLE IF NOT EXISTS NguoiDung (
-    maNguoiDung INT AUTO_INCREMENT PRIMARY KEY,
-    hoTen VARCHAR(255),
-    email VARCHAR(255),
-    soDienThoai VARCHAR(255),
-    diaChi VARCHAR(255),
-    tenDangNhap VARCHAR(255),
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    hoTen VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE,
     matKhau VARCHAR(255),
-    trangThai ENUM('Độc giả', 'Thủ thư', 'Quản trị viên') 
-        NOT NULL DEFAULT 'Độc giả',
-);
-CREATE TABLE IF NOT EXISTS QuanTriVien (
-    maNguoiDung INT PRIMARY KEY,
+    vaiTro ENUM('DOCGIA', 'THUTHU', 'ADMIN') DEFAULT 'DOCGIA',
+    ngayTao DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 
-    CONSTRAINT fk_qtv_nguoidung
-    FOREIGN KEY (maNguoiDung)
-    REFERENCES NguoiDung(maNguoiDung)
-    ON DELETE CASCADE
-);
+CREATE TABLE IF NOT EXISTS DauSach (
+    maDauSach VARCHAR(20) PRIMARY KEY,
+    tenSach VARCHAR(255) NOT NULL,
+    tacGia VARCHAR(255),
+    theLoai VARCHAR(100),
+    nhaXuatBan VARCHAR(255),
+    namXuatBan INT,
+    moTa TEXT,
+    tongSoLuong INT DEFAULT 0
+    anhBia VARCHAR(255)
+) ENGINE=InnoDB;
 
-INSERT INTO NguoiDung (
-    hoTen, tenDangNhap, matKhau, trangThai
-) VALUES (
-    'Admin', 'admin', '123456', 'Quản trị viên'
-);
+CREATE TABLE IF NOT EXISTS BanSaoSach (
+    maVach VARCHAR(50) PRIMARY KEY,
+    maDauSach VARCHAR(20) NOT NULL,
+    trangThai ENUM('CO_SAN', 'DANG_MUON', 'HU_HONG', 'MAT') DEFAULT 'CO_SAN',
 
-INSERT INTO QuanTriVien (maNguoiDung)
-VALUES (LAST_INSERT_ID());
-
-
+    FOREIGN KEY (maDauSach)
+        REFERENCES DauSach(maDauSach)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
