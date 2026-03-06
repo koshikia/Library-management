@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS DauSach (
     namXuatBan INT,
     moTa TEXT,
     tongSoLuong INT DEFAULT 0
+    anhBia VARCHAR(255)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS BanSaoSach (
