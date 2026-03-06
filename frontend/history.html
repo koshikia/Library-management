@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>library-management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-logo">
+             <i class="fa-solid fa-book-open"></i>
+          </div>
+          <div>
+            <h2>Thư viện số</h2>
+            <span>Premium Member</span>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <a href="home.html" class="menu-item"> <i class="fa-solid fa-house"></i> Trang chủ</a>
+          <a href="#" class="menu-item"> Sách của tôi</a>
+          <a href="history.html" class="menu-item active"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử mượn</a>
+          <a href="#" class="menu-item"><i class="fa-solid fa-heart"></i>  Yêu thích</a>
+           <a href="#" class="menu-item"> <i class="fa-solid fa-person"></i> Danh mục</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <a href="#" class="menu-item settings-link"> Cài đặt</a>
+
+        <div class="upgrade-box">
+          <p>GÓI HIỆN TẠI</p>
+          <strong>Thành viên Bạc</strong>
+          <button>Nâng cấp</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <section class="page-header">
+        <h1>Lịch sử mượn sách</h1>
+        <p>Theo dõi và quản lý những cuốn sách bạn đã từng khám phá.</p>
+      </section>
+
+      <div class="history-toolbar">
+        <input type="text" placeholder="Tìm kiếm tên sách, tác giả..." />
+        <button class="toolbar-btn"> Tất cả thời gian</button>
+        <button class="toolbar-btn"> Lọc</button>
+      </div>
+
+      <section class="table-wrapper">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>TÊN SÁCH</th>
+              <th>NGÀY MƯỢN</th>
+              <th>NGÀY TRẢ THỰC TẾ</th>
+              <th>TRẠNG THÁI</th>
+              <th>HÀNH ĐỘNG</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="book-info">
+                  <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=200&auto=format&fit=crop&q=60" alt="">
+                  <div>
+                    <strong>Đắc Nhân Tâm</strong>
+                    <p>Dale Carnegie</p>
+                  </div>
+                </div>
+              </td>
+              <td>12/10/2023</td>
+              <td>26/10/2023</td>
+              <td><span class="status status-success">Đã trả</span></td>
+              <td class="action-cell">⋯</td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="book-info">
+                  <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=200&auto=format&fit=crop&q=60" alt="">
+                  <div>
+                    <strong>Nhà Giả Kim</strong>
+                    <p>Paulo Coelho</p>
+                  </div>
+                </div>
+              </td>
+              <td>05/11/2023</td>
+              <td>25/11/2023</td>
+              <td><span class="status status-danger">Trả muộn</span></td>
+              <td class="action-cell">⋯</td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="book-info">
+                  <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=200&auto=format&fit=crop&q=60" alt="">
+                  <div>
+                    <strong>Sapiens: Lược Sử Loài Người</strong>
+                    <p>Yuval Noah Harari</p>
+                  </div>
+                </div>
+              </td>
+              <td>20/11/2023</td>
+              <td>04/12/2023</td>
+              <td><span class="status status-success">Đã trả</span></td>
+              <td class="action-cell">⋯</td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="book-info">
+                  <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=200&auto=format&fit=crop&q=60" alt="">
+                  <div>
+                    <strong>Tư Duy Nhanh và Chậm</strong>
+                    <p>Daniel Kahneman</p>
+                  </div>
+                </div>
+              </td>
+              <td>10/12/2023</td>
+              <td>Đang mượn...</td>
+              <td><span class="status status-primary">Đang mượn</span></td>
+              <td class="action-cell">⋯</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="table-footer">
+          <span>Hiển thị 4 trên 48 kết quả</span>
+          <div class="pagination">
+            <button>‹</button>
+            <button class="active-page">1</button>
+            <button>2</button>
+            <button>›</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="right-panel">
+      <div class="panel-card">
+        <h3>Thống kê đọc sách 2024</h3>
+
+        <div class="stats-box">
+          <span>TỔNG SỐ SÁCH ĐÃ ĐỌC</span>
+          <h2>24</h2>
+          <p>+4 cuốn so với năm ngoái</p>
+        </div>
+
+        <div class="goal-box">
+          <div class="goal-row">
+            <span>MỤC TIÊU NĂM</span>
+            <strong>60%</strong>
+          </div>
+          <p>24 / 40 cuốn</p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%;"></div>
+          </div>
+        </div>
+
+        <div class="chart-box">
+          <h4>Hoạt động hàng tháng</h4>
+          <div class="fake-chart">
+            <div class="bar" style="height: 30%;"></div>
+            <div class="bar" style="height: 15%;"></div>
+            <div class="bar" style="height: 45%;"></div>
+            <div class="bar" style="height: 22%;"></div>
+            <div class="bar" style="height: 68%;"></div>
+            <div class="bar active" style="height: 84%;"></div>
+          </div>
+          <div class="chart-labels">
+            <span>T1</span>
+            <span>T2</span>
+            <span>T3</span>
+            <span>T4</span>
+            <span>T5</span>
+            <span>T6</span>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <strong> Một sách chính hiệu</strong>
+          <p>Đã đọc sách liên tục 7 ngày</p>
+        </div>
+
+        <div class="tag-list">
+          <span class="tag">#TâmLýHọc</span>
+          <span class="tag">#KinhTế</span>
+          <span class="tag">#VănHọc</span>
+          <span class="tag">#KỹNăng</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>
