@@ -8,18 +8,44 @@
 <body>
 
     <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>📚 Thư viện</h2>
-        <ul>
-            <li>📊 Dashboard</li>
-            <li>📚 Quản lý sách</li>
-            <li>👤 Quản lý độc giả</li>
-            <li>🔄 Mượn - Trả sách</li>
-            <li>⚠️ Vi phạm</li>
-            <li>📈 Báo cáo</li>
-            <li>⚙️ Cài đặt</li>
-        </ul>
-    </div>
+   <div class="sidebar">
+    <h2>📚 Thư viện</h2>
+    <ul>
+        <li onclick="showPage('dashboard')">📊 Dashboard</li>
+        <li onclick="showPage('books')">📚 Quản lý sách</li>
+        <li onclick="showPage('readers')">👤 Quản lý độc giả</li>
+        <!-- <li onclick="showPage('borrow')">🔄 Mượn - Trả sách</li> -->
+         <li>
+<a href="thu_thu_3.html" style="text-decoration:none; color:inherit; display:block;">
+🔄 Mượn - Trả sách
+</a>
+</li>
+        <li onclick="showPage('violation')">⚠️ Vi phạm</li>
+        <li onclick="showPage('report')">📈 Báo cáo</li>
+        <li onclick="showPage('setting')">⚙️ Cài đặt</li>
+    </ul>
+</div>
+
+<script>
+
+function showPage(pageId) {
+
+    // Ẩn tất cả trang
+    let pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page){
+        page.style.display = "none";
+    });
+
+    // Hiện trang được chọn
+    document.getElementById(pageId).style.display = "block";
+
+}
+
+// mặc định mở dashboard
+showPage("dashboard");
+
+</script>
 
     <!-- Main -->
     <div class="main">
