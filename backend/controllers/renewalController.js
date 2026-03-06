@@ -3,7 +3,8 @@ const Renew = require('../models/Renew');
 //bạn đọc gửi yêu cầu gia hạn
 exports.requestRenewal = async (req, res) => {
     const { phieuMuonId, lyDo } = req.body;
-    const nguoiDungId = req.user.id;
+    //const nguoiDungId = req.user.id;
+    const nguoiDungId = 1;//test
 
     const conn = await db.getConnection();
     try {
