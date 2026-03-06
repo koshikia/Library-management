@@ -40,7 +40,7 @@ fetch("/api/dausach", {
         div.className = "book";
 
         div.innerHTML = `
-            <img src="${book.anhBia || 'no-image.png'}">
+            <img src="/pics/books/${book.anhBia || 'no-image.png'}">
             <div>
                 <h3>${book.tenSach}</h3>
                 <p><b>Tác giả:</b> ${book.tacGia || "Đang cập nhật"}</p>

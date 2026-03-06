@@ -1,3 +1,42 @@
-<h1>ddđ</h1>
+<h2>Thêm sách</h2>
+
+<form id="uploadBookForm" enctype="multipart/form-data">
+
+<input type="text" name="maDauSach" placeholder="Mã đầu sách" required>
+<input type="text" name="tenSach" placeholder="Tên sách" required>
+<input type="text" name="tacGia" placeholder="Tác giả">
+<input type="text" name="theLoai" placeholder="Thể loại">
+<input type="text" name="nhaXuatBan" placeholder="Nhà xuất bản">
+<input type="number" name="namXuatBan" placeholder="Năm xuất bản">
+<input type="number" name="tongSoLuong" placeholder="Số lượng">
+
+<textarea name="moTa" placeholder="Mô tả"></textarea>
+
+<input type="file" name="anhBia" accept="image/*">
+
+<button type="submit">Thêm sách</button>
+
+</form>
+
 <script>
+
+document
+.getElementById("uploadBookForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    const res = await fetch("/api/books/uploadBook",{
+        method:"POST",
+        body:formData
+    });
+
+    const data = await res.json();
+
+    alert(data.message);
+
+});
+
 </script>

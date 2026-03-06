@@ -41,4 +41,8 @@ app.get('/admin', isAdmin, (req, res) => {
     res.sendFile(__dirname + "/protected/admin.html");
 });
 
+// route upload book
+app.use("/api/books", bookRoutes);
+app.use("/pics", express.static("pics"));
+
 module.exports = app;
