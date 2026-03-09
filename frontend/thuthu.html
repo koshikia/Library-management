@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head></head>
+    <body>
+<h2>Thêm sách</h2>
+
+<form id="uploadBookForm" enctype="multipart/form-data">
+
+<input type="text" name="maDauSach" placeholder="Mã đầu sách" required>
+<input type="text" name="tenSach" placeholder="Tên sách" required>
+<input type="text" name="tacGia" placeholder="Tác giả">
+<input type="text" name="theLoai" placeholder="Thể loại">
+<input type="text" name="nhaXuatBan" placeholder="Nhà xuất bản">
+<input type="number" name="namXuatBan" placeholder="Năm xuất bản">
+<input type="number" name="tongSoLuong" placeholder="Số lượng">
+
+<textarea name="moTa" placeholder="Mô tả"></textarea>
+
+<input type="file" name="anhBia" accept="image/*">
+
+<button type="submit">Thêm sách</button>
+
+</form>
+<div id="bookList"></div>
+<script>
+async function loadBooks() {
+    const res = await fetch("/api/books");
+    const books = await res.json();
+
+    const table = document.getElementById("bookTable");
+    table.innerHTML = "";
+
+    books.forEach(book => {
+        table.innerHTML += `
+        <tr>
+            <td>${book.id}</td>
+            <td>${book.tenSach}</td>
+            <td>${book.tacGia}</td>
+            <td>
+                <img src="/uploads/${book.anhBia}" width="60">
+            </td>
+            <td>
+                <button onclick="editBook(${book.id}, '${book.tenSach}', '${book.tacGia}')">Sửa</button>
+                <button onclick="deleteBook(${book.id})">Xóa</button>
+            </td>
+        </tr>
+        `;
+    });
+}
+async function deleteBook(id) {
+
+    if(!confirm("Bạn chắc chắn muốn xóa?")) return;
+
+    const res = await fetch(`/api/books/${id}`,{
+        method:"DELETE"
+    });
+
+    const data = await res.json();
+
+    alert(data.message);
+
+    loadBooks();
+}
+function editBook(id, tenSach, tacGia){
+
+    document.getElementById("bookId").value = id;
+    document.getElementById("tenSach").value = tenSach;
+    document.getElementById("tacGia").value = tacGia;
+
+}
+document.getElementById("updateBookForm").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const id = document.getElementById("bookId").value;
+
+    const formData = new FormData(this);
+
+    const res = await fetch(`/api/books/${id}`,{
+        method:"PUT",
+        body:formData
+    });
+
+    const data = await res.json();
+
+    alert(data.message);
+
+    loadBooks();
+});
+document.getElementById("uploadBookForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    const res = await fetch("/api/books/uploadBook",{
+        method:"POST",
+        body:formData
+    });
+
+    const data = await res.json();
+
+    alert(data.message);
+
+});
+
+</script>
+    </body>
+</html>

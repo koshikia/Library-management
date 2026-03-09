@@ -45,4 +45,8 @@ app.get('/admin', isAdmin, (req, res) => {
 app.use("/api/books", bookRoutes);
 app.use("/pics", express.static("pics"));
 
+//parse body
+app.use(express.json())
+app.use(express.urlencoded({ extended:true }))
+
 module.exports = app;

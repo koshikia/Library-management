@@ -1,42 +1,212 @@
-<h2>Thêm sách</h2>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách đầu sách</title>
+    <style>
+        .book {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            gap: 15px;
+        }
+        img {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<h1>Quản lý sách</h1>
+
+<!-- FORM THÊM SÁCH -->
 
 <form id="uploadBookForm" enctype="multipart/form-data">
 
-<input type="text" name="maDauSach" placeholder="Mã đầu sách" required>
-<input type="text" name="tenSach" placeholder="Tên sách" required>
-<input type="text" name="tacGia" placeholder="Tác giả">
-<input type="text" name="theLoai" placeholder="Thể loại">
-<input type="text" name="nhaXuatBan" placeholder="Nhà xuất bản">
-<input type="number" name="namXuatBan" placeholder="Năm xuất bản">
-<input type="number" name="tongSoLuong" placeholder="Số lượng">
+<h3>Thêm sách</h3>
+
+<input name="maDauSach" placeholder="Mã sách" required>
+
+<input name="tenSach" placeholder="Tên sách" required>
+
+<input name="tacGia" placeholder="Tác giả">
+
+<input name="theLoai" placeholder="Thể loại">
+
+<input name="nhaXuatBan" placeholder="Nhà xuất bản">
+
+<input name="namXuatBan" placeholder="Năm xuất bản">
+
+<input name="tongSoLuong" placeholder="Số lượng">
 
 <textarea name="moTa" placeholder="Mô tả"></textarea>
 
-<input type="file" name="anhBia" accept="image/*">
+<input type="file" name="anhBia" id="anhBia">
+
+<img id="preview" width="120">
 
 <button type="submit">Thêm sách</button>
 
 </form>
 
-<script>
+<h2>Danh sách đầu sách</h2>
+<div id="bookList"></div>
 
+<script>
+let editingBookId = null
+document.getElementById("anhBia").onchange = e=>{
+    const file = e.target.files[0]
+    document.getElementById("preview").src = URL.createObjectURL(file)
+}
+
+// thêm sách
 document
 .getElementById("uploadBookForm")
 .addEventListener("submit", async function(e){
 
-    e.preventDefault();
+    e.preventDefault()
 
-    const formData = new FormData(this);
+    const formData = new FormData(this)
 
-    const res = await fetch("/api/books/uploadBook",{
-        method:"POST",
-        body:formData
-    });
+    let url = "/api/uploadBook"
+    let method = "POST"
 
-    const data = await res.json();
+    if(editingBookId){
+        url = "/api/updateBook/" + editingBookId
+        method = "PUT"
+    }
 
-    alert(data.message);
+    try{
 
-});
+        const res = await fetch(url,{
+            method: method,
+            body: formData
+        })
+
+        const data = await res.json()
+
+        alert(data.message || "Thành công")
+
+        editingBookId = null
+
+        this.reset()
+
+        document.getElementById("preview").src=""
+
+        loadBooks()
+
+    }
+    catch(err){
+
+        console.error(err)
+
+        alert("Có lỗi xảy ra")
+
+    }
+
+})
+// LOAD DANH SÁCH SÁCH
+async function loadBooks(){
+
+    const res = await fetch("/api/dausach",{credentials:"include"})
+
+    const books = await res.json()
+
+    window.currentBooks = books
+
+    const container = document.getElementById("bookList")
+
+    container.innerHTML = ""
+
+    books.forEach(book=>{
+
+        const div = document.createElement("div")
+
+        div.className="book"
+
+        div.innerHTML = `
+            <img src="/pics/books/${book.anhBia || 'no-image.png'}">
+
+            <div>
+                <h3>${book.tenSach}</h3>
+
+                <p><b>Tác giả:</b> ${book.tacGia || ""}</p>
+
+                <p><b>Thể loại:</b> ${book.theLoai || ""}</p>
+
+                <p><b>Năm XB:</b> ${book.namXuatBan || ""}</p>
+
+                <p>${book.moTa || ""}</p>
+
+                <button onclick="editBook('${book.maDauSach}')">
+                    Sửa
+                </button>
+
+                <button onclick="deleteBook('${book.maDauSach}')">
+                    Xóa
+                </button>
+
+            </div>
+        `
+
+        container.appendChild(div)
+
+    })
+
+}
+
+// XÓA SÁCH
+async function deleteBook(id){
+
+    if(!confirm("Xóa sách này?")) return
+
+    await fetch("/api/deleteBook/"+id,{
+        method:"DELETE"
+    })
+
+    alert("Đã xóa")
+
+    loadBooks()
+
+}
+
+
+// SỬA SÁCH
+function editBook(id){
+
+    const book = window.currentBooks.find(b => b.maDauSach == id)
+
+    if(!book){
+        alert("Không tìm thấy sách")
+        return
+    }
+
+    editingBookId = id
+
+    const form = document.getElementById("uploadBookForm")
+
+    form.maDauSach.value = book.maDauSach
+    form.tenSach.value = book.tenSach
+    form.tacGia.value = book.tacGia || ""
+    form.theLoai.value = book.theLoai || ""
+    form.nhaXuatBan.value = book.nhaXuatBan || ""
+    form.namXuatBan.value = book.namXuatBan || ""
+    form.tongSoLuong.value = book.tongSoLuong || ""
+    form.moTa.value = book.moTa || ""
+
+    if(book.anhBia){
+        document.getElementById("preview").src = "/pics/books/" + book.anhBia
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    })
+
+}
+loadBooks()
 
 </script>
+
+</body>
+</html>

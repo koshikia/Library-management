@@ -1,5 +1,5 @@
 const bookModel = require('../models/book.model');
-
+const db = require("../config/db");
 exports.getAllBooks = (req, res) => {
     bookModel.getAllBooks((err, result) => {
         if (err) {
@@ -22,7 +22,6 @@ exports.uploadBook = (req, res) => {
         tongSoLuong
     } = req.body;
 
-    // đường dẫn lưu vào database
     const anhBia = "/pics/books/" + req.file.filename;
 
     const sql = `
@@ -52,4 +51,67 @@ exports.uploadBook = (req, res) => {
             anhBia: anhBia
         });
     });
+};
+exports.updateBook = (req, res) => {
+
+    const id = req.params.id
+
+    const tenSach = req.body.tenSach
+    const tacGia = req.body.tacGia
+    const theLoai = req.body.theLoai
+    const nhaXuatBan = req.body.nhaXuatBan
+    const namXuatBan = req.body.namXuatBan
+    const tongSoLuong = req.body.tongSoLuong
+    const moTa = req.body.moTa
+
+    let anhBia = null
+
+    if(req.file){
+        anhBia = req.file.filename
+    }
+
+    const sql = `
+        UPDATE DauSach 
+        SET tenSach=?, tacGia=?, theLoai=?, nhaXuatBan=?, namXuatBan=?, tongSoLuong=?, moTa=?, anhBia=?
+        WHERE maDauSach=?
+    `
+
+    db.query(sql,[
+        tenSach,
+        tacGia,
+        theLoai,
+        nhaXuatBan,
+        namXuatBan,
+        tongSoLuong,
+        moTa,
+        anhBia,
+        id
+    ],(err,result)=>{
+
+        if(err){
+            return res.status(500).json(err)
+        }
+
+        res.json({
+            message:"Cập nhật sách thành công"
+        })
+
+    })
+
+}
+exports.deleteBook = (req, res) => {
+
+    const id = req.params.id;
+
+    const sql = "DELETE FROM DauSach WHERE maDauSach=?";
+
+    db.query(sql,[id],(err)=>{
+
+        if(err){
+            return res.status(500).json({message:"Lỗi xoá"});
+        }
+
+        res.json({message:"Đã xoá sách"});
+    });
+
 };
