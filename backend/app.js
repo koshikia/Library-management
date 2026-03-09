@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 
 const authRoutes = require('./routes/auth.routes');
+const userRoutes = require("./routes/user.routes");
 const bookRoutes = require('./routes/book.routes');
 const { isAdmin } = require('./middleware/auth.middleware');
 
@@ -35,14 +36,11 @@ app.get("/", (req, res) => {
 // routes
 app.use('/api', authRoutes);
 app.use('/api', bookRoutes);
+app.use("/api", userRoutes);
 
 // route admin
 app.get('/admin', isAdmin, (req, res) => {
     res.sendFile(__dirname + "/protected/admin.html");
 });
-
-// route upload book
-app.use("/api/books", bookRoutes);
-app.use("/pics", express.static("pics"));
 
 module.exports = app;

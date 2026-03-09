@@ -1,42 +1,247 @@
-<h2>Thêm sách</h2>
+<!DOCTYPE html>
+<html>
+<head>
 
-<form id="uploadBookForm" enctype="multipart/form-data">
+<meta charset="UTF-8">
+<title>Admin - Quản lý người dùng</title>
 
-<input type="text" name="maDauSach" placeholder="Mã đầu sách" required>
-<input type="text" name="tenSach" placeholder="Tên sách" required>
-<input type="text" name="tacGia" placeholder="Tác giả">
-<input type="text" name="theLoai" placeholder="Thể loại">
-<input type="text" name="nhaXuatBan" placeholder="Nhà xuất bản">
-<input type="number" name="namXuatBan" placeholder="Năm xuất bản">
-<input type="number" name="tongSoLuong" placeholder="Số lượng">
+<style>
 
-<textarea name="moTa" placeholder="Mô tả"></textarea>
+body{
+font-family: Arial;
+margin:40px;
+background:#f4f6f8;
+}
 
-<input type="file" name="anhBia" accept="image/*">
+h2{
+margin-bottom:10px;
+}
 
-<button type="submit">Thêm sách</button>
+.container{
+display:flex;
+gap:40px;
+}
+
+form{
+background:white;
+padding:20px;
+border-radius:6px;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+input,select{
+display:block;
+margin-bottom:10px;
+padding:6px;
+width:250px;
+}
+
+button{
+padding:6px 12px;
+cursor:pointer;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:center;
+}
+
+th{
+background:#eee;
+}
+
+.btn-delete{
+background:#e74c3c;
+color:white;
+border:none;
+}
+
+.btn-edit{
+background:#3498db;
+color:white;
+border:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Quản lý người dùng</h2>
+
+<div class="container">
+
+<form id="formAddUser">
+
+<h3>Thêm người dùng</h3>
+
+<input name="hoTen" placeholder="Họ tên" required>
+
+<input name="email" placeholder="Email" required>
+
+<input name="matKhau" placeholder="Mật khẩu" required>
+
+<select name="vaiTro">
+
+<option value="DOCGIA">Độc giả</option>
+<option value="THUTHU">Thủ thư</option>
+<option value="ADMIN">Admin</option>
+
+</select>
+
+<button type="submit">Thêm</button>
 
 </form>
+<div style="flex:1">
+
+<h3>Danh sách người dùng</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Họ tên</th>
+<th>Email</th>
+<th>Vai trò</th>
+<th>Chức năng</th>
+
+</tr>
+
+</thead>
+
+<tbody id="userTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
 
 <script>
+loadUsers();
 
-document
-.getElementById("uploadBookForm")
-.addEventListener("submit", async function(e){
+async function loadUsers(){
 
-    e.preventDefault();
+const res = await fetch("/api/users");
 
-    const formData = new FormData(this);
+const users = await res.json();
 
-    const res = await fetch("/api/books/uploadBook",{
-        method:"POST",
-        body:formData
-    });
+const table = document.getElementById("userTable");
 
-    const data = await res.json();
+table.innerHTML="";
 
-    alert(data.message);
+users.forEach(user=>{
+
+table.innerHTML += `
+
+<tr>
+
+<td>${user.id}</td>
+
+<td>${user.hoTen}</td>
+
+<td>${user.email}</td>
+
+<td>${user.vaiTro}</td>
+
+<td>
+
+<button class="btn-edit" onclick="editUser(${user.id})">
+Sửa
+</button>
+
+<button class="btn-delete" onclick="deleteUser(${user.id})">
+Xóa
+</button>
+
+</td>
+
+</tr>
+
+`;
 
 });
 
+}
+
+document.getElementById("formAddUser").onsubmit = async function(e){
+
+e.preventDefault();
+
+const data = {
+hoTen: this.hoTen.value,
+email: this.email.value,
+matKhau: this.matKhau.value,
+vaiTro: this.vaiTro.value
+};
+
+await fetch("/api/users",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body: JSON.stringify(data)
+});
+
+alert("Đã thêm người dùng");
+
+this.reset();
+
+loadUsers();
+
+};
+
+async function deleteUser(id){
+
+if(!confirm("Bạn có chắc muốn xóa user này?")) return;
+
+await fetch("/api/users/"+id,{
+method:"DELETE"
+});
+
+loadUsers();
+
+}
+
+async function editUser(id){
+
+const hoTen = prompt("Nhập họ tên mới:");
+const email = prompt("Nhập email mới:");
+const vaiTro = prompt("Nhập vai trò (DOCGIA | THUTHU | ADMIN)");
+
+fetch("/api/users/" + id,{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body: JSON.stringify({
+hoTen:hoTen,
+email:email,
+vaiTro:vaiTro
+})
+})
+.then(res=>res.json())
+.then(data=>{
+alert(data.message);
+loadUsers();
+});
+
+}
+
 </script>
+
+</body>
+</html>
