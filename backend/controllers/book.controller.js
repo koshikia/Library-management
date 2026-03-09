@@ -9,109 +9,81 @@ exports.getAllBooks = (req, res) => {
     });
 };
 
-exports.uploadBook = (req, res) => {
+exports.addBook = (req, res) => {
 
-    const {
-        maDauSach,
-        tenSach,
-        tacGia,
-        theLoai,
-        nhaXuatBan,
-        namXuatBan,
-        moTa,
-        tongSoLuong
-    } = req.body;
+    const data = {
+        maDauSach: req.body.maDauSach,
+        tenSach: req.body.tenSach,
+        tacGia: req.body.tacGia,
+        theLoai: req.body.theLoai,
+        nhaXuatBan: req.body.nhaXuatBan,
+        namXuatBan: req.body.namXuatBan,
+        moTa: req.body.moTa,
+        tongSoLuong: req.body.tongSoLuong,
+        anhBia: req.file ? "/pics/books/" + req.file.filename : null
+    };
 
-    const anhBia = "/pics/books/" + req.file.filename;
+    bookModel.addBook(data, (err) => {
+        if (err) return res.status(500).json({ message: "Lỗi thêm sách" });
 
-    const sql = `
-        INSERT INTO DauSach
-        (maDauSach, tenSach, tacGia, theLoai, nhaXuatBan, namXuatBan, moTa, tongSoLuong, anhBia)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-
-    db.query(sql, [
-        maDauSach,
-        tenSach,
-        tacGia,
-        theLoai,
-        nhaXuatBan,
-        namXuatBan,
-        moTa,
-        tongSoLuong,
-        anhBia
-    ], (err, result) => {
-
-        if (err) {
-            return res.status(500).json(err);
-        }
-
-        res.json({
-            message: "Thêm sách thành công",
-            anhBia: anhBia
-        });
+        res.json({ message: "Thêm sách thành công" });
     });
 };
+
+
 exports.updateBook = (req, res) => {
 
-    const id = req.params.id
+const maDauSach = req.params.id;
 
-    const tenSach = req.body.tenSach
-    const tacGia = req.body.tacGia
-    const theLoai = req.body.theLoai
-    const nhaXuatBan = req.body.nhaXuatBan
-    const namXuatBan = req.body.namXuatBan
-    const tongSoLuong = req.body.tongSoLuong
-    const moTa = req.body.moTa
+const {
+tenSach,
+tacGia,
+theLoai,
+nhaXuatBan,
+namXuatBan,
+moTa,
+tongSoLuong
+} = req.body;
 
-    let anhBia = null
+const sql = `
+UPDATE DauSach SET
+tenSach=?,
+tacGia=?,
+theLoai=?,
+nhaXuatBan=?,
+namXuatBan=?,
+moTa=?,
+tongSoLuong=?
+WHERE maDauSach=?`;
 
-    if(req.file){
-        anhBia = req.file.filename
-    }
+db.query(sql,[
+tenSach,
+tacGia,
+theLoai,
+nhaXuatBan,
+namXuatBan,
+moTa,
+tongSoLuong,
+maDauSach
+],err=>{
 
-    const sql = `
-        UPDATE DauSach 
-        SET tenSach=?, tacGia=?, theLoai=?, nhaXuatBan=?, namXuatBan=?, tongSoLuong=?, moTa=?, anhBia=?
-        WHERE maDauSach=?
-    `
-
-    db.query(sql,[
-        tenSach,
-        tacGia,
-        theLoai,
-        nhaXuatBan,
-        namXuatBan,
-        tongSoLuong,
-        moTa,
-        anhBia,
-        id
-    ],(err,result)=>{
-
-        if(err){
-            return res.status(500).json(err)
-        }
-
-        res.json({
-            message:"Cập nhật sách thành công"
-        })
-
-    })
-
+if(err){
+return res.status(500).json({message:"Lỗi cập nhật"});
 }
+
+res.json({message:"Cập nhật thành công"});
+
+});
+
+};
+
 exports.deleteBook = (req, res) => {
 
-    const id = req.params.id;
+    const maDauSach = req.params.id;
 
-    const sql = "DELETE FROM DauSach WHERE maDauSach=?";
+    bookModel.deleteBook(maDauSach, (err) => {
+        if (err) return res.status(500).json({ message: "Lỗi xóa sách" });
 
-    db.query(sql,[id],(err)=>{
-
-        if(err){
-            return res.status(500).json({message:"Lỗi xoá"});
-        }
-
-        res.json({message:"Đã xoá sách"});
+        res.json({ message: "Xóa thành công" });
     });
-
 };

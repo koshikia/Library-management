@@ -1,108 +1,267 @@
 <!DOCTYPE html>
-<html lang="vi">
-    <head></head>
-    <body>
-<h2>Thêm sách</h2>
+<html>
 
-<form id="uploadBookForm" enctype="multipart/form-data">
+<head>
+<meta charset="UTF-8">
+<title>Quản lý sách</title>
 
-<input type="text" name="maDauSach" placeholder="Mã đầu sách" required>
-<input type="text" name="tenSach" placeholder="Tên sách" required>
-<input type="text" name="tacGia" placeholder="Tác giả">
-<input type="text" name="theLoai" placeholder="Thể loại">
-<input type="text" name="nhaXuatBan" placeholder="Nhà xuất bản">
-<input type="number" name="namXuatBan" placeholder="Năm xuất bản">
-<input type="number" name="tongSoLuong" placeholder="Số lượng">
+<style>
+
+body{
+font-family: Arial;
+margin:40px;
+}
+
+table{
+width:100%;
+border-collapse: collapse;
+margin-top:20px;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:8px;
+text-align:center;
+}
+
+img{
+width:60px;
+}
+
+form input, textarea{
+display:block;
+margin:5px 0;
+width:300px;
+padding:5px;
+}
+
+button{
+padding:5px 10px;
+margin:2px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Quản lý sách</h2>
+
+<!-- FORM THÊM SÁCH -->
+
+<h3>Thêm sách</h3>
+
+<form id="formAddBook" enctype="multipart/form-data">
+
+<input name="maDauSach" placeholder="Mã sách" required>
+
+<input name="tenSach" placeholder="Tên sách">
+
+<input name="tacGia" placeholder="Tác giả">
+
+<input name="theLoai" placeholder="Thể loại">
+
+<input name="nhaXuatBan" placeholder="Nhà xuất bản">
+
+<input name="namXuatBan" type="number" placeholder="Năm">
+
+<input name="tongSoLuong" type="number" placeholder="Số lượng">
 
 <textarea name="moTa" placeholder="Mô tả"></textarea>
 
-<input type="file" name="anhBia" accept="image/*">
+<input type="file" name="anhBia">
 
-<button type="submit">Thêm sách</button>
+<button>Thêm sách</button>
 
 </form>
-<div id="bookList"></div>
+
+<hr>
+
+<!-- DANH SÁCH SÁCH -->
+
+<h3>Danh sách sách</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Ảnh</th>
+<th>Mã</th>
+<th>Tên sách</th>
+<th>Tác giả</th>
+<th>Thể loại</th>
+<th>Nhà xuất bản</th>
+<th>Năm xuất bản</th>
+<th>Mô tả</th>
+<th>Số lượng</th>
+<th>Chức năng</th>
+
+</tr>
+
+</thead>
+
+<tbody id="bookTable"></tbody>
+
+</table>
+
 <script>
-async function loadBooks() {
-    const res = await fetch("/api/books");
-    const books = await res.json();
 
-    const table = document.getElementById("bookTable");
-    table.innerHTML = "";
+loadBooks();
 
-    books.forEach(book => {
-        table.innerHTML += `
-        <tr>
-            <td>${book.id}</td>
-            <td>${book.tenSach}</td>
-            <td>${book.tacGia}</td>
-            <td>
-                <img src="/uploads/${book.anhBia}" width="60">
-            </td>
-            <td>
-                <button onclick="editBook(${book.id}, '${book.tenSach}', '${book.tacGia}')">Sửa</button>
-                <button onclick="deleteBook(${book.id})">Xóa</button>
-            </td>
-        </tr>
-        `;
-    });
-}
-async function deleteBook(id) {
 
-    if(!confirm("Bạn chắc chắn muốn xóa?")) return;
+// ========================
+// LẤY DANH SÁCH SÁCH
+// ========================
 
-    const res = await fetch(`/api/books/${id}`,{
-        method:"DELETE"
-    });
+async function loadBooks(){
 
-    const data = await res.json();
+const res = await fetch("/api/dausach");
 
-    alert(data.message);
+const books = await res.json();
 
-    loadBooks();
-}
-function editBook(id, tenSach, tacGia){
+const table = document.getElementById("bookTable");
 
-    document.getElementById("bookId").value = id;
-    document.getElementById("tenSach").value = tenSach;
-    document.getElementById("tacGia").value = tacGia;
+table.innerHTML="";
 
-}
-document.getElementById("updateBookForm").addEventListener("submit", async function(e){
+books.forEach(book=>{
 
-    e.preventDefault();
+table.innerHTML += `
 
-    const id = document.getElementById("bookId").value;
+<tr>
 
-    const formData = new FormData(this);
+<td>
+<img src="${book.anhBia}">
+</td>
 
-    const res = await fetch(`/api/books/${id}`,{
-        method:"PUT",
-        body:formData
-    });
+<td>${book.maDauSach}</td>
 
-    const data = await res.json();
+<td>${book.tenSach}</td>
 
-    alert(data.message);
+<td>${book.tacGia}</td>
 
-    loadBooks();
-});
-document.getElementById("uploadBookForm").addEventListener("submit", async function(e){
-    e.preventDefault();
+<td>${book.theLoai}</td>
 
-    const formData = new FormData(this);
+<td>${book.nhaXuatBan}</td>
 
-    const res = await fetch("/api/books/uploadBook",{
-        method:"POST",
-        body:formData
-    });
+<td>${book.namXuatBan}</td>
 
-    const data = await res.json();
+<td>${book.moTa}</td>
 
-    alert(data.message);
+<td>${book.tongSoLuong}</td>
+
+<td>
+
+<button onclick="deleteBook('${book.maDauSach}')">
+Xóa
+</button>
+
+<button onclick="editBook('${book.maDauSach}')">
+Sửa
+</button>
+
+</td>
+
+</tr>
+
+`;
 
 });
+
+}
+
+
+
+// ========================
+// THÊM SÁCH
+// ========================
+
+document.getElementById("formAddBook").onsubmit = async function(e){
+
+e.preventDefault();
+
+const formData = new FormData(this);
+
+await fetch("/api/books",{
+
+method:"POST",
+body:formData
+
+});
+
+alert("Đã thêm sách");
+
+this.reset();
+
+loadBooks();
+
+};
+
+
+
+// ========================
+// XÓA SÁCH
+// ========================
+
+async function deleteBook(id){
+
+if(!confirm("Xóa sách này?")) return;
+
+await fetch("/api/books/"+id,{
+method:"DELETE"
+});
+
+loadBooks();
+
+}
+
+
+
+// ========================
+// SỬA SÁCH
+// ========================
+
+async function editBook(id){
+
+const tenSach = prompt("Tên sách mới");
+if(!tenSach) return;
+
+const tacGia = prompt("Tác giả");
+const theLoai = prompt("Thể loại");
+const nhaXuatBan = prompt("Nhà xuất bản");
+const namXuatBan = prompt("Năm xuất bản");
+const tongSoLuong = prompt("Số lượng");
+const moTa = prompt("Mô tả");
+
+const data = {
+tenSach,
+tacGia,
+theLoai,
+nhaXuatBan,
+namXuatBan,
+tongSoLuong,
+moTa
+};
+
+const res = await fetch("/api/books/"+id,{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+});
+
+const result = await res.json();
+
+alert(result.message);
+
+loadBooks();
+
+}
 
 </script>
-    </body>
+
+</body>
 </html>
