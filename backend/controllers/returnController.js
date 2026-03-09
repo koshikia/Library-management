@@ -1,55 +1,45 @@
-const db = require('../config/db');
 const PhieuMuon = require('../models/PhieuMuon');
-const BanSaoSach = require('../models/BanSaoSach');
+const db = require('../config/db');
 
 exports.returnBook = async (req, res) => {
 
-    const { phieuMuonId } = req.body;
-
-    const conn = await db.getConnection();
-
     try {
+        const { maVach } = req.body;
 
-        await conn.beginTransaction();
-
-        const phieuMuon = await PhieuMuon.findById(phieuMuonId);
+        // tìm phiếu mượn đang mượn
+        const phieuMuon = await PhieuMuon.findDangMuonByMaVach(maVach);
 
         if (!phieuMuon) {
-            return res.status(404).json({
-                error: "Không tìm thấy phiếu mượn"
-            });
+            return res.json({ message: "Không tìm thấy phiếu mượn" });
         }
 
-        if (phieuMuon.trangThai === 'DA_TRA') {
-            return res.status(400).json({
-                error: "Sách đã được trả"
-            });
+        const hanTra = new Date(phieuMuon.hanTra);
+        const today = new Date();
+
+        let soNgayTre = 0;
+        let tienPhat = 0;
+
+        if (today > hanTra) {
+            soNgayTre = Math.ceil((today - hanTra) / (1000 * 60 * 60 * 24));
+            tienPhat = soNgayTre * 5000;
         }
 
         // cập nhật phiếu mượn
-        await PhieuMuon.traSach(phieuMuonId);
+        await PhieuMuon.traSach(phieuMuon.id);
 
-        // cập nhật sách
-        await BanSaoSach.updateTrangThai(phieuMuon.maVach, 'CO_SAN');
-
-        await conn.commit();
+        // cập nhật trạng thái sách
+        await db.query(
+            "UPDATE BanSaoSach SET trangThai='CO_SAN' WHERE maVach=?",
+            [maVach]
+        );
 
         res.json({
-            message: "Trả sách thành công"
+            message: "Trả sách thành công",
+            soNgayTre,
+            tienPhat
         });
 
     } catch (error) {
-
-        await conn.rollback();
-
-        res.status(500).json({
-            error: "Lỗi server"
-        });
-
-    } finally {
-
-        conn.release();
-
+        res.status(500).json(error);
     }
-
 };
