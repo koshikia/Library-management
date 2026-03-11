@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Quản lý sách</title>
+
+<style>
+
+body{
+font-family: Arial;
+margin:40px;
+}
+
+table{
+width:100%;
+border-collapse: collapse;
+margin-top:20px;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:8px;
+text-align:center;
+}
+
+img{
+width:60px;
+}
+
+form input, textarea{
+display:block;
+margin:5px 0;
+width:300px;
+padding:5px;
+}
+
+button{
+padding:5px 10px;
+margin:2px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Quản lý sách</h2>
+
+<!-- FORM THÊM SÁCH -->
+
+<h3>Thêm sách</h3>
+
+<form id="formAddBook" enctype="multipart/form-data">
+
+<input name="maDauSach" placeholder="Mã sách" required>
+
+<input name="tenSach" placeholder="Tên sách">
+
+<input name="tacGia" placeholder="Tác giả">
+
+<input name="theLoai" placeholder="Thể loại">
+
+<input name="nhaXuatBan" placeholder="Nhà xuất bản">
+
+<input name="namXuatBan" type="number" placeholder="Năm">
+
+<input name="tongSoLuong" type="number" placeholder="Số lượng">
+
+<textarea name="moTa" placeholder="Mô tả"></textarea>
+
+<input type="file" name="anhBia">
+
+<button>Thêm sách</button>
+
+</form>
+
+<hr>
+
+<!-- DANH SÁCH SÁCH -->
+
+<h3>Danh sách sách</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Ảnh</th>
+<th>Mã</th>
+<th>Tên sách</th>
+<th>Tác giả</th>
+<th>Thể loại</th>
+<th>Nhà xuất bản</th>
+<th>Năm xuất bản</th>
+<th>Mô tả</th>
+<th>Số lượng</th>
+<th>Chức năng</th>
+
+</tr>
+
+</thead>
+
+<tbody id="bookTable"></tbody>
+
+</table>
+
+<script>
+
+loadBooks();
+
+
+// ========================
+// LẤY DANH SÁCH SÁCH
+// ========================
+
+async function loadBooks(){
+
+const res = await fetch("/api/dausach");
+
+const books = await res.json();
+
+const table = document.getElementById("bookTable");
+
+table.innerHTML="";
+
+books.forEach(book=>{
+
+table.innerHTML += `
+
+<tr>
+
+<td>
+<img src="${book.anhBia}">
+</td>
+
+<td>${book.maDauSach}</td>
+
+<td>${book.tenSach}</td>
+
+<td>${book.tacGia}</td>
+
+<td>${book.theLoai}</td>
+
+<td>${book.nhaXuatBan}</td>
+
+<td>${book.namXuatBan}</td>
+
+<td>${book.moTa}</td>
+
+<td>${book.tongSoLuong}</td>
+
+<td>
+
+<button onclick="deleteBook('${book.maDauSach}')">
+Xóa
+</button>
+
+<button onclick="editBook('${book.maDauSach}')">
+Sửa
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+
+
+// ========================
+// THÊM SÁCH
+// ========================
+
+document.getElementById("formAddBook").onsubmit = async function(e){
+
+e.preventDefault();
+
+const formData = new FormData(this);
+
+await fetch("/api/books",{
+
+method:"POST",
+body:formData
+
+});
+
+alert("Đã thêm sách");
+
+this.reset();
+
+loadBooks();
+
+};
+
+
+
+// ========================
+// XÓA SÁCH
+// ========================
+
+async function deleteBook(id){
+
+if(!confirm("Xóa sách này?")) return;
+
+await fetch("/api/books/"+id,{
+method:"DELETE"
+});
+
+loadBooks();
+
+}
+
+
+
+// ========================
+// SỬA SÁCH
+// ========================
+
+async function editBook(id){
+
+const tenSach = prompt("Tên sách mới");
+if(!tenSach) return;
+
+const tacGia = prompt("Tác giả");
+const theLoai = prompt("Thể loại");
+const nhaXuatBan = prompt("Nhà xuất bản");
+const namXuatBan = prompt("Năm xuất bản");
+const tongSoLuong = prompt("Số lượng");
+const moTa = prompt("Mô tả");
+
+const data = {
+tenSach,
+tacGia,
+theLoai,
+nhaXuatBan,
+namXuatBan,
+tongSoLuong,
+moTa
+};
+
+const res = await fetch("/api/books/"+id,{
+method:"PUT",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+});
+
+const result = await res.json();
+
+alert(result.message);
+
+loadBooks();
+
+}
+
+</script>
+
+</body>
+</html>

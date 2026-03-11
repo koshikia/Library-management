@@ -2,14 +2,18 @@ const express = require('express');
 const router = express.Router();
 
 const renewController = require('../controllers/renewalController');
+const { isThuThu } = require('../middleware/auth.middleware');
 
-// Bạn đọc gửi yêu cầu gia hạn
-router.post('/request', renewController.requestRenewal);
+// bạn đọc gửi yêu cầu gia hạn
+router.post('/', renewController.requestRenewal);
 
-// Thủ thư duyệt yêu cầu gia hạn
-router.post('/approve', renewController.approveRenewal);
+// thủ thư xem danh sách yêu cầu
+router.get('/', isThuThu, renewController.getPendingRenewals);
 
-// Thủ thư từ chối yêu cầu gia hạn
-router.post('/reject', renewController.rejectRenew);
+// thủ thư duyệt gia hạn
+router.post('/approve', isThuThu, renewController.approveRenewal);
+
+// thủ thư từ chối gia hạn
+router.post('/reject', isThuThu, renewController.rejectRenewal);
 
 module.exports = router;

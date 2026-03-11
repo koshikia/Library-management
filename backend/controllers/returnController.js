@@ -1,16 +1,30 @@
-const PhieuMuon = require('../models/PhieuMuon');
 const db = require('../config/db');
+const PhieuMuon = require('../models/PhieuMuon');
 
 exports.returnBook = async (req, res) => {
 
+    const { maVach } = req.body;
+
+    if (!maVach) {
+        return res.status(400).json({
+            message: "Thiếu mã vạch sách"
+        });
+    }
+
+    const conn = await db.getConnection();
+
     try {
-        const { maVach } = req.body;
+
+        await conn.beginTransaction();
 
         // tìm phiếu mượn đang mượn
         const phieuMuon = await PhieuMuon.findDangMuonByMaVach(maVach);
 
         if (!phieuMuon) {
-            return res.json({ message: "Không tìm thấy phiếu mượn" });
+            await conn.rollback();
+            return res.status(404).json({
+                message: "Không tìm thấy phiếu mượn đang mượn"
+            });
         }
 
         const hanTra = new Date(phieuMuon.hanTra);
@@ -20,18 +34,30 @@ exports.returnBook = async (req, res) => {
         let tienPhat = 0;
 
         if (today > hanTra) {
-            soNgayTre = Math.ceil((today - hanTra) / (1000 * 60 * 60 * 24));
+            soNgayTre = Math.ceil(
+                (today - hanTra) / (1000 * 60 * 60 * 24)
+            );
             tienPhat = soNgayTre * 5000;
         }
 
         // cập nhật phiếu mượn
-        await PhieuMuon.traSach(phieuMuon.id);
+        await conn.query(
+            `UPDATE PhieuMuon
+             SET trangThai='DA_TRA',
+                 ngayTra=CURDATE()
+             WHERE id=?`,
+            [phieuMuon.id]
+        );
 
         // cập nhật trạng thái sách
-        await db.query(
-            "UPDATE BanSaoSach SET trangThai='CO_SAN' WHERE maVach=?",
+        await conn.query(
+            `UPDATE BanSaoSach
+             SET trangThai='CO_SAN'
+             WHERE maVach=?`,
             [maVach]
         );
+
+        await conn.commit();
 
         res.json({
             message: "Trả sách thành công",
@@ -40,6 +66,14 @@ exports.returnBook = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json(error);
+
+        await conn.rollback();
+
+        res.status(500).json({
+            message: "Lỗi server"
+        });
+
+    } finally {
+        conn.release();
     }
 };

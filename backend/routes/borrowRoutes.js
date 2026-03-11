@@ -1,10 +1,43 @@
-// backend/routes/borrowRoutes.js
 const express = require('express');
 const router = express.Router();
+
 const borrowController = require('../controllers/borrowController');
 
-router.post('/', borrowController.createBorrow);
-router.post('/renew', borrowController.renewBook);
-// ... thêm các route khác như /return, /history
+const { 
+    isAdmin,
+    isThuThu,
+    isLoggedIn 
+} = require('../middleware/auth.middleware');
+
+
+// ===============================
+// TẠO PHIẾU MƯỢN (THỦ THƯ)
+// ===============================
+router.post(
+    '/',
+    isThuThu,
+    borrowController.createBorrow
+);
+
+
+// ===============================
+// THỦ THƯ / ADMIN XEM TẤT CẢ
+// ===============================
+router.get(
+    '/all',
+    isThuThu,
+    borrowController.getAllBorrows
+);
+
+
+// ===============================
+// ĐỘC GIẢ XEM CỦA MÌNH
+// ===============================
+router.get(
+    '/my',
+    isLoggedIn,
+    borrowController.getMyBorrows
+);
+
 
 module.exports = router;

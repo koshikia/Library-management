@@ -1,41 +1,57 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const session = require("express-session");
+const cors = require('cors');
+const path = require('path');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const authRoutes = require('./routes/auth.routes');
+const userRoutes = require("./routes/user.routes");
+const bookRoutes = require('./routes/book.routes');
 
-var app = express();
+//nam
+const borrowRoutes = require('./routes/borrowRoutes');
+const renewRoutes = require('./routes/renewRoutes'); // thêm dòng này
+const returnRoutes = require('./routes/returnRoutes');
+const { isAdmin } = require('./middleware/auth.middleware');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+const app = express();
+
+// middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use('/pics', express.static('pics'));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
+
+app.use(session({
+    secret: "secret_key_library",
+    resave: false,
+    saveUninitialized: false
+}));
+
+// frontend
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/login.html"));
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// routes
+app.use('/api', authRoutes);
+app.use('/api', bookRoutes);
+app.use("/api", userRoutes);
+app.use('/api/borrows', borrowRoutes);
+app.use('/api/renew', renewRoutes); // thêm dòng này
+app.use('/api/returns', returnRoutes);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+// route admin
+app.get('/admin', isAdmin, (req, res) => {
+    res.sendFile(__dirname + "/protected/admin.html");
 });
 
 module.exports = app;
