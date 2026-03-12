@@ -1,5 +1,9 @@
 backend/node_modules/
+<<<<<<< HEAD
 backend/config/db.js
 backend/pics/books/
 backend/package-lock.json
 backend/package.json
+=======
+backend/db.js
+>>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d

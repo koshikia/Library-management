@@ -14,7 +14,10 @@ USE library_db;
 CREATE TABLE NguoiDung (
 =======
 CREATE TABLE IF NOT EXISTS NguoiDung (
+<<<<<<< HEAD
 >>>>>>> 9033fff91e09249b161d28c029fd04721231ac6a
+=======
+>>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d
     id INT AUTO_INCREMENT PRIMARY KEY,
     hoTen VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE,
@@ -24,6 +27,7 @@ CREATE TABLE IF NOT EXISTS NguoiDung (
 ) ENGINE=InnoDB;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 -- =========================
 -- ĐẦU SÁCH
 -- =========================
@@ -31,6 +35,9 @@ CREATE TABLE DauSach (
 =======
 CREATE TABLE IF NOT EXISTS DauSach (
 >>>>>>> 9033fff91e09249b161d28c029fd04721231ac6a
+=======
+CREATE TABLE IF NOT EXISTS DauSach (
+>>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d
     maDauSach VARCHAR(20) PRIMARY KEY,
     tenSach VARCHAR(255) NOT NULL,
     tacGia VARCHAR(255),
@@ -38,6 +45,7 @@ CREATE TABLE IF NOT EXISTS DauSach (
     nhaXuatBan VARCHAR(255),
     namXuatBan INT,
     moTa TEXT,
+<<<<<<< HEAD
 <<<<<<< HEAD
     hinhAnh VARCHAR(500) DEFAULT NULL,
     tongSoLuong INT DEFAULT 0
@@ -126,3 +134,18 @@ CREATE TABLE IF NOT EXISTS BanSaoSach (
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
 >>>>>>> 9033fff91e09249b161d28c029fd04721231ac6a
+=======
+    tongSoLuong INT DEFAULT 0,
+    anhBia VARCHAR(255)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS BanSaoSach (
+    maVach VARCHAR(50) PRIMARY KEY,
+    maDauSach VARCHAR(20) NOT NULL,
+    trangThai ENUM('CO_SAN', 'DANG_MUON', 'HU_HONG', 'MAT') DEFAULT 'CO_SAN',
+
+    FOREIGN KEY (maDauSach)
+        REFERENCES DauSach(maDauSach)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+>>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d
