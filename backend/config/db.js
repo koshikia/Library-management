@@ -1,5 +1,7 @@
-const mysql = require('mysql2');
+// backend/config/db.js
+const mysql = require('mysql2/promise');
 
+<<<<<<< HEAD
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -18,6 +20,16 @@ pool.getConnection((err, connection) => {
         console.log('Kết nối MySQL thành công!');
         connection.release(); // Trả kết nối về hồ bơi (pool)
     }
+=======
+const db = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: '15122004',
+    database: 'library_db',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+>>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6
 });
 
 // QUAN TRỌNG: Phải có .promise() ở đây để dùng được async/await trong Controller

@@ -8,16 +8,22 @@ COLLATE utf8mb4_unicode_ci;
 USE library_db;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6
 -- =========================
 -- NGƯỜI DÙNG (ĐỘC GIẢ / THỦ THƯ)
 -- =========================
 CREATE TABLE NguoiDung (
+<<<<<<< HEAD
 =======
 CREATE TABLE IF NOT EXISTS NguoiDung (
 <<<<<<< HEAD
 >>>>>>> 9033fff91e09249b161d28c029fd04721231ac6a
 =======
 >>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d
+=======
+>>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6
     id INT AUTO_INCREMENT PRIMARY KEY,
     hoTen VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE,
@@ -28,16 +34,22 @@ CREATE TABLE IF NOT EXISTS NguoiDung (
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6
 -- =========================
 -- ĐẦU SÁCH
 -- =========================
 CREATE TABLE DauSach (
+<<<<<<< HEAD
 =======
 CREATE TABLE IF NOT EXISTS DauSach (
 >>>>>>> 9033fff91e09249b161d28c029fd04721231ac6a
 =======
 CREATE TABLE IF NOT EXISTS DauSach (
 >>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d
+=======
+>>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6
     maDauSach VARCHAR(20) PRIMARY KEY,
     tenSach VARCHAR(255) NOT NULL,
     tacGia VARCHAR(255),
@@ -47,7 +59,10 @@ CREATE TABLE IF NOT EXISTS DauSach (
     moTa TEXT,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     hinhAnh VARCHAR(500) DEFAULT NULL,
+=======
+>>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6
     tongSoLuong INT DEFAULT 0
 ) ENGINE=InnoDB;
 
@@ -119,6 +134,7 @@ CREATE TABLE DatTruoc (
         REFERENCES DauSach(maDauSach)
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
+<<<<<<< HEAD
 =======
     tongSoLuong INT DEFAULT 0,
     anhBia VARCHAR(255)
@@ -149,3 +165,5 @@ CREATE TABLE IF NOT EXISTS BanSaoSach (
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
 >>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d
+=======
+>>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6

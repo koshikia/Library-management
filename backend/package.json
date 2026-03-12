@@ -12,12 +12,18 @@
   },
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.6",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-session": "^1.19.0",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
+<<<<<<< HEAD
     "mysql2": "^3.16.2"
   }
 =======
@@ -27,4 +33,9 @@
   },
   "type": "commonjs"
 >>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d
+=======
+    "multer": "^2.1.1",
+    "mysql2": "^3.19.0"
+  }
+>>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6
 }
