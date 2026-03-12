@@ -270,7 +270,13 @@ button {
   border-radius: 999px;
   font-weight: 600;
 }
-
+/* Màu cam cảnh báo cho nút Đặt trước khi hết sách */
+.borrow-btn.reserve-btn {
+    color: #f59e0b; 
+}
+.borrow-btn.reserve-btn:hover {
+    color: #d97706;
+}
 /* Right panel */
 .right-panel {
   padding: 24px 20px 24px 0;

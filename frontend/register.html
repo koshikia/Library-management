@@ -1,71 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Ký Tài Khoản</title>
-</head>
-<body>
-
-    <div class="register-container">
-        <h2>Đăng Ký Thành Viên</h2>
-        
-        <form id="registerForm">
-            
-            <div class="form-group">
-                <label for="hoTen">Họ và Tên</label>
-                <input type="text" id="hoTen" placeholder="Nguyễn Văn A" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="example@gmail.com" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="matKhau">Mật khẩu</label>
-                <input type="password" id="matKhau" placeholder="Nhập mật khẩu..." required>
-            </div>
-
-            <button type="submit">Đăng Ký Ngay</button>
-        </form>
-
-        <div class="login-link">
-            Đã có tài khoản? <a href="login.html">Đăng nhập tại đây</a>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById("registerForm").addEventListener("submit", async e => {
-            e.preventDefault();
-            const data = {
-                hoTen: document.getElementById('hoTen').value,  
-                email: document.getElementById('email').value,
-                matKhau: document.getElementById('matKhau').value
-            };
-            try {
-                const res = await fetch("http://localhost:3000/api/register", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
-                    credentials: "include"
-                });
-                const result = await res.json();
-                alert(result.message);
-                if (res.ok) {
-                    window.location.href = "login.html";
-                }
-            } catch (error) {
-                console.error("Lỗi:", error);
-                alert("Không thể kết nối đến server!");
-            }
-        });
-    </script>
-
-</body>
-<<<<<<< HEAD
-=======
 <!doctype html>
 <html lang="vi">
   <head>
@@ -631,8 +563,8 @@
         </form>
       </main>
     </div>
-
-   <script>
+    <script src="js/api.js"></script>
+    <script>
   const $ = (id) => document.getElementById(id);
 
   const form = $("registerForm");
@@ -762,39 +694,38 @@
       return;
     }
 
+    // ... (Giữ nguyên toàn bộ phần validate ở trên) ...
+
     try {
       const submitBtn = form.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
       submitBtn.textContent = "Đang xử lý...";
 
-      const response = await fetch("http://localhost:3000/api/register", {
+      // Sử dụng apiFetch thay vì fetch thuần
+      // Lưu ý: Đổi tên các key để khớp với cấu trúc bảng NguoiDung trong Database
+      const result = await apiFetch("/api/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
         body: JSON.stringify({
-          fullname: fullnameValue,
-          phone: phoneValue,
+          hoTen: fullnameValue,   // Đổi từ fullname sang hoTen
           email: emailValue,
-          password: passwordValue,
-          confirmPassword: confirmValue,
-          agree: agreeValue
+          matKhau: passwordValue  // Đổi từ password sang matKhau
+          // Các trường như phone, confirm, agree nếu backend không lưu thì không cần gửi đi
         })
       });
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        showError(result.message || "Đăng ký thất bại.");
-        return;
-      }
-
-      showSuccess(result.message || "Đăng ký thành công.");
+      // Nếu gọi API thành công (không bị nhảy vào catch)
+      showSuccess(result.message || "Đăng ký thành công. Đang chuyển hướng...");
       form.reset();
+
+      // Tự động chuyển sang trang đăng nhập sau 2 giây
+      setTimeout(() => {
+          window.location.href = 'login.html'; // Đổi đường dẫn này cho khớp với dự án
+      }, 2000);
 
     } catch (error) {
       console.error("Lỗi:", error);
-      showError("Không thể kết nối đến máy chủ.");
+      // apiFetch đã tự động bắt lỗi từ Backend và truyền message ra đây
+      showError(error.message || "Không thể kết nối đến máy chủ.");
     } finally {
       const submitBtn = form.querySelector('button[type="submit"]');
       submitBtn.disabled = false;
@@ -803,7 +734,4 @@
   });
 </script>
   </body>
->>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d
-=======
->>>>>>> c3d0409ddb7bbe9101418ecea918898e9b3122e6
 </html>

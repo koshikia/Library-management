@@ -62,11 +62,7 @@
       </header>
 
       <section class="hero-banner">
-        <h1>Chào mừng bạn trở lại, Minh Anh!</h1>
-        <p>
-          Khám phá hơn 50,000 cuốn sách điện tử và tài liệu đa phương tiện
-          mới nhất ngay hôm nay.
-        </p>
+        <h1 id="hero-greeting">Chào mừng bạn trở lại!</h1> <p>Khám phá hơn 50,000 cuốn sách điện tử...</p>
         <button class="primary-btn">Bắt đầu đọc ngay</button>
       </section>
 
@@ -75,71 +71,7 @@
           <h2>Sách mới cập nhật</h2>
           <a href="#">Xem tất cả →</a>
         </div>
-
-        <div class="book-grid">
-          <div class="book-card">
-            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&auto=format&fit=crop&q=60" alt="">
-            <h3>Kiến tạo bản thân</h3>
-            <p>Adam Grant</p>
-            <button class="borrow-btn">Mượn sách</button>
-          </div>
-
-          <div class="book-card">
-            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&auto=format&fit=crop&q=60" alt="">
-            <h3>Nghệ thuật tư duy</h3>
-            <p>Rolf Dobelli</p>
-            <button class="borrow-btn">Mượn sách</button>
-          </div>
-
-          <div class="book-card">
-            <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400&auto=format&fit=crop&q=60" alt="">
-            <h3>Sức mạnh thói quen</h3>
-            <p>Charles Duhigg</p>
-            <button class="borrow-btn">Mượn sách</button>
-          </div>
-
-          <div class="book-card">
-            <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400&auto=format&fit=crop&q=60" alt="">
-            <h3>Vũ trụ trong vỏ hạt dẻ</h3>
-            <p>Stephen Hawking</p>
-            <button class="borrow-btn">Mượn sách</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <h2>Sách mượn nhiều</h2>
-        </div>
-
-        <div class="book-grid">
-          <div class="book-card">
-            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=400&auto=format&fit=crop&q=60" alt="">
-            <h3>Đắc Nhân Tâm</h3>
-            <p>Dale Carnegie</p>
-            <button class="borrow-btn">Mượn sách</button>
-          </div>
-
-          <div class="book-card">
-            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&auto=format&fit=crop&q=60" alt="">
-            <h3>Sapiens</h3>
-            <p>Yuval Noah Harari</p>
-            <button class="borrow-btn">Mượn sách</button>
-          </div>
-
-          <div class="book-card">
-            <img src="https://images.unsplash.com/photo-1511108690759-009324a90311?w=400&auto=format&fit=crop&q=60" alt="">
-            <h3>Tâm lý học về tiền</h3>
-            <p>Morgan Housel</p>
-            <button class="borrow-btn">Mượn sách</button>
-          </div>
-
-          <div class="book-card">
-            <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&auto=format&fit=crop&q=60" alt="">
-            <h3>Nhà giả kim</h3>
-            <p>Paulo Coelho</p>
-            <button class="borrow-btn">Mượn sách</button>
-          </div>
+        <div class="book-grid" id="bookList">
         </div>
       </section>
     </main>
@@ -202,5 +134,7 @@
       </div>
     </aside>
   </div>
+  <script src="js/api.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

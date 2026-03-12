@@ -1,63 +1,4 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Danh sách đầu sách</title>
-    <style>
-        .book {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px;
-            display: flex;
-            gap: 15px;
-        }
-        img {
-            width: 100px;
-        }
-    </style>
-</head>
-<body>
-
-<h2>Danh sách đầu sách</h2>
-<div id="bookList"></div>
-
-<script>
-fetch("/api/dausach", {
-    credentials: "include"
-})
-.then(res => {
-    if (!res.ok) {
-        alert("Chưa đăng nhập");
-        location.href = "/login.html";
-    }
-    return res.json();
-})
-.then(books => {
-    const container = document.getElementById("bookList");
-
-    books.forEach(book => {
-        const div = document.createElement("div");
-        div.className = "book";
-
-        div.innerHTML = `
-            <img src="${book.anhBia || 'no-image.png'}">
-            <div>
-                <h3>${book.tenSach}</h3>
-                <p><b>Tác giả:</b> ${book.tacGia || "Đang cập nhật"}</p>
-                <p><b>Thể loại:</b> ${book.theLoai || ""}</p>
-                <p><b>Năm XB:</b> ${book.namXuatBan || ""}</p>
-                <p>${book.moTa || ""}</p>
-            </div>
-        `;
-        container.appendChild(div);
-    });
-});
-</script>
-
-</body>
-</html>
-=======
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -645,4 +586,3 @@ fetch("/api/dausach", {
     </div>
 </body>
 </html>
->>>>>>> b6c907c7ac0843e2c226be10d69e549202a6e26d
