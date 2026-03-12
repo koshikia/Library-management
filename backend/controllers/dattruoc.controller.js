@@ -2,7 +2,7 @@ const DatTruocModel = require('../models/dattruoc.model');
 
 exports.datTruocSach = async (req, res) => {
     const { maDauSach } = req.body;
-    const nguoiDungId = req.user.id; // Lấy từ token đăng nhập
+    const nguoiDungId = req.session.user.id; // Dùng session nên phải thêm session, thông thường dùng jwt thì k cần
 
     try {
         if (!maDauSach) {
@@ -58,7 +58,7 @@ exports.getAllDatTruoc = async (req, res) => {
 
 exports.layLichSuCaNhan = async (req, res) => {
     try {
-        const nguoiDungId = req.user.id;
+        const nguoiDungId = req.session.user.id;
         const lichSu = await DatTruocModel.getLichSuCaNhan(nguoiDungId);
         res.status(200).json(lichSu);
     } catch (error) {

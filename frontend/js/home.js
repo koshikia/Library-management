@@ -77,7 +77,7 @@ async function taiDanhSachSach() {
     }
 }
 
-// Hàm tạm thời để chuyển hướng khi bấm nút "Mượn sách"
+// Hàm tạm thời để chuyển hướng khi bấm xem chi tiết sách
 function xemChiTiet(maDauSach) {
     // Sau này chúng ta sẽ tạo trang chi tiết sách và truyền mã sách lên URL
     console.log("Mã sách vừa chọn:", maDauSach);
@@ -90,3 +90,31 @@ document.addEventListener("DOMContentLoaded", () => {
     hienThiLoiChao();
     taiDanhSachSach();
 });
+
+// Hàm xử lý khi người dùng click vào nút Có sẵn / Đặt trước
+async function xuLyDatTruoc(maDauSach) {
+    // 1. Hỏi xác nhận để tránh click nhầm
+    const xacNhan = confirm("Bạn có muốn đặt trước tựa sách này không?");
+    if (!xacNhan) return;
+
+    try {
+        // 2. Gọi API đặt trước sách
+        const result = await apiFetch('/api/dattruoc', {
+            method: 'POST',
+            body: JSON.stringify({
+                maDauSach: maDauSach
+            })
+        });
+
+        // 3. Thông báo thành công
+        alert(result.message || "Đặt trước thành công! Hệ thống đã ghi nhận yêu cầu của bạn.");
+        
+        // 4. (Tùy chọn) Gọi lại hàm tải danh sách để cập nhật lại số lượng sách mới nhất
+        taiDanhSachSach();
+
+    } catch (error) {
+        // Nếu lỗi (ví dụ: đã đặt cuốn này rồi, hoặc tài khoản bị khóa...)
+        console.error("Lỗi đặt trước:", error);
+        alert("Không thể đặt trước: " + error.message);
+    }
+}
