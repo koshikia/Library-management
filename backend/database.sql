@@ -7,10 +7,14 @@ COLLATE utf8mb4_unicode_ci;
 
 USE library_db;
 
+<<<<<<< HEAD
 -- =========================
 -- NGƯỜI DÙNG (ĐỘC GIẢ / THỦ THƯ)
 -- =========================
 CREATE TABLE NguoiDung (
+=======
+CREATE TABLE IF NOT EXISTS NguoiDung (
+>>>>>>> 9033fff91e09249b161d28c029fd04721231ac6a
     id INT AUTO_INCREMENT PRIMARY KEY,
     hoTen VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE,
@@ -19,10 +23,14 @@ CREATE TABLE NguoiDung (
     ngayTao DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+<<<<<<< HEAD
 -- =========================
 -- ĐẦU SÁCH
 -- =========================
 CREATE TABLE DauSach (
+=======
+CREATE TABLE IF NOT EXISTS DauSach (
+>>>>>>> 9033fff91e09249b161d28c029fd04721231ac6a
     maDauSach VARCHAR(20) PRIMARY KEY,
     tenSach VARCHAR(255) NOT NULL,
     tacGia VARCHAR(255),
@@ -30,6 +38,7 @@ CREATE TABLE DauSach (
     nhaXuatBan VARCHAR(255),
     namXuatBan INT,
     moTa TEXT,
+<<<<<<< HEAD
     hinhAnh VARCHAR(500) DEFAULT NULL,
     tongSoLuong INT DEFAULT 0
 ) ENGINE=InnoDB;
@@ -102,3 +111,18 @@ CREATE TABLE DatTruoc (
         REFERENCES DauSach(maDauSach)
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
+=======
+    tongSoLuong INT DEFAULT 0,
+    anhBia VARCHAR(255)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS BanSaoSach (
+    maVach VARCHAR(50) PRIMARY KEY,
+    maDauSach VARCHAR(20) NOT NULL,
+    trangThai ENUM('CO_SAN', 'DANG_MUON', 'HU_HONG', 'MAT') DEFAULT 'CO_SAN',
+
+    FOREIGN KEY (maDauSach)
+        REFERENCES DauSach(maDauSach)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+>>>>>>> 9033fff91e09249b161d28c029fd04721231ac6a
