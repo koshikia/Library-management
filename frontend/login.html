@@ -405,10 +405,6 @@
         })
       });
 
-      // Lưu ý: apiFetch đã tự động kiểm tra response.ok, 
-      // nếu có lỗi (sai mật khẩu, sai email) nó sẽ ném thẳng xuống block catch.
-      // Do đó, nếu code chạy được đến đây nghĩa là đăng nhập thành công.
-
       // Backend cần trả về object chứa { user: {...}, vaiTro: "..." }
       localStorage.setItem("user", JSON.stringify(data.user || {}));
       localStorage.setItem("vaiTro", data.vaiTro || "");
