@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin | Phiếu mượn</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">L</div>
+        <div class="brand-text">
+          <h1>Library Admin</h1>
+          <p>Quản trị hệ thống thư viện</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="admin.html">Quản lý người dùng</a>
+        <a href="books.html">Quản lý sách</a>
+        <a href="loans.html" class="active">Phiếu mượn</a>
+        <a href="status.html">Thống kê</a>
+        <a href="settings.html">Cài đặt</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="topbar">
+        <div class="page-title">
+          <h2>Phiếu mượn</h2>
+          <p>Quản lý mượn, trả sách và trạng thái phiếu mượn.</p>
+        </div>
+        <div class="admin-badge">Đang mượn: <span id="totalBorrowing">0</span></div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <div class="card-header">
+            <h3>Tạo phiếu mượn</h3>
+            <p>Nhập thông tin mượn sách của độc giả.</p>
+          </div>
+          <div class="card-body">
+            <form id="loanForm">
+              <div class="form-group">
+                <label class="form-label">Tên độc giả</label>
+                <input class="input" name="docGia" placeholder="Nhập tên độc giả" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Tên sách</label>
+                <input class="input" name="tenSach" placeholder="Nhập tên sách" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Ngày mượn</label>
+                <input class="input" type="date" name="ngayMuon" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Hạn trả</label>
+                <input class="input" type="date" name="hanTra" required>
+              </div>
+
+              <button class="btn btn-primary" type="submit">Tạo phiếu</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h3>Danh sách phiếu mượn</h3>
+            <p>Theo dõi các phiếu mượn đang được quản lý.</p>
+          </div>
+          <div class="card-body">
+            <div class="toolbar">
+              <div class="search-box">
+                <input type="text" id="searchLoan" placeholder="Tìm theo độc giả hoặc tên sách...">
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Độc giả</th>
+                    <th>Sách</th>
+                    <th>Ngày mượn</th>
+                    <th>Hạn trả</th>
+                    <th>Trạng thái</th>
+                    <th>Chức năng</th>
+                  </tr>
+                </thead>
+                <tbody id="loanTable"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-state" id="emptyState" style="display:none;">
+              Chưa có dữ liệu phiếu mượn.
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let loans = [];
+
+    loadLoans();
+
+    async function loadLoans(){
+      try{
+        const res = await fetch("/api/loans");
+        const data = await res.json();
+        loans = data;
+        renderLoans(data);
+      }catch(error){
+        console.error("Lỗi load loans:", error);
+        loans = [];
+        renderLoans([]);
+      }
+    }
+
+    function getStatusBadge(status){
+      if(status === "DA_TRA"){
+        return '<span class="status-badge status-returned">ĐÃ TRẢ</span>';
+      }
+      if(status === "QUA_HAN"){
+        return '<span class="status-badge status-late">QUÁ HẠN</span>';
+      }
+      return '<span class="status-badge status-borrowed">ĐANG MƯỢN</span>';
+    }
+
+    function renderLoans(list){
+      const tb = document.getElementById("loanTable");
+      const emptyState = document.getElementById("emptyState");
+      tb.innerHTML = "";
+
+      document.getElementById("totalBorrowing").textContent =
+        loans.filter(item => item.trangThai === "DANG_MUON").length;
+
+      if(!list || list.length === 0){
+        emptyState.style.display = "block";
+        return;
+      }
+
+      emptyState.style.display = "none";
+
+      list.forEach(item => {
+        tb.innerHTML += `
+          <tr>
+            <td>${item.id}</td>
+            <td>${item.docGia}</td>
+            <td>${item.tenSach}</td>
+            <td>${item.ngayMuon}</td>
+            <td>${item.hanTra}</td>
+            <td>${getStatusBadge(item.trangThai)}</td>
+            <td>
+              <div class="actions">
+                <button class="btn-sm btn-edit" onclick="editLoan(${item.id})">Sửa</button>
+                <button class="btn-sm btn-delete" onclick="deleteLoan(${item.id})">Xóa</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    document.getElementById("loanForm").onsubmit = async function(e){
+      e.preventDefault();
+
+      const data = {
+        docGia: this.docGia.value.trim(),
+        tenSach: this.tenSach.value.trim(),
+        ngayMuon: this.ngayMuon.value,
+        hanTra: this.hanTra.value
+      };
+
+      try{
+        const res = await fetch("/api/loans", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if(!res.ok){
+          alert(result.message || "Không thể tạo phiếu mượn");
+          return;
+        }
+
+        alert(result.message || "Tạo phiếu mượn thành công");
+        this.reset();
+        loadLoans();
+      }catch(error){
+        console.error("Lỗi thêm phiếu mượn:", error);
+        alert("Có lỗi khi tạo phiếu mượn");
+      }
+    };
+
+    async function deleteLoan(id){
+      if(!confirm("Bạn có chắc muốn xóa phiếu mượn này?")) return;
+
+      try{
+        const res = await fetch("/api/loans/" + id, { method:"DELETE" });
+        const data = await res.json();
+
+        if(!res.ok){
+          alert(data.message || "Không thể xóa phiếu mượn");
+          return;
+        }
+
+        loadLoans();
+      }catch(error){
+        console.error("Lỗi xóa phiếu mượn:", error);
+        alert("Có lỗi khi xóa phiếu mượn");
+      }
+    }
+
+    async function editLoan(id){
+      const currentLoan = loans.find(item => item.id === id);
+      if(!currentLoan){
+        alert("Không tìm thấy phiếu mượn");
+        return;
+      }
+
+      const docGia = prompt("Tên độc giả:", currentLoan.docGia);
+      if(docGia === null) return;
+
+      const tenSach = prompt("Tên sách:", currentLoan.tenSach);
+      if(tenSach === null) return;
+
+      const ngayMuon = prompt("Ngày mượn (YYYY-MM-DD):", currentLoan.ngayMuon);
+      if(ngayMuon === null) return;
+
+      const hanTra = prompt("Hạn trả (YYYY-MM-DD):", currentLoan.hanTra);
+      if(hanTra === null) return;
+
+      const trangThai = prompt("Trạng thái (DANG_MUON | DA_TRA | QUA_HAN):", currentLoan.trangThai);
+      if(trangThai === null) return;
+
+      try{
+        const res = await fetch("/api/loans/" + id, {
+          method:"PUT",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({
+            docGia: docGia.trim(),
+            tenSach: tenSach.trim(),
+            ngayMuon: ngayMuon.trim(),
+            hanTra: hanTra.trim(),
+            trangThai: trangThai.trim().toUpperCase()
+          })
+        });
+
+        const data = await res.json();
+
+        if(!res.ok){
+          alert(data.message || "Không thể cập nhật phiếu mượn");
+          return;
+        }
+
+        alert(data.message || "Cập nhật phiếu mượn thành công");
+        loadLoans();
+      }catch(error){
+        console.error("Lỗi sửa phiếu mượn:", error);
+        alert("Có lỗi khi cập nhật phiếu mượn");
+      }
+    }
+
+    document.getElementById("searchLoan").addEventListener("input", function(){
+      const keyword = this.value.trim().toLowerCase();
+      const filtered = loans.filter(item =>
+        String(item.docGia).toLowerCase().includes(keyword) ||
+        String(item.tenSach).toLowerCase().includes(keyword)
+      );
+      renderLoans(filtered);
+    });
+  </script>
+</body>
+</html>

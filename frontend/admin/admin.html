@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin | Quản lý người dùng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-logo">L</div>
+          <div class="brand-text">
+            <h1>Library Admin</h1>
+            <p>Quản trị hệ thống thư viện</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a href="admin.html" class="active">Quản lý người dùng</a>
+          <a href="books.html">Quản lý sách</a>
+          <a href="loans.html">Phiếu mượn</a>
+          <a href="status.html">Thống kê</a>
+          <a href="settings.html">Cài đặt</a>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <div class="topbar">
+          <div class="page-title">
+            <h2>Quản lý người dùng</h2>
+            <p>Thêm, chỉnh sửa và xóa tài khoản trong hệ thống thư viện.</p>
+          </div>
+          <div class="admin-badge">Quyền hiện tại: ADMIN</div>
+        </div>
+
+        <section class="stats">
+          <div class="stat-card">
+            <div class="label">Tổng người dùng</div>
+            <div class="value" id="totalUsers">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Thủ thư</div>
+            <div class="value" id="totalThuThu">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Độc giả</div>
+            <div class="value" id="totalDocGia">0</div>
+          </div>
+        </section>
+
+        <div class="grid">
+          <section class="card">
+            <div class="card-header">
+              <h3>Thêm người dùng</h3>
+              <p>Nhập thông tin tài khoản mới để thêm vào hệ thống.</p>
+            </div>
+            <div class="card-body">
+              <form id="formAddUser">
+                <div class="form-group">
+                  <label class="form-label">Họ tên</label>
+                  <input
+                    class="input"
+                    name="hoTen"
+                    placeholder="Nhập họ tên"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Email</label>
+                  <input
+                    class="input"
+                    type="email"
+                    name="email"
+                    placeholder="Nhập email"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Mật khẩu</label>
+                  <input
+                    class="input"
+                    type="password"
+                    name="matKhau"
+                    placeholder="Nhập mật khẩu"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Vai trò</label>
+                  <select class="select" name="vaiTro">
+                    <option value="DOCGIA">Độc giả</option>
+                    <option value="THUTHU">Thủ thư</option>
+                    <option value="ADMIN">Admin</option>
+                  </select>
+                </div>
+
+                <button class="btn btn-primary" type="submit">
+                  Thêm người dùng
+                </button>
+              </form>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <h3>Danh sách người dùng</h3>
+              <p>Hiển thị tài khoản hiện có trong hệ thống.</p>
+            </div>
+            <div class="card-body">
+              <div class="toolbar">
+                <div class="search-box">
+                  <input
+                    type="text"
+                    id="searchUser"
+                    placeholder="Tìm theo họ tên hoặc email..."
+                  />
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Họ tên</th>
+                      <th>Email</th>
+                      <th>Vai trò</th>
+                      <th>Chức năng</th>
+                    </tr>
+                  </thead>
+                  <tbody id="userTable"></tbody>
+                </table>
+              </div>
+
+              <div class="empty-state" id="emptyState" style="display: none">
+                Chưa có dữ liệu người dùng.
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      let allUsers = [];
+
+      loadUsers();
+
+      async function loadUsers() {
+        try {
+          const res = await fetch("/api/users");
+          const users = await res.json();
+          allUsers = users;
+          renderUsers(users);
+          renderStats(users);
+        } catch (error) {
+          console.error("Lỗi load users:", error);
+          allUsers = [];
+          renderUsers([]);
+          renderStats([]);
+        }
+      }
+
+      function renderStats(users) {
+        document.getElementById("totalUsers").textContent = users.length;
+        document.getElementById("totalThuThu").textContent = users.filter(
+          (u) => u.vaiTro === "THUTHU",
+        ).length;
+        document.getElementById("totalDocGia").textContent = users.filter(
+          (u) => u.vaiTro === "DOCGIA",
+        ).length;
+      }
+
+      function getRoleBadge(vaiTro) {
+        if (vaiTro === "ADMIN") {
+          return '<span class="role-badge role-admin">ADMIN</span>';
+        }
+        if (vaiTro === "THUTHU") {
+          return '<span class="role-badge role-thuthu">THỦ THƯ</span>';
+        }
+        return '<span class="role-badge role-docgia">ĐỘC GIẢ</span>';
+      }
+
+      function renderUsers(users) {
+        const table = document.getElementById("userTable");
+        const emptyState = document.getElementById("emptyState");
+
+        table.innerHTML = "";
+
+        if (!users || users.length === 0) {
+          emptyState.style.display = "block";
+          return;
+        }
+
+        emptyState.style.display = "none";
+
+        users.forEach((user) => {
+          table.innerHTML += `
+          <tr>
+            <td>${user.id}</td>
+            <td>${user.hoTen}</td>
+            <td>${user.email}</td>
+            <td>${getRoleBadge(user.vaiTro)}</td>
+            <td>
+              <div class="actions">
+                <button class="btn-sm btn-edit" onclick="editUser(${user.id})">Sửa</button>
+                <button class="btn-sm btn-delete" onclick="deleteUser(${user.id})">Xóa</button>
+              </div>
+            </td>
+          </tr>
+        `;
+        });
+      }
+
+      document.getElementById("formAddUser").onsubmit = async function (e) {
+        e.preventDefault();
+
+        const data = {
+          hoTen: this.hoTen.value.trim(),
+          email: this.email.value.trim(),
+          matKhau: this.matKhau.value,
+          vaiTro: this.vaiTro.value,
+        };
+
+        try {
+          const res = await fetch("/api/users", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          const result = await res.json();
+
+          if (!res.ok) {
+            alert(result.message || "Không thể thêm người dùng");
+            return;
+          }
+
+          alert(result.message || "Đã thêm người dùng");
+          this.reset();
+          loadUsers();
+        } catch (error) {
+          console.error("Lỗi thêm user:", error);
+          alert("Có lỗi khi thêm người dùng");
+        }
+      };
+
+      async function deleteUser(id) {
+        if (!confirm("Bạn có chắc muốn xóa user này?")) return;
+
+        try {
+          const res = await fetch("/api/users/" + id, { method: "DELETE" });
+          const data = await res.json();
+
+          if (!res.ok) {
+            alert(data.message || "Không thể xóa người dùng");
+            return;
+          }
+
+          loadUsers();
+        } catch (error) {
+          console.error("Lỗi xóa user:", error);
+          alert("Có lỗi khi xóa người dùng");
+        }
+      }
+
+      async function editUser(id) {
+        const currentUser = allUsers.find((user) => user.id === id);
+        if (!currentUser) {
+          alert("Không tìm thấy người dùng");
+          return;
+        }
+
+        const hoTen = prompt("Nhập họ tên mới:", currentUser.hoTen);
+        if (hoTen === null) return;
+
+        const email = prompt("Nhập email mới:", currentUser.email);
+        if (email === null) return;
+
+        const vaiTro = prompt(
+          "Nhập vai trò (DOCGIA | THUTHU | ADMIN):",
+          currentUser.vaiTro,
+        );
+        if (vaiTro === null) return;
+
+        try {
+          const res = await fetch("/api/users/" + id, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              hoTen: hoTen.trim(),
+              email: email.trim(),
+              vaiTro: vaiTro.trim().toUpperCase(),
+            }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            alert(data.message || "Không thể cập nhật người dùng");
+            return;
+          }
+
+          alert(data.message || "Cập nhật thành công");
+          loadUsers();
+        } catch (error) {
+          console.error("Lỗi sửa user:", error);
+          alert("Có lỗi khi cập nhật người dùng");
+        }
+      }
+
+      document
+        .getElementById("searchUser")
+        .addEventListener("input", function () {
+          const keyword = this.value.trim().toLowerCase();
+          const filtered = allUsers.filter(
+            (user) =>
+              String(user.hoTen).toLowerCase().includes(keyword) ||
+              String(user.email).toLowerCase().includes(keyword),
+          );
+          renderUsers(filtered);
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin | Quản lý sách</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">L</div>
+        <div class="brand-text">
+          <h1>Library Admin</h1>
+          <p>Quản trị hệ thống thư viện</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="admin.html">Quản lý người dùng</a>
+        <a href="books.html" class="active">Quản lý sách</a>
+        <a href="loans.html">Phiếu mượn</a>
+        <a href="status.html">Thống kê</a>
+        <a href="settings.html">Cài đặt</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="topbar">
+        <div class="page-title">
+          <h2>Quản lý sách</h2>
+          <p>Thêm, chỉnh sửa và theo dõi danh mục sách trong thư viện.</p>
+        </div>
+        <div class="admin-badge">Tổng đầu sách: <span id="totalBooks">0</span></div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <div class="card-header">
+            <h3>Thêm sách</h3>
+            <p>Nhập thông tin đầu sách mới.</p>
+          </div>
+          <div class="card-body">
+            <form id="bookForm">
+              <div class="form-group">
+                <label class="form-label">Tên sách</label>
+                <input class="input" name="tenSach" placeholder="Nhập tên sách" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Tác giả</label>
+                <input class="input" name="tacGia" placeholder="Nhập tác giả" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Thể loại</label>
+                <input class="input" name="theLoai" placeholder="Nhập thể loại" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Số lượng</label>
+                <input class="input" type="number" name="soLuong" min="1" placeholder="Nhập số lượng" required>
+              </div>
+
+              <button class="btn btn-primary" type="submit">Thêm sách</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h3>Danh sách sách</h3>
+            <p>Quản lý toàn bộ đầu sách hiện có.</p>
+          </div>
+          <div class="card-body">
+            <div class="toolbar">
+              <div class="search-box">
+                <input type="text" id="searchBook" placeholder="Tìm theo tên sách, tác giả, thể loại...">
+              </div>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Tên sách</th>
+                    <th>Tác giả</th>
+                    <th>Thể loại</th>
+                    <th>Số lượng</th>
+                    <th>Chức năng</th>
+                  </tr>
+                </thead>
+                <tbody id="bookTable"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-state" id="emptyState" style="display:none;">
+              Chưa có dữ liệu sách.
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let books = [];
+
+    loadBooks();
+
+    async function loadBooks(){
+      try{
+        const res = await fetch("/api/books");
+        const data = await res.json();
+        books = data;
+        renderBooks(data);
+      }catch(error){
+        console.error("Lỗi load books:", error);
+        books = [];
+        renderBooks([]);
+      }
+    }
+
+    function renderBooks(list){
+      const tb = document.getElementById("bookTable");
+      const emptyState = document.getElementById("emptyState");
+      tb.innerHTML = "";
+
+      document.getElementById("totalBooks").textContent = list.length;
+
+      if(!list || list.length === 0){
+        emptyState.style.display = "block";
+        return;
+      }
+
+      emptyState.style.display = "none";
+
+      list.forEach(book => {
+        tb.innerHTML += `
+          <tr>
+            <td>${book.id}</td>
+            <td>${book.tenSach}</td>
+            <td>${book.tacGia}</td>
+            <td>${book.theLoai}</td>
+            <td>${book.soLuong}</td>
+            <td>
+              <div class="actions">
+                <button class="btn-sm btn-edit" onclick="editBook(${book.id})">Sửa</button>
+                <button class="btn-sm btn-delete" onclick="deleteBook(${book.id})">Xóa</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    document.getElementById("bookForm").onsubmit = async function(e){
+      e.preventDefault();
+
+      const data = {
+        tenSach: this.tenSach.value.trim(),
+        tacGia: this.tacGia.value.trim(),
+        theLoai: this.theLoai.value.trim(),
+        soLuong: Number(this.soLuong.value)
+      };
+
+      try{
+        const res = await fetch("/api/books", {
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if(!res.ok){
+          alert(result.message || "Không thể thêm sách");
+          return;
+        }
+
+        alert(result.message || "Đã thêm sách");
+        this.reset();
+        loadBooks();
+      }catch(error){
+        console.error("Lỗi thêm sách:", error);
+        alert("Có lỗi khi thêm sách");
+      }
+    };
+
+    async function deleteBook(id){
+      if(!confirm("Bạn có chắc muốn xóa sách này?")) return;
+
+      try{
+        const res = await fetch("/api/books/" + id, { method:"DELETE" });
+        const data = await res.json();
+
+        if(!res.ok){
+          alert(data.message || "Không thể xóa sách");
+          return;
+        }
+
+        loadBooks();
+      }catch(error){
+        console.error("Lỗi xóa sách:", error);
+        alert("Có lỗi khi xóa sách");
+      }
+    }
+
+    async function editBook(id){
+      const currentBook = books.find(book => book.id === id);
+      if(!currentBook){
+        alert("Không tìm thấy sách");
+        return;
+      }
+
+      const tenSach = prompt("Tên sách:", currentBook.tenSach);
+      if(tenSach === null) return;
+
+      const tacGia = prompt("Tác giả:", currentBook.tacGia);
+      if(tacGia === null) return;
+
+      const theLoai = prompt("Thể loại:", currentBook.theLoai);
+      if(theLoai === null) return;
+
+      const soLuong = prompt("Số lượng:", currentBook.soLuong);
+      if(soLuong === null) return;
+
+      try{
+        const res = await fetch("/api/books/" + id, {
+          method:"PUT",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({
+            tenSach: tenSach.trim(),
+            tacGia: tacGia.trim(),
+            theLoai: theLoai.trim(),
+            soLuong: Number(soLuong)
+          })
+        });
+
+        const data = await res.json();
+
+        if(!res.ok){
+          alert(data.message || "Không thể cập nhật sách");
+          return;
+        }
+
+        alert(data.message || "Cập nhật sách thành công");
+        loadBooks();
+      }catch(error){
+        console.error("Lỗi sửa sách:", error);
+        alert("Có lỗi khi cập nhật sách");
+      }
+    }
+
+    document.getElementById("searchBook").addEventListener("input", function(){
+      const keyword = this.value.trim().toLowerCase();
+      const filtered = books.filter(book =>
+        String(book.tenSach).toLowerCase().includes(keyword) ||
+        String(book.tacGia).toLowerCase().includes(keyword) ||
+        String(book.theLoai).toLowerCase().includes(keyword)
+      );
+      renderBooks(filtered);
+    });
+  </script>
+</body>
+</html>

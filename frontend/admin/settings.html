@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin | Cài đặt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-logo">L</div>
+          <div class="brand-text">
+            <h1>Library Admin</h1>
+            <p>Quản trị hệ thống thư viện</p>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a href="admin.html">Quản lý người dùng</a>
+          <a href="books.html">Quản lý sách</a>
+          <a href="loans.html">Phiếu mượn</a>
+          <a href="status.html">Thống kê</a>
+          <a href="settings.html" class="active">Cài đặt</a>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <div class="topbar">
+          <div class="page-title">
+            <h2>Cài đặt hệ thống</h2>
+            <p>Cấu hình thông tin thư viện và các tùy chọn quản trị.</p>
+          </div>
+          <div class="admin-badge">Thiết lập hệ thống</div>
+        </div>
+
+        <div class="two-col">
+          <section class="card">
+            <div class="card-header">
+              <h3>Thông tin thư viện</h3>
+              <p>Cập nhật thông tin hiển thị của thư viện.</p>
+            </div>
+            <div class="card-body">
+              <form id="settingForm">
+                <div class="form-group">
+                  <label class="form-label">Tên thư viện</label>
+                  <input
+                    class="input"
+                    id="libraryName"
+                    value="Thư viện trường học"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Email liên hệ</label>
+                  <input
+                    class="input"
+                    id="libraryEmail"
+                    value="library@example.com"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Số điện thoại</label>
+                  <input class="input" id="libraryPhone" value="0123456789" />
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Mô tả</label>
+                  <textarea class="textarea" id="libraryDesc">
+Hệ thống quản lý thư viện dành cho nhà trường.</textarea
+                  >
+                </div>
+
+                <button class="btn btn-primary" type="submit">
+                  Lưu cài đặt
+                </button>
+              </form>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-header">
+              <h3>Tùy chọn hệ thống</h3>
+              <p>Bật hoặc tắt các chức năng quản trị.</p>
+            </div>
+            <div class="card-body">
+              <div class="switch-row">
+                <div>
+                  <div class="switch-title">Cho phép đăng ký tài khoản</div>
+                  <div class="switch-desc">
+                    Người dùng có thể tự tạo tài khoản mới.
+                  </div>
+                </div>
+                <div class="switch active" onclick="toggleSwitch(this)"></div>
+              </div>
+
+              <div class="switch-row">
+                <div>
+                  <div class="switch-title">Gửi thông báo quá hạn</div>
+                  <div class="switch-desc">
+                    Tự động nhắc khi phiếu mượn quá hạn.
+                  </div>
+                </div>
+                <div class="switch active" onclick="toggleSwitch(this)"></div>
+              </div>
+
+              <div class="switch-row">
+                <div>
+                  <div class="switch-title">Chế độ bảo trì</div>
+                  <div class="switch-desc">
+                    Tạm thời ẩn hệ thống với người dùng thường.
+                  </div>
+                </div>
+                <div class="switch" onclick="toggleSwitch(this)"></div>
+              </div>
+
+              <div class="switch-row" style="border-bottom: none">
+                <div>
+                  <div class="switch-title">Sao lưu dữ liệu định kỳ</div>
+                  <div class="switch-desc">
+                    Tự động sao lưu dữ liệu thư viện mỗi ngày.
+                  </div>
+                </div>
+                <div class="switch active" onclick="toggleSwitch(this)"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      function toggleSwitch(el) {
+        el.classList.toggle("active");
+      }
+
+      document
+        .getElementById("settingForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const settings = {
+            libraryName: document.getElementById("libraryName").value.trim(),
+            libraryEmail: document.getElementById("libraryEmail").value.trim(),
+            libraryPhone: document.getElementById("libraryPhone").value.trim(),
+            libraryDesc: document.getElementById("libraryDesc").value.trim(),
+          };
+
+          console.log("Cài đặt:", settings);
+          alert("Đã lưu cài đặt hệ thống");
+        });
+    </script>
+  </body>
+</html>

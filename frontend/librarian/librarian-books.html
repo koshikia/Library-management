@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thủ thư | Tra cứu sách</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../admin/admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">L</div>
+        <div class="brand-text">
+          <h1>Library Staff</h1>
+          <p>Khu vực thủ thư</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="/librarian/librarian-dashboard.html">Tổng quan</a>
+        <a href="/librarian/librarian-books.html" class="active">Tra cứu sách</a>
+        <a href="/librarian/librarian-borrow-return.html">Mượn / Trả sách</a>
+        <a href="/librarian/librarian-readers.html">Độc giả</a>
+        <a href="/librarian/librarian-profile.html">Thông tin cá nhân</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="topbar">
+        <div class="page-title">
+          <h2>Tra cứu sách</h2>
+          <p>Tìm kiếm và kiểm tra tình trạng sách hiện có trong thư viện.</p>
+        </div>
+        <div class="admin-badge">Kho sách</div>
+      </div>
+
+      <section class="card">
+        <div class="card-header">
+          <h3>Danh mục sách</h3>
+          <p>Hỗ trợ thủ thư tìm nhanh sách theo tên, tác giả hoặc thể loại.</p>
+        </div>
+        <div class="card-body">
+          <div class="toolbar">
+            <div class="search-box">
+              <input type="text" id="searchBook" placeholder="Tìm theo tên sách, tác giả, thể loại...">
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tên sách</th>
+                  <th>Tác giả</th>
+                  <th>Thể loại</th>
+                  <th>Số lượng</th>
+                  <th>Tình trạng</th>
+                </tr>
+              </thead>
+              <tbody id="bookTable"></tbody>
+            </table>
+          </div>
+
+          <div class="empty-state" id="emptyState" style="display:none;">
+            Không tìm thấy sách phù hợp.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    let books = [];
+
+    loadBooks();
+
+    async function loadBooks(){
+      try{
+        const res = await fetch("/api/books");
+        books = await res.json();
+        renderBooks(books);
+      }catch(error){
+        console.error("Lỗi load books:", error);
+        books = [];
+        renderBooks([]);
+      }
+    }
+
+    function getBookStatus(soLuong){
+      if(Number(soLuong) <= 0){
+        return '<span class="status-badge status-late">HẾT SÁCH</span>';
+      }
+      if(Number(soLuong) <= 2){
+        return '<span class="status-badge status-borrowed">SẮP HẾT</span>';
+      }
+      return '<span class="status-badge status-returned">CÒN SÁCH</span>';
+    }
+
+    function renderBooks(list){
+      const tb = document.getElementById("bookTable");
+      const emptyState = document.getElementById("emptyState");
+
+      tb.innerHTML = "";
+
+      if(!list || list.length === 0){
+        emptyState.style.display = "block";
+        return;
+      }
+
+      emptyState.style.display = "none";
+
+      list.forEach(book => {
+        tb.innerHTML += `
+          <tr>
+            <td>${book.id}</td>
+            <td>${book.tenSach}</td>
+            <td>${book.tacGia}</td>
+            <td>${book.theLoai}</td>
+            <td>${book.soLuong}</td>
+            <td>${getBookStatus(book.soLuong)}</td>
+          </tr>
+        `;
+      });
+    }
+
+    document.getElementById("searchBook").addEventListener("input", function(){
+      const keyword = this.value.trim().toLowerCase();
+
+      const filtered = books.filter(book =>
+        String(book.tenSach).toLowerCase().includes(keyword) ||
+        String(book.tacGia).toLowerCase().includes(keyword) ||
+        String(book.theLoai).toLowerCase().includes(keyword)
+      );
+
+      renderBooks(filtered);
+    });
+  </script>
+</body>
+</html>

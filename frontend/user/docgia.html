@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div>
+      <div class="brand">
+        <div class="brand-logo">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div>
+          <h2>Thư viện số</h2>
+          <span>Premium Member</span>
+        </div>
+      </div>
+
+      <nav class="menu">
+
+        <a href="home.html" class="menu-item active">
+          <i class="fa-solid fa-house"></i>
+          Trang chủ
+        </a>
+
+        <a href="docgia.html" class="menu-item">
+          <i class="fa-solid fa-book"></i>
+          Sách của tôi
+        </a>
+
+        <a href="history.html" class="menu-item">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          Lịch sử mượn
+        </a>
+
+        <a href="#" class="menu-item">
+          <i class="fa-solid fa-heart"></i>
+          Yêu thích
+        </a>
+
+        <a href="#" class="menu-item">
+          <i class="fa-solid fa-layer-group"></i>
+          Danh mục
+        </a>
+
+      </nav>
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+      <a href="#" class="menu-item settings-link">
+        <i class="fa-solid fa-gear"></i>
+        Cài đặt
+      </a>
+
+      <div class="user-card">
+        <img src="https://i.pravatar.cc/40" alt="avatar">
+        <div>
+          <strong>Minh Anh</strong>
+          <span>Thành viên Vàng</span>
+        </div>
+      </div>
+
+    </div>
+
+  </aside>
+
+
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <div class="search-box">
+        <input type="text" placeholder="Tìm kiếm sách, tác giả hoặc ISBN...">
+      </div>
+    </header>
+    <section class="hero-banner">
+
+      <h1>Chào mừng bạn trở lại, Minh Anh!</h1>
+
+      <p>
+        Khám phá hơn 50,000 cuốn sách điện tử và tài liệu
+        đa phương tiện mới nhất ngay hôm nay.
+      </p>
+
+      <button class="primary-btn">
+        Bắt đầu đọc ngay
+      </button>
+
+    </section>
+
+
+    <!-- SÁCH MỚI -->
+    <section class="section">
+
+      <div class="section-header">
+        <h2>Sách mới cập nhật</h2>
+        <a href="#">Xem tất cả →</a>
+      </div>
+
+
+      <div class="book-grid">
+
+        <div class="book-card">
+          <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400" alt="">
+          <h3>Kiến tạo bản thân</h3>
+          <p>Adam Grant</p>
+          <button class="borrow-btn">Mượn sách</button>
+        </div>
+
+        <div class="book-card">
+          <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400" alt="">
+          <h3>Nghệ thuật tư duy</h3>
+          <p>Rolf Dobelli</p>
+          <button class="borrow-btn">Mượn sách</button>
+        </div>
+
+        <div class="book-card">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400" alt="">
+          <h3>Sức mạnh thói quen</h3>
+          <p>Charles Duhigg</p>
+          <button class="borrow-btn">Mượn sách</button>
+        </div>
+
+        <div class="book-card">
+          <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400" alt="">
+          <h3>Vũ trụ trong vỏ hạt dẻ</h3>
+          <p>Stephen Hawking</p>
+          <button class="borrow-btn">Mượn sách</button>
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- SÁCH MƯỢN NHIỀU -->
+    <section class="section">
+
+      <div class="section-header">
+        <h2>Sách mượn nhiều</h2>
+      </div>
+
+      <div class="book-grid">
+
+        <div class="book-card">
+          <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=400" alt="">
+          <h3>Đắc Nhân Tâm</h3>
+          <p>Dale Carnegie</p>
+          <button class="borrow-btn">Mượn sách</button>
+        </div>
+
+        <div class="book-card">
+          <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400" alt="">
+          <h3>Sapiens</h3>
+          <p>Yuval Noah Harari</p>
+          <button class="borrow-btn">Mượn sách</button>
+        </div>
+
+        <div class="book-card">
+          <img src="https://images.unsplash.com/photo-1511108690759-009324a90311?w=400" alt="">
+          <h3>Tâm lý học về tiền</h3>
+          <p>Morgan Housel</p>
+          <button class="borrow-btn">Mượn sách</button>
+        </div>
+
+        <div class="book-card">
+          <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400" alt="">
+          <h3>Nhà giả kim</h3>
+          <p>Paulo Coelho</p>
+          <button class="borrow-btn">Mượn sách</button>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- RIGHT PANEL -->
+  <aside class="right-panel">
+
+    <div class="panel-card">
+
+      <h3>Gợi ý cho bạn</h3>
+
+      <div class="suggest-item">
+        <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=200" alt="">
+        <div>
+          <strong>Đắc Nhân Tâm</strong>
+          <p>Dale Carnegie</p>
+          <span>4.9 / 5</span>
+        </div>
+      </div>
+
+      <div class="suggest-item">
+        <img src="https://images.unsplash.com/photo-1511108690759-009324a90311?w=200" alt="">
+        <div>
+          <strong>Thiết kế cuộc đời</strong>
+          <p>Bill Burnett</p>
+          <span>4.7 / 5</span>
+        </div>
+      </div>
+
+      <div class="suggest-item">
+        <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=200" alt="">
+        <div>
+          <strong>Tâm lý học về tiền</strong>
+          <p>Morgan Housel</p>
+          <span>5.0 / 5</span>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="panel-card">
+
+      <h3>Danh mục yêu thích</h3>
+
+      <div class="tag-list">
+        <span class="tag">Công nghệ</span>
+        <span class="tag">Văn học</span>
+        <span class="tag">Kinh tế</span>
+        <span class="tag">Tâm lý</span>
+        <span class="tag">Khoa học</span>
+      </div>
+
+    </div>
+
+  </aside>
+
+
+</div>
+
+</body>
+</html>

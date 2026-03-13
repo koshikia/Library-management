@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin | Thống kê</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">L</div>
+        <div class="brand-text">
+          <h1>Library Admin</h1>
+          <p>Quản trị hệ thống thư viện</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="admin.html">Quản lý người dùng</a>
+        <a href="books.html">Quản lý sách</a>
+        <a href="loans.html">Phiếu mượn</a>
+        <a href="status.html" class="active">Thống kê</a>
+        <a href="settings.html">Cài đặt</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="topbar">
+        <div class="page-title">
+          <h2>Thống kê thư viện</h2>
+          <p>Tổng quan số liệu hoạt động của hệ thống.</p>
+        </div>
+        <div class="admin-badge">Báo cáo hệ thống</div>
+      </div>
+
+      <section class="stats stats-4">
+        <div class="stat-card">
+          <div class="label">Tổng người dùng</div>
+          <div class="value" id="statsUsers">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Tổng đầu sách</div>
+          <div class="value" id="statsBooks">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Sách đang mượn</div>
+          <div class="value" id="statsBorrowing">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Phiếu quá hạn</div>
+          <div class="value" id="statsLate">0</div>
+        </div>
+      </section>
+
+      <div class="two-col">
+        <section class="card">
+          <div class="card-header">
+            <h3>Thống kê theo thể loại</h3>
+            <p>Số lượng sách theo từng nhóm thể loại.</p>
+          </div>
+          <div class="card-body" id="categoryStats"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h3>Danh sách sách hiện có</h3>
+            <p>Một số đầu sách nổi bật trong thư viện.</p>
+          </div>
+          <div class="card-body">
+            <div class="list" id="topBooksList"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    loadStats();
+
+    async function loadStats(){
+      try{
+        const [usersRes, booksRes, loansRes] = await Promise.all([
+          fetch("/api/users"),
+          fetch("/api/books"),
+          fetch("/api/loans")
+        ]);
+
+        const users = await usersRes.json();
+        const books = await booksRes.json();
+        const loans = await loansRes.json();
+
+        renderStats(users, books, loans);
+      }catch(error){
+        console.error("Lỗi load thống kê:", error);
+      }
+    }
+
+    function renderStats(users, books, loans){
+      document.getElementById("statsUsers").textContent = users.length;
+      document.getElementById("statsBooks").textContent = books.length;
+      document.getElementById("statsBorrowing").textContent =
+        loans.filter(item => item.trangThai === "DANG_MUON").length;
+      document.getElementById("statsLate").textContent =
+        loans.filter(item => item.trangThai === "QUA_HAN").length;
+
+      renderCategoryStats(books);
+      renderTopBooks(books);
+    }
+
+    function renderCategoryStats(books){
+      const box = document.getElementById("categoryStats");
+      box.innerHTML = "";
+
+      if(!books.length){
+        box.innerHTML = '<div class="empty-state">Chưa có dữ liệu sách.</div>';
+        return;
+      }
+
+      const categoryMap = {};
+      books.forEach(book => {
+        const key = book.theLoai || "Khác";
+        categoryMap[key] = (categoryMap[key] || 0) + 1;
+      });
+
+      const entries = Object.entries(categoryMap);
+      const maxValue = Math.max(...entries.map(item => item[1]));
+
+      entries.forEach(([name, value]) => {
+        const percent = Math.round((value / maxValue) * 100);
+        box.innerHTML += `
+          <div class="bar-group">
+            <div class="bar-row">
+              <span>${name}</span>
+              <span>${value} sách</span>
+            </div>
+            <div class="bar">
+              <div class="bar-fill" style="width:${percent}%"></div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function renderTopBooks(books){
+      const box = document.getElementById("topBooksList");
+      box.innerHTML = "";
+
+      if(!books.length){
+        box.innerHTML = '<div class="empty-state">Chưa có dữ liệu sách.</div>';
+        return;
+      }
+
+      books.slice(0, 5).forEach((book, index) => {
+        box.innerHTML += `
+          <div class="list-item">
+            <div>
+              <div class="name">${book.tenSach}</div>
+              <div class="meta">${book.tacGia} • ${book.theLoai}</div>
+            </div>
+            <span class="tag">Top ${index + 1}</span>
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>

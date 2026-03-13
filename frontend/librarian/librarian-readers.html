@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thủ thư | Độc giả</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../admin/admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">L</div>
+        <div class="brand-text">
+          <h1>Library Staff</h1>
+          <p>Khu vực thủ thư</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="/librarian/librarian-dashboard.html">Tổng quan</a>
+        <a href="/librarian/librarian-books.html">Tra cứu sách</a>
+        <a href="/librarian/librarian-borrow-return.html">Mượn / Trả sách</a>
+        <a href="/librarian/librarian-readers.html" class="active">Độc giả</a>
+        <a href="/librarian/librarian-profile.html">Thông tin cá nhân</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="topbar">
+        <div class="page-title">
+          <h2>Quản lý độc giả</h2>
+          <p>Tra cứu thông tin và hỗ trợ thủ thư quản lý độc giả trong thư viện.</p>
+        </div>
+        <div class="admin-badge">Người dùng hệ thống</div>
+      </div>
+
+      <section class="card">
+        <div class="card-header">
+          <h3>Danh sách độc giả</h3>
+          <p>Hiển thị các tài khoản có vai trò độc giả.</p>
+        </div>
+        <div class="card-body">
+          <div class="toolbar">
+            <div class="search-box">
+              <input type="text" id="searchReader" placeholder="Tìm theo họ tên hoặc email...">
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Họ tên</th>
+                  <th>Email</th>
+                  <th>Vai trò</th>
+                  <th>Hỗ trợ</th>
+                </tr>
+              </thead>
+              <tbody id="readerTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    let readers = [];
+
+    loadReaders();
+
+    async function loadReaders(){
+      try{
+        const res = await fetch("/api/users");
+        const users = await res.json();
+        readers = users.filter(item => item.vaiTro === "DOCGIA");
+        renderReaders(readers);
+      }catch(error){
+        console.error("Lỗi load readers:", error);
+        readers = [];
+        renderReaders([]);
+      }
+    }
+
+    function renderReaders(list){
+      const tb = document.getElementById("readerTable");
+      tb.innerHTML = "";
+
+      list.forEach(item => {
+        tb.innerHTML += `
+          <tr>
+            <td>${item.id}</td>
+            <td>${item.hoTen}</td>
+            <td>${item.email}</td>
+            <td><span class="role-badge role-docgia">ĐỘC GIẢ</span></td>
+            <td>
+              <div class="actions">
+                <button class="btn-sm btn-edit" onclick="viewReader(${item.id})">Xem</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function viewReader(id){
+      const reader = readers.find(item => item.id === id);
+      if(!reader){
+        alert("Không tìm thấy độc giả");
+        return;
+      }
+
+      alert(
+        "Mã độc giả: " + reader.id + "\n" +
+        "Họ tên: " + reader.hoTen + "\n" +
+        "Email: " + reader.email + "\n" +
+        "Vai trò: " + reader.vaiTro
+      );
+    }
+
+    document.getElementById("searchReader").addEventListener("input", function(){
+      const keyword = this.value.trim().toLowerCase();
+
+      const filtered = readers.filter(item =>
+        String(item.hoTen).toLowerCase().includes(keyword) ||
+        String(item.email).toLowerCase().includes(keyword)
+      );
+
+      renderReaders(filtered);
+    });
+  </script>
+</body>
+</html>

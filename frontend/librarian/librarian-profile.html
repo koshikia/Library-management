@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thủ thư | Thông tin cá nhân</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../admin/admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">L</div>
+        <div class="brand-text">
+          <h1>Library Staff</h1>
+          <p>Khu vực thủ thư</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="/librarian/librarian-dashboard.html">Tổng quan</a>
+        <a href="/librarian/librarian-books.html">Tra cứu sách</a>
+        <a href="/librarian/librarian-borrow-return.html">Mượn / Trả sách</a>
+        <a href="/librarian/librarian-readers.html">Độc giả</a>
+        <a href="/librarian/librarian-profile.html" class="active">Thông tin cá nhân</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="topbar">
+        <div class="page-title">
+          <h2>Thông tin cá nhân</h2>
+          <p>Trang hồ sơ của thủ thư đang đăng nhập.</p>
+        </div>
+        <div class="admin-badge">Tài khoản thủ thư</div>
+      </div>
+
+      <div class="two-col">
+        <section class="card">
+          <div class="card-body">
+            <div class="profile-head">
+              <div class="avatar-box">T</div>
+              <div>
+                <h3 id="profileName">Thủ thư</h3>
+                <p id="profileEmail">staff@library.com</p>
+              </div>
+            </div>
+
+            <div class="info-box">
+              <div class="info-row">
+                <div class="info-label">Họ tên</div>
+                <div class="info-value" id="infoName">Thủ thư</div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">Email</div>
+                <div class="info-value" id="infoEmail">staff@library.com</div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">Vai trò</div>
+                <div class="info-value">THỦ THƯ</div>
+              </div>
+              <div class="info-row">
+                <div class="info-label">Ca làm việc</div>
+                <div class="info-value">Sáng</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h3>Cập nhật hồ sơ</h3>
+            <p>Chỉnh sửa nhanh thông tin cá nhân hiển thị.</p>
+          </div>
+          <div class="card-body">
+            <form id="profileForm">
+              <div class="form-group">
+                <label class="form-label">Họ tên</label>
+                <input class="input" id="editName" value="Thủ thư Nguyễn An">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="input" id="editEmail" value="staff@library.com">
+              </div>
+
+              <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+            </form>
+
+            <div class="note">
+              Trang này hiện đang dùng dữ liệu mẫu phía giao diện. Khi nối backend, có thể liên kết với tài khoản đăng nhập thật.
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById("profileForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const name = document.getElementById("editName").value.trim();
+      const email = document.getElementById("editEmail").value.trim();
+
+      document.getElementById("profileName").textContent = name;
+      document.getElementById("profileEmail").textContent = email;
+      document.getElementById("infoName").textContent = name;
+      document.getElementById("infoEmail").textContent = email;
+
+      alert("Đã cập nhật thông tin cá nhân");
+    });
+  </script>
+</body>
+</html>

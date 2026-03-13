@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, "..", "frontend")));
 
 //ROUTE HOME
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "register.html"));
+  res.sendFile(path.join(__dirname, "..", "frontend","user", "register.html"));
 });
 
 // TEST
@@ -191,5 +191,138 @@ app.post("/api/login", (req, res) => {
       }
     }
   );
+});
+
+
+
+app.use(cors());
+app.use(express.json());
+app.use(express.static(__dirname));
+
+let users = [
+  { id: 1, hoTen: "Nguyễn Văn A", email: "a@gmail.com", vaiTro: "ADMIN" },
+  { id: 2, hoTen: "Trần Thị B", email: "b@gmail.com", vaiTro: "THUTHU" },
+  { id: 3, hoTen: "Lê Văn C", email: "c@gmail.com", vaiTro: "DOCGIA" }
+];
+
+let books = [
+  { id: 1, tenSach: "Dế Mèn Phiêu Lưu Ký", tacGia: "Tô Hoài", theLoai: "Văn học", soLuong: 10 },
+  { id: 2, tenSach: "Node.js Cơ Bản", tacGia: "Nguyễn Dev", theLoai: "CNTT", soLuong: 5 }
+];
+
+let loans = [
+  { id: 1, docGia: "Lê Văn C", tenSach: "Dế Mèn Phiêu Lưu Ký", ngayMuon: "2026-03-10", hanTra: "2026-03-20", trangThai: "DANG_MUON" }
+];
+
+app.get("/", (req, res) => {
+  res.redirect("/admin-users.html");
+});
+
+/* USERS */
+app.get("/api/users", (req, res) => {
+  res.json(users);
+});
+
+app.post("/api/users", (req, res) => {
+  const { hoTen, email, matKhau, vaiTro } = req.body;
+  const newUser = {
+    id: users.length ? Math.max(...users.map(u => u.id)) + 1 : 1,
+    hoTen,
+    email,
+    vaiTro
+  };
+  users.push(newUser);
+  res.json({ message: "Thêm người dùng thành công", user: newUser });
+});
+
+app.put("/api/users/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const index = users.findIndex(u => u.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ message: "Không tìm thấy người dùng" });
+  }
+
+  users[index] = { ...users[index], ...req.body };
+  res.json({ message: "Cập nhật người dùng thành công" });
+});
+
+app.delete("/api/users/:id", (req, res) => {
+  const id = Number(req.params.id);
+  users = users.filter(u => u.id !== id);
+  res.json({ message: "Xóa người dùng thành công" });
+});
+
+/* BOOKS */
+app.get("/api/books", (req, res) => {
+  res.json(books);
+});
+
+app.post("/api/books", (req, res) => {
+  const { tenSach, tacGia, theLoai, soLuong } = req.body;
+  const newBook = {
+    id: books.length ? Math.max(...books.map(b => b.id)) + 1 : 1,
+    tenSach,
+    tacGia,
+    theLoai,
+    soLuong
+  };
+  books.push(newBook);
+  res.json({ message: "Thêm sách thành công", book: newBook });
+});
+
+app.put("/api/books/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const index = books.findIndex(b => b.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ message: "Không tìm thấy sách" });
+  }
+
+  books[index] = { ...books[index], ...req.body };
+  res.json({ message: "Cập nhật sách thành công" });
+});
+
+app.delete("/api/books/:id", (req, res) => {
+  const id = Number(req.params.id);
+  books = books.filter(b => b.id !== id);
+  res.json({ message: "Xóa sách thành công" });
+});
+
+/* LOANS */
+app.get("/api/loans", (req, res) => {
+  res.json(loans);
+});
+
+app.post("/api/loans", (req, res) => {
+  const { docGia, tenSach, ngayMuon, hanTra } = req.body;
+  const newLoan = {
+    id: loans.length ? Math.max(...loans.map(l => l.id)) + 1 : 1,
+    docGia,
+    tenSach,
+    ngayMuon,
+    hanTra,
+    trangThai: "DANG_MUON"
+  };
+  loans.push(newLoan);
+  res.json({ message: "Tạo phiếu mượn thành công", loan: newLoan });
+});
+
+app.put("/api/loans/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const index = loans.findIndex(l => l.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ message: "Không tìm thấy phiếu mượn" });
+  }
+
+  loans[index] = { ...loans[index], ...req.body };
+  res.json({ message: "Cập nhật phiếu mượn thành công" });
+});
+
+app.delete("/api/loans/:id", (req, res) => {
+  const id = Number(req.params.id);
+  loans = loans.filter(l => l.id !== id);
+  res.json({ message: "Xóa phiếu mượn thành công" });
 });
 

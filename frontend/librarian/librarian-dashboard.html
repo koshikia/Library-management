@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thủ thư | Tổng quan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../admin/admin.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">L</div>
+        <div class="brand-text">
+          <h1>Library Staff</h1>
+          <p>Khu vực thủ thư</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="/librarian/librarian-dashboard.html" class="active">Tổng quan</a>
+        <a href="/librarian/librarian-books.html">Tra cứu sách</a>
+        <a href="/librarian/librarian-borrow-return.html">Mượn / Trả sách</a>
+        <a href="/librarian/librarian-readers.html">Độc giả</a>
+        <a href="/librarian/librarian-profile.html">Thông tin cá nhân</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="topbar">
+        <div class="page-title">
+          <h2>Tổng quan thủ thư</h2>
+          <p>Theo dõi nhanh tình trạng sách, phiếu mượn và độc giả trong ngày.</p>
+        </div>
+        <div class="admin-badge">Ca làm việc: Sáng</div>
+      </div>
+
+      <section class="kpi-grid">
+        <div class="stat-card">
+          <div class="label">Sách đang mượn</div>
+          <div class="value" id="kpiBorrowing">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Phiếu quá hạn</div>
+          <div class="value" id="kpiLate">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Độc giả hôm nay</div>
+          <div class="value" id="kpiReaders">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Đầu sách hiện có</div>
+          <div class="value" id="kpiBooks">0</div>
+        </div>
+      </section>
+
+      <div class="quick-grid">
+        <div class="quick-card">
+          <h4>Lập phiếu mượn</h4>
+          <p>Tạo nhanh phiếu mượn mới cho độc giả và kiểm tra hạn trả.</p>
+          <a class="link-btn" href="librarian-borrow-return.html">Mở trang</a>
+        </div>
+
+        <div class="quick-card">
+          <h4>Tra cứu sách</h4>
+          <p>Tìm kiếm sách theo tên, tác giả hoặc thể loại để hỗ trợ độc giả.</p>
+          <a class="link-btn" href="librarian-books.html">Tra cứu</a>
+        </div>
+
+        <div class="quick-card">
+          <h4>Quản lý độc giả</h4>
+          <p>Xem thông tin độc giả, cập nhật dữ liệu và hỗ trợ tìm kiếm nhanh.</p>
+          <a class="link-btn" href="librarian-readers.html">Xem ngay</a>
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:24px;">
+        <section class="card">
+          <div class="card-header">
+            <h3>Phiếu mượn gần đây</h3>
+            <p>Danh sách cập nhật mới nhất trong hệ thống.</p>
+          </div>
+          <div class="card-body">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Độc giả</th>
+                    <th>Sách</th>
+                    <th>Hạn trả</th>
+                    <th>Trạng thái</th>
+                  </tr>
+                </thead>
+                <tbody id="recentLoanTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h3>Sách được tìm nhiều</h3>
+            <p>Một số đầu sách nổi bật trong thư viện.</p>
+          </div>
+          <div class="card-body">
+            <div class="list" id="highlightBooks"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    loadDashboard();
+
+    async function loadDashboard(){
+      try{
+        const [booksRes, loansRes, usersRes] = await Promise.all([
+          fetch("/api/books"),
+          fetch("/api/loans"),
+          fetch("/api/users")
+        ]);
+
+        const books = await booksRes.json();
+        const loans = await loansRes.json();
+        const users = await usersRes.json();
+
+        document.getElementById("kpiBooks").textContent = books.length;
+        document.getElementById("kpiBorrowing").textContent =
+          loans.filter(item => item.trangThai === "DANG_MUON").length;
+        document.getElementById("kpiLate").textContent =
+          loans.filter(item => item.trangThai === "QUA_HAN").length;
+        document.getElementById("kpiReaders").textContent =
+          users.filter(item => item.vaiTro === "DOCGIA").length;
+
+        renderRecentLoans(loans);
+        renderHighlightBooks(books);
+      }catch(error){
+        console.error("Lỗi dashboard:", error);
+      }
+    }
+
+    function getStatusBadge(status){
+      if(status === "DA_TRA"){
+        return '<span class="status-badge status-returned">ĐÃ TRẢ</span>';
+      }
+      if(status === "QUA_HAN"){
+        return '<span class="status-badge status-late">QUÁ HẠN</span>';
+      }
+      return '<span class="status-badge status-borrowed">ĐANG MƯỢN</span>';
+    }
+
+    function renderRecentLoans(loans){
+      const tb = document.getElementById("recentLoanTable");
+      tb.innerHTML = "";
+
+      loans.slice(0, 5).forEach(item => {
+        tb.innerHTML += `
+          <tr>
+            <td>${item.id}</td>
+            <td>${item.docGia}</td>
+            <td>${item.tenSach}</td>
+            <td>${item.hanTra}</td>
+            <td>${getStatusBadge(item.trangThai)}</td>
+          </tr>
+        `;
+      });
+    }
+
+    function renderHighlightBooks(books){
+      const box = document.getElementById("highlightBooks");
+      box.innerHTML = "";
+
+      books.slice(0, 5).forEach((book, index) => {
+        box.innerHTML += `
+          <div class="list-item">
+            <div>
+              <div class="name">${book.tenSach}</div>
+              <div class="meta">${book.tacGia} • ${book.theLoai}</div>
+            </div>
+            <span class="tag">Top ${index + 1}</span>
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>
