@@ -135,11 +135,13 @@ exports.getAllBorrows = async (req, res) => {
 
     try {
 
-        const data = await PhieuMuon.getAll();
+        const borrows = await PhieuMuon.getAll();
 
-        res.json(data);
+        res.json(borrows);
 
-    } catch (error) {
+    } catch (err) {
+
+        console.error(err);
 
         res.status(500).json({
             message: "Lỗi server"

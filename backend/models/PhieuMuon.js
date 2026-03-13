@@ -45,32 +45,46 @@ const PhieuMuon = {
         return result;
     },
 
-    // Thủ thư xem tất cả phiếu mượn
-    getAll: async () => {
+    // Thủ thư xem tất cả phiếu mượn + trạng thái gia hạn
+getAll: async () => {
 
-        const [rows] = await db.query(`
-            SELECT 
-                pm.id,
-                nd.hoTen,
-                nd.email,
-                ds.tenSach,
-                bs.maVach,
-                pm.ngayMuon,
-                pm.hanTra,
-                pm.ngayTra,
-                pm.trangThai
-            FROM PhieuMuon pm
-            JOIN NguoiDung nd 
-                ON pm.nguoiDungId = nd.id
-            JOIN BanSaoSach bs 
-                ON pm.maVach = bs.maVach
-            JOIN DauSach ds 
-                ON bs.maDauSach = ds.maDauSach
-            ORDER BY pm.ngayMuon DESC
-        `);
+    const [rows] = await db.query(`
+        SELECT 
+            pm.id,
+            nd.hoTen,
+            nd.email,
+            ds.tenSach,
+            bs.maVach,
+            pm.ngayMuon,
+            pm.hanTra,
+            pm.ngayTra,
+            pm.trangThai,
 
-        return rows;
-    },
+            gh.id AS giaHanId,
+            gh.trangThai AS trangThaiGiaHan,
+            gh.soNgayGiaHan
+
+        FROM PhieuMuon pm
+
+        JOIN NguoiDung nd 
+            ON pm.nguoiDungId = nd.id
+
+        JOIN BanSaoSach bs 
+            ON pm.maVach = bs.maVach
+
+        JOIN DauSach ds 
+            ON bs.maDauSach = ds.maDauSach
+
+        LEFT JOIN GiaHan gh
+            ON pm.id = gh.phieuMuonId
+            AND gh.trangThai = 'CHO_DUYET'
+
+        ORDER BY pm.ngayMuon DESC
+    `);
+
+    return rows;
+},
+    
 
     // Bạn đọc xem phiếu mượn của mình
     getByUserId: async (userId) => {
