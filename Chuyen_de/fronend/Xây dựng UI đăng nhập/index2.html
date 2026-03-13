@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Thư Viện Cao Cấp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-body: #f0f2f5;
+            --glass: rgba(255, 255, 255, 0.85);
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent: #4834d4;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { margin: 0; background-color: var(--bg-body); color: var(--text-main); display: flex; min-height: 100vh; overflow: hidden; }
+
+        /* Sidebar hiện đại */
+        aside {
+            width: 280px; background: white; border-right: 1px solid #e1e4e8;
+            display: flex; flex-direction: column; padding: 30px 20px; transition: all 0.3s;
+        }
+        .logo { font-size: 22px; font-weight: 700; background: var(--primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+
+        nav a {
+            padding: 14px 18px; color: var(--text-muted); text-decoration: none; border-radius: 12px;
+            display: flex; align-items: center; gap: 12px; margin-bottom: 8px; transition: 0.3s; font-weight: 600;
+        }
+        nav a:hover, nav a.active { background: #f1f3ff; color: var(--accent); }
+        nav a.active { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3); }
+
+        /* Vùng nội dung chính */
+        main { flex: 1; padding: 40px; overflow-y: auto; height: 100vh; }
+
+        /* Thống kê nhanh */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 20px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 15px; }
+        .stat-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
+        /* Form và Bảng */
+        .glass-card { background: var(--glass); backdrop-filter: blur(10px); border-radius: 24px; padding: 30px; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.3); }
+        
+        .input-group { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 25px; }
+        .input-box { display: flex; flex-direction: column; gap: 8px; }
+        .input-box label { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+        input { 
+            padding: 14px; border: 2px solid #edf2f7; border-radius: 12px; outline: none; transition: 0.3s; font-size: 15px;
+        }
+        input:focus { border-color: #667eea; box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1); }
+
+        .btn-gradient {
+            background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 12px;
+            cursor: pointer; font-weight: 700; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-gradient:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+
+        /* Bảng phong cách mới */
+        table { width: 100%; border-collapse: separate; border-spacing: 0 10px; margin-top: 20px; }
+        th { padding: 15px; color: var(--text-muted); text-align: left; font-size: 14px; }
+        tbody tr { background: white; border-radius: 15px; transition: 0.3s; }
+        tbody tr:hover { transform: scale(1.01); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        td { padding: 20px 15px; }
+        td:first-child { border-radius: 15px 0 0 15px; }
+        td:last-child { border-radius: 0 15px 15px 0; }
+
+        .badge { padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; background: #e0e7ff; color: #4338ca; }
+
+        /* Login Screen */
+        .login-overlay { position: fixed; inset: 0; background: var(--primary); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .login-card { background: white; width: 400px; padding: 40px; border-radius: 30px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div id="login-screen" class="login-overlay">
+    <div class="login-card">
+        <div class="logo" style="justify-content: center;"><i class="fas fa-book-open"></i> LIB.PRO</div>
+        <h2 style="margin-bottom: 30px;">Chào mừng quay trở lại</h2>
+        <div class="input-box" style="margin-bottom: 20px; text-align: left;">
+            <label>Username</label>
+            <input id="username" type="text" placeholder="admin">
+        </div>
+        <div class="input-box" style="margin-bottom: 30px; text-align: left;">
+            <label>Password</label>
+            <input id="password" type="password" placeholder="123">
+        </div>
+        <button class="btn-gradient" onclick="login()" style="width: 100%; justify-content: center;">Đăng nhập hệ thống</button>
+    </div>
+</div>
+
+<aside id="sidebar" style="display: none;">
+    <div class="logo"><i class="fas fa-book-open"></i> LIB.PRO</div>
+    <nav>
+        <a class="active"><i class="fas fa-columns"></i> Dashboard</a>
+        <a href="#"><i class="fas fa-book"></i> Quản lý sách</a>
+        <a href="#"><i class="fas fa-users"></i> Độc giả</a>
+        <a href="#"><i class="fas fa-cog"></i> Cài đặt</a>
+        <a onclick="location.reload()" style="margin-top: auto; color: #e74c3c;"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+    </nav>
+</aside>
+
+<main id="main-content" style="display: none;">
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #e3f2fd; color: #1e88e5;"><i class="fas fa-book"></i></div>
+            <div><div id="count-books" style="font-size: 22px; font-weight: 700;">0</div><div style="color: var(--text-muted); font-size: 13px;">Tổng số sách</div></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #f3e5f5; color: #8e24aa;"><i class="fas fa-user-graduate"></i></div>
+            <div><div style="font-size: 22px; font-weight: 700;">1,240</div><div style="color: var(--text-muted); font-size: 13px;">Lượt mượn</div></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #fff3e0; color: #fb8c00;"><i class="fas fa-clock"></i></div>
+            <div><div style="font-size: 22px; font-weight: 700;">12</div><div style="color: var(--text-muted); font-size: 13px;">Sách quá hạn</div></div>
+        </div>
+    </div>
+
+    <div class="glass-card">
+        <h2 style="margin-bottom: 25px;"><i class="fas fa-feather-alt" style="margin-right: 10px;"></i> Thêm sách vào kho</h2>
+        <div class="input-group">
+            <div class="input-box"><label>Mã định danh</label><input id="bookId" placeholder="VD: B-999"></div>
+            <div class="input-box"><label>Tựa đề sách</label><input id="bookName" placeholder="Tên sách..."></div>
+            <div class="input-box"><label>Tác giả</label><input id="author" placeholder="Tên tác giả..."></div>
+            <div class="input-box"><label>Năm phát hành</label><input id="year" type="number" placeholder="2024"></div>
+        </div>
+        <button class="btn-gradient" onclick="addBook()"><i class="fas fa-plus"></i> Cập nhật kho sách</button>
+    </div>
+
+    <table style="margin-top: 40px;">
+        <thead>
+            <tr>
+                <th>MÃ SÁCH</th>
+                <th>TÊN SÁCH</th>
+                <th>TÁC GIẢ</th>
+                <th>NĂM</th>
+                <th>THAO TÁC</th>
+            </tr>
+        </thead>
+        <tbody id="bookTable"></tbody>
+    </table>
+</main>
+
+<script>
+    let books = [];
+    let editIndex = -1;
+
+    function login() {
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+        if (user === 'admin' && pass === '123') {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('sidebar').style.display = 'flex';
+            document.getElementById('main-content').style.display = 'block';
+        } else {
+            alert('Thông tin không chính xác!');
+        }
+    }
+
+    function addBook() {
+        const id = document.getElementById('bookId').value;
+        const name = document.getElementById('bookName').value;
+        const au = document.getElementById('author').value;
+        const y = document.getElementById('year').value;
+
+        if (!id || !name || !au || !y) return alert('Hãy nhập đủ thông tin!');
+
+        if (editIndex === -1) {
+            books.push({ id, name, au, y });
+        } else {
+            books[editIndex] = { id, name, au, y };
+            editIndex = -1;
+        }
+
+        clearForm();
+        renderBooks();
+    }
+
+    function renderBooks() {
+        const table = document.getElementById('bookTable');
+        document.getElementById('count-books').innerText = books.length;
+        table.innerHTML = '';
+        books.forEach((b, i) => {
+            table.innerHTML += `
+                <tr>
+                    <td><span class="badge">${b.id}</span></td>
+                    <td style="font-weight: 600;">${b.name}</td>
+                    <td>${b.au}</td>
+                    <td>${b.y}</td>
+                    <td>
+                        <button onclick="editBook(${i})" style="border:none; background:none; color:#fb8c00; cursor:pointer; margin-right:15px;"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteBook(${i})" style="border:none; background:none; color:#e53935; cursor:pointer;"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>`;
+        });
+    }
+
+    function editBook(i) {
+        const b = books[i];
+        document.getElementById('bookId').value = b.id;
+        document.getElementById('bookName').value = b.name;
+        document.getElementById('author').value = b.au;
+        document.getElementById('year').value = b.y;
+        editIndex = i;
+    }
+
+    function deleteBook(i) {
+        if (confirm('Xóa bản ghi này?')) {
+            books.splice(i, 1);
+            renderBooks();
+        }
+    }
+
+    function clearForm() {
+        document.getElementById('bookId').value = '';
+        document.getElementById('bookName').value = '';
+        document.getElementById('author').value = '';
+        document.getElementById('year').value = '';
+    }
+</script>
+</body>
+</html>

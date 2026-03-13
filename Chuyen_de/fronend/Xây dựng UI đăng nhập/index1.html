@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIB.PRO - Premium Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --glass: rgba(255, 255, 255, 0.9);
+            --bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+        }
+
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { margin: 0; background: var(--bg); color: var(--text-dark); display: flex; min-height: 100vh; overflow: hidden; }
+
+        /* Auth Screen */
+        .auth-overlay {
+            position: fixed; inset: 0; background: var(--primary); 
+            display: flex; align-items: center; justify-content: center; z-index: 1000;
+            transition: 0.5s ease-in-out;
+        }
+        .auth-card {
+            background: white; width: 420px; padding: 40px; border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); text-align: center;
+        }
+        .auth-tabs { display: flex; gap: 10px; margin-bottom: 30px; background: #f1f5f9; padding: 5px; border-radius: 12px; }
+        .auth-tabs button {
+            flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer;
+            font-weight: 600; background: transparent; color: var(--text-light); transition: 0.3s;
+        }
+        .auth-tabs button.active { background: white; color: var(--text-dark); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        /* App Layout */
+        aside { width: 280px; background: white; border-right: 1px solid #e2e8f0; display: none; flex-direction: column; padding: 30px 20px; }
+        main { flex: 1; padding: 40px; overflow-y: auto; display: none; }
+
+        .logo { font-size: 24px; font-weight: 800; background: var(--primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 40px; }
+
+        /* Components */
+        .input-group { text-align: left; margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text-light); }
+        input { 
+            width: 100%; padding: 14px; border: 2px solid #f1f5f9; border-radius: 14px; 
+            outline: none; transition: 0.3s; font-size: 15px; 
+        }
+        input:focus { border-color: #6366f1; background: #fff; }
+
+        .btn-full {
+            width: 100%; padding: 16px; border: none; border-radius: 14px;
+            background: var(--primary); color: white; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .btn-full:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* Book Card & Table */
+        .glass-card { background: white; padding: 30px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { text-align: left; padding: 15px; color: var(--text-light); font-size: 13px; text-transform: uppercase; }
+        td { padding: 15px; border-top: 1px solid #f1f5f9; }
+        tr:hover { background: #f8fafc; }
+
+        .badge { background: #e0e7ff; color: #4338ca; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div id="auth-screen" class="auth-overlay">
+    <div class="auth-card">
+        <div class="logo">LIB.PRO</div>
+        
+        <div class="auth-tabs">
+            <button id="tab-login" class="active" onclick="switchAuth('login')">Đăng nhập</button>
+            <button id="tab-signup" onclick="switchAuth('signup')">Đăng ký</button>
+        </div>
+
+        <div id="form-login">
+            <div class="input-group">
+                <label>TÀI KHOẢN</label>
+                <input type="text" id="user-login" placeholder="Nhập username...">
+            </div>
+            <div class="input-group">
+                <label>MẬT KHẨU</label>
+                <input type="password" id="pass-login" placeholder="••••••••">
+            </div>
+            <button class="btn-full" onclick="handleLogin()">Vào hệ thống</button>
+        </div>
+
+        <div id="form-signup" class="hidden">
+            <div class="input-group">
+                <label>TẠO USERNAME</label>
+                <input type="text" id="user-reg" placeholder="Ví dụ: admin123">
+            </div>
+            <div class="input-group">
+                <label>MẬT KHẨU</label>
+                <input type="password" id="pass-reg" placeholder="Tối thiểu 6 ký tự">
+            </div>
+            <button class="btn-full" onclick="handleSignup()">Tạo tài khoản</button>
+        </div>
+    </div>
+</div>
+
+<aside id="sidebar">
+    <div class="logo">LIB.PRO</div>
+    <nav style="display: flex; flex-direction: column; gap: 10px;">
+        <a style="padding: 12px; background: #f1f5f9; border-radius: 12px; font-weight: 600; color: #6366f1;"><i class="fas fa-th-large mr-2"></i> Dashboard</a>
+        <a style="padding: 12px; color: var(--text-light); text-decoration: none;"><i class="fas fa-book mr-2"></i> Kho sách</a>
+    </nav>
+    <button onclick="location.reload()" style="margin-top: auto; border: none; background: #fff1f2; color: #e11d48; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: 700;">Đăng xuất</button>
+</aside>
+
+<main id="main-content">
+    <h1 style="font-weight: 800; letter-spacing: -1px;">Quản lý kho sách</h1>
+    
+    <div class="glass-card">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+            <div class="input-group"><label>MÃ SÁCH</label><input id="bookId" placeholder="VD: S001"></div>
+            <div class="input-group"><label>TÊN SÁCH</label><input id="bookName" placeholder="Tên tác phẩm..."></div>
+            <div class="input-group"><label>TÁC GIẢ</label><input id="author" placeholder="Tác giả..."></div>
+            <div class="input-group"><label>NĂM</label><input id="year" type="number" placeholder="2024"></div>
+        </div>
+        <button class="btn-full" style="width: auto; padding: 14px 40px;" onclick="addBook()">Lưu thông tin sách</button>
+    </div>
+
+    <div class="glass-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã số</th>
+                    <th>Tên sách</th>
+                    <th>Tác giả</th>
+                    <th>Năm</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="bookTable"></tbody>
+        </table>
+    </div>
+</main>
+
+<script>
+    // Xử lý chuyển đổi Tab Auth
+    function switchAuth(type) {
+        const isLogin = type === 'login';
+        document.getElementById('tab-login').classList.toggle('active', isLogin);
+        document.getElementById('tab-signup').classList.toggle('active', !isLogin);
+        document.getElementById('form-login').classList.toggle('hidden', !isLogin);
+        document.getElementById('form-signup').classList.toggle('hidden', isLogin);
+    }
+
+    // Xử lý Đăng ký (Lưu vào LocalStorage)
+    function handleSignup() {
+        const u = document.getElementById('user-reg').value;
+        const p = document.getElementById('pass-reg').value;
+        if(u.length < 3 || p.length < 3) return alert('Vui lòng nhập dài hơn chút!');
+        
+        localStorage.setItem(`user_${u}`, p);
+        alert('Đăng ký thành công! Hãy đăng nhập.');
+        switchAuth('login');
+    }
+
+    // Xử lý Đăng nhập
+    function handleLogin() {
+        const u = document.getElementById('user-login').value;
+        const p = document.getElementById('pass-login').value;
+        
+        // Mặc định cho phép admin/123 hoặc user đã đăng ký
+        const savedPass = localStorage.getItem(`user_${u}`);
+        
+        if ((u === 'admin' && p === '123') || (savedPass && savedPass === p)) {
+            document.getElementById('auth-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('sidebar').style.display = 'flex';
+                document.getElementById('main-content').style.display = 'block';
+            }, 500);
+        } else {
+            alert('Sai thông tin đăng nhập!');
+        }
+    }
+
+    // Logic Quản lý sách (như cũ nhưng render đẹp hơn)
+    let books = [];
+    function renderBooks() {
+        const tbody = document.getElementById('bookTable');
+        tbody.innerHTML = books.map((b, i) => `
+            <tr>
+                <td><span class="badge">${b.id}</span></td>
+                <td><strong>${b.name}</strong></td>
+                <td>${b.au}</td>
+                <td>${b.y}</td>
+                <td>
+                    <button onclick="deleteBook(${i})" style="border:none; background:none; color:#ef4444; cursor:pointer;"><i class="fas fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function addBook() {
+        const id = document.getElementById('bookId').value;
+        const name = document.getElementById('bookName').value;
+        const au = document.getElementById('author').value;
+        const y = document.getElementById('year').value;
+
+        if(!id || !name) return alert('Nhập thiếu rồi bạn ơi!');
+        
+        books.push({id, name, au, y});
+        renderBooks();
+        // Reset form
+        ['bookId', 'bookName', 'author', 'year'].forEach(id => document.getElementById(id).value = '');
+    }
+
+    function deleteBook(i) {
+        if(confirm('Xóa thật nhé?')) {
+            books.splice(i, 1);
+            renderBooks();
+        }
+    }
+</script>
+
+</body>
+</html>
