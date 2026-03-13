@@ -1,78 +1,55 @@
 const db = require('../config/db');
 const PhieuMuon = require('../models/PhieuMuon');
 
-exports.returnBook = async (req, res) => {
-
+// Ghi nhận trả sách (Thủ thư)
+exports.returnBorrow = async (req, res) => {
     const { maVach } = req.body;
 
     if (!maVach) {
-        return res.status(400).json({
-            message: "Thiếu mã vạch sách"
-        });
+        return res.status(400).json({ message: "Thiếu mã vạch cuốn sách cần trả" });
     }
 
     const conn = await db.getConnection();
 
     try {
-
         await conn.beginTransaction();
 
-        // tìm phiếu mượn đang mượn
-        const phieuMuon = await PhieuMuon.findDangMuonByMaVach(maVach);
+        // 1. Tìm xem cuốn sách này có đang được ai mượn không
+        const [[phieuMuon]] = await conn.query(
+            `SELECT id FROM PhieuMuon 
+             WHERE maVach = ? AND trangThai = 'DANG_MUON' 
+             LIMIT 1`,
+            [maVach]
+        );
 
         if (!phieuMuon) {
-            await conn.rollback();
-            return res.status(404).json({
-                message: "Không tìm thấy phiếu mượn đang mượn"
-            });
+            throw new Error("Mã vạch này không có ai mượn, hoặc đã được trả trước đó rồi!");
         }
 
-        const hanTra = new Date(phieuMuon.hanTra);
-        const today = new Date();
-
-        let soNgayTre = 0;
-        let tienPhat = 0;
-
-        if (today > hanTra) {
-            soNgayTre = Math.ceil(
-                (today - hanTra) / (1000 * 60 * 60 * 24)
-            );
-            tienPhat = soNgayTre * 5000;
-        }
-
-        // cập nhật phiếu mượn
+        // 2. Cập nhật phiếu mượn thành ĐÃ TRẢ
+        // (Nếu nhóm bạn có thiết kế cột ngayTra trong CSDL thì có thể thêm: ngayTra = CURDATE() vào lệnh UPDATE này)
         await conn.query(
-            `UPDATE PhieuMuon
-             SET trangThai='DA_TRA',
-                 ngayTra=CURDATE()
-             WHERE id=?`,
+            `UPDATE PhieuMuon 
+             SET trangThai = 'DA_TRA' 
+             WHERE id = ?`,
             [phieuMuon.id]
         );
 
-        // cập nhật trạng thái sách
+        // 3. Trả sách lại vào kho (Cập nhật thành CÓ SẴN)
         await conn.query(
-            `UPDATE BanSaoSach
-             SET trangThai='CO_SAN'
-             WHERE maVach=?`,
+            `UPDATE BanSaoSach 
+             SET trangThai = 'CO_SAN' 
+             WHERE maVach = ?`,
             [maVach]
         );
 
         await conn.commit();
 
-        res.json({
-            message: "Trả sách thành công",
-            soNgayTre,
-            tienPhat
-        });
+        res.status(200).json({ message: "Ghi nhận trả sách thành công! Sách đã vào kho." });
 
     } catch (error) {
-
         await conn.rollback();
-
-        res.status(500).json({
-            message: "Lỗi server"
-        });
-
+        res.status(400).json({ message: error.message });
     } finally {
         conn.release();
     }

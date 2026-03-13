@@ -1,6 +1,6 @@
 const BanSaoModel = require('../models/bansaosach.model');
 const DauSachModel = require('../models/dausach.model');
-
+const db = require('../config/db');
 exports.create = async (req, res) => {
     const { maVach, maDauSach } = req.body;
     try {
@@ -42,5 +42,23 @@ exports.delete = async (req, res) => {
         res.json({ message: 'Đã xóa bản sao' });
     } catch (err) {
         res.status(500).json({ error: err.message });
+    }
+};
+// Thêm hàm này vào cuối file controller
+exports.getByMaDauSach = async (req, res) => {
+    try {
+        const maDauSach = req.params.maDauSach;
+        
+        // Cấu trúc query có thể thay đổi tùy theo cách nhóm bạn đang viết (dùng callback hay async/await)
+        // Giả sử dùng async/await giống file dattruoc.controller.js lúc nãy:
+        const sql = `SELECT * FROM BanSaoSach WHERE maDauSach = ? ORDER BY maVach ASC`;
+        const [rows] = await db.query(sql, [maDauSach]); 
+        
+        // Trả về thẳng mảng dữ liệu cho Frontend
+        res.status(200).json(rows);
+        
+    } catch (error) {
+        console.error("Lỗi lấy bản sao:", error);
+        res.status(500).json({ message: 'Lỗi server khi lấy dữ liệu bản sao.' });
     }
 };

@@ -9,6 +9,8 @@ const { isAdmin } = require('./middleware/auth.middleware');
 const dauSachRoutes = require('./routes/dausach.routes');
 const banSaoRoutes = require('./routes/bansaosach.routes');
 const datTruocRoutes = require('./routes/dattruoc.routes');
+const phieuMuonRoutes = require('./routes/borrow.routes');
+const phieuTraRoutes = require('./routes/borrow.routes');
 const app = express();
 
 app.use(cors({
@@ -40,6 +42,7 @@ app.get('/admin', isAdmin, (req, res) => {
 app.use('/api/dausach', dauSachRoutes);
 app.use('/api/bansaosach', banSaoRoutes);
 app.use('/api/dattruoc', datTruocRoutes);
+app.use('/api/phieumuon', phieuMuonRoutes);
 
 // Chạy server
 const PORT = 3000;
