@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Quản lý thông báo thư viện</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    background:#f4f6fb;
+    margin:0;
+}
+
+/* menu */
+.sidebar{
+    width:220px;
+    height:100vh;
+    background:#ff4d6d;
+    color:white;
+    position:fixed;
+}
+
+.sidebar h2{
+    text-align:center;
+    padding:20px 0;
+}
+
+.sidebar ul{
+    list-style:none;
+    padding:0;
+}
+
+.sidebar ul li{
+    padding:15px;
+    cursor:pointer;
+}
+
+.sidebar ul li:hover{
+    background:#e63950;
+}
+
+/* content */
+.main{
+    margin-left:220px;
+    padding:30px;
+}
+
+.notify-box{
+    width:450px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.notify-box label{
+    font-weight:bold;
+    margin-top:10px;
+    display:block;
+}
+
+.notify-box input,
+.notify-box textarea,
+.notify-box select{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+
+.notify-box button{
+    margin-top:15px;
+    width:100%;
+    padding:10px;
+    border:none;
+    background:#ff4d6d;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.notify-box button:hover{
+    background:#e63950;
+}
+
+/* bảng */
+table{
+    margin-top:30px;
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+table th,table td{
+    padding:10px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+table th{
+    background:#f2f2f2;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>📚 Library</h2>
+
+<ul>
+<li>🏠 Dashboard</li>
+<li>📖 Quản lý sách</li>
+<li>👥 Người dùng</li>
+<li>🔄 Mượn - Trả</li>
+<li onclick="showPage('notification')">🔔 Thông báo</li>
+</ul>
+
+</div>
+
+<div class="main">
+
+<h2>🔔 Gửi thông báo cho người dùng</h2>
+
+<div class="notify-box">
+
+<label>Tiêu đề thông báo</label>
+<input type="text" id="title" placeholder="Nhập tiêu đề">
+
+<label>Nội dung</label>
+<textarea id="content" rows="4" placeholder="Nhập nội dung"></textarea>
+
+<label>Đối tượng nhận</label>
+<select id="receiver">
+<option>Tất cả người dùng</option>
+<option>Người đang mượn sách</option>
+<option>Người trả sách quá hạn</option>
+</select>
+
+<button onclick="sendNotification()">📨 Gửi thông báo</button>
+
+</div>
+
+<h3>Lịch sử thông báo</h3>
+
+<table>
+
+<thead>
+<tr>
+<th>Tiêu đề</th>
+<th>Nội dung</th>
+<th>Đối tượng</th>
+<th>Thời gian</th>
+</tr>
+</thead>
+
+<tbody id="notifyTable"></tbody>
+
+</table>
+
+</div>
+
+<script>
+
+function sendNotification(){
+
+var title=document.getElementById("title").value;
+var content=document.getElementById("content").value;
+var receiver=document.getElementById("receiver").value;
+
+var time=new Date().toLocaleString();
+
+var row=
+"<tr>"+
+"<td>"+title+"</td>"+
+"<td>"+content+"</td>"+
+"<td>"+receiver+"</td>"+
+"<td>"+time+"</td>"+
+"</tr>";
+
+document.getElementById("notifyTable").innerHTML+=row;
+
+alert("Gửi thông báo thành công!");
+
+document.getElementById("title").value="";
+document.getElementById("content").value="";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Cài đặt hệ thống</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f5fb;
+margin:0;
+}
+
+.container{
+padding:40px;
+}
+
+h1{
+margin-bottom:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+margin-bottom:25px;
+}
+
+.card h2{
+margin-bottom:20px;
+color:#6c4bd2;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:5px;
+margin-bottom:15px;
+border:1px solid #ddd;
+border-radius:8px;
+}
+
+button{
+background:#6c4bd2;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#5338b5;
+}
+
+.row{
+display:flex;
+gap:20px;
+}
+
+.col{
+flex:1;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>⚙️ Cài đặt hệ thống</h1>
+
+<!-- Thông tin thư viện -->
+
+<div class="card">
+
+<h2>🏫 Thông tin thư viện</h2>
+
+<label>Tên thư viện</label>
+<input type="text" value="Thư viện Đại học ABC">
+
+<label>Địa chỉ</label>
+<input type="text" value="Hà Nội">
+
+<label>Email</label>
+<input type="text" value="library@gmail.com">
+
+<label>Số điện thoại</label>
+<input type="text" value="0123456789">
+
+<button>Lưu thay đổi</button>
+
+</div>
+
+<!-- Quy định mượn sách -->
+
+<div class="card">
+
+<h2>📚 Quy định mượn sách</h2>
+
+<div class="row">
+
+<div class="col">
+<label>Số sách tối đa</label>
+<input type="number" value="5">
+</div>
+
+<div class="col">
+<label>Thời gian mượn (ngày)</label>
+<input type="number" value="14">
+</div>
+
+<div class="col">
+<label>Phạt quá hạn (VNĐ/ngày)</label>
+<input type="number" value="2000">
+</div>
+
+</div>
+
+<button>Cập nhật quy định</button>
+
+</div>
+
+<!-- Đổi mật khẩu -->
+
+<div class="card">
+
+<h2>🔒 Đổi mật khẩu</h2>
+
+<label>Mật khẩu cũ</label>
+<input type="password">
+
+<label>Mật khẩu mới</label>
+<input type="password">
+
+<label>Nhập lại mật khẩu mới</label>
+<input type="password">
+
+<button>Đổi mật khẩu</button>
+
+</div>
+
+<!-- Sao lưu dữ liệu -->
+
+<div class="card">
+
+<h2>💾 Sao lưu dữ liệu</h2>
+
+<button>Sao lưu dữ liệu</button>
+<button>Khôi phục dữ liệu</button>
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thống kê báo cáo thư viện</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f6fa;
+margin:0;
+}
+
+/* sidebar */
+
+.sidebar{
+width:220px;
+height:100vh;
+background:#ffd6e7;
+position:fixed;
+padding:20px;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+}
+
+.sidebar ul{
+list-style:none;
+padding:0;
+}
+
+.sidebar ul li{
+padding:12px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.sidebar ul li:hover{
+background:#ffb3c6;
+}
+
+/* main */
+
+.main{
+margin-left:240px;
+padding:30px;
+}
+
+/* cards */
+
+.cards{
+display:flex;
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+flex:1;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.card h3{
+color:#888;
+}
+
+/* chart */
+
+.chart-box{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+margin-bottom:30px;
+}
+
+/* table */
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+}
+
+th,td{
+padding:10px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+th{
+background:#ffe5ec;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>📚 Library</h2>
+
+<ul>
+<li>🏠 Dashboard</li>
+<li>📖 Quản lý sách</li>
+<li>👥 Người dùng</li>
+<li>🔄 Mượn trả</li>
+<li>📊 Thống kê</li>
+</ul>
+
+</div>
+
+<div class="main">
+
+<h2>📊 Thống kê báo cáo</h2>
+
+<!-- Cards -->
+
+<div class="cards">
+
+<div class="card">
+<h3>Tổng sách</h3>
+<h1>1200</h1>
+</div>
+
+<div class="card">
+<h3>Người dùng</h3>
+<h1>350</h1>
+</div>
+
+<div class="card">
+<h3>Sách đang mượn</h3>
+<h1>89</h1>
+</div>
+
+<div class="card">
+<h3>Sách quá hạn</h3>
+<h1>12</h1>
+</div>
+
+</div>
+
+<!-- Chart -->
+
+<div class="chart-box">
+
+<h3>Biểu đồ mượn sách theo tháng</h3>
+
+<canvas id="borrowChart"></canvas>
+
+</div>
+
+<!-- Table -->
+
+<h3>📚 Top sách mượn nhiều</h3>
+
+<table>
+
+<tr>
+<th>STT</th>
+<th>Tên sách</th>
+<th>Số lượt mượn</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Lập trình Python</td>
+<td>120</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>HTML CSS Cơ bản</td>
+<td>95</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Thiết kế Web</td>
+<td>80</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Machine Learning</td>
+<td>70</td>
+</tr>
+
+</table>
+
+</div>
+
+<script>
+
+const ctx=document.getElementById('borrowChart');
+
+new Chart(ctx,{
+type:'bar',
+data:{
+labels:['T1','T2','T3','T4','T5','T6'],
+datasets:[{
+label:'Số sách được mượn',
+data:[50,80,65,90,120,100],
+backgroundColor:'#ff8fab'
+}]
+},
+options:{
+responsive:true
+}
+});
+
+</script>
+
+</body>
+</html>
