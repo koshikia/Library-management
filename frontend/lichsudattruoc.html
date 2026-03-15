@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>library-management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,31 +12,34 @@
     <aside class="sidebar">
       <div>
         <div class="brand">
-          <div class="brand-logo">
-             <i class="fa-solid fa-book-open"></i>
-          </div>
+          <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
           <div>
-            <h2>Thư viện số</h2>
-            <span>Premium Member</span>
+            <h2>Thư Viện Số</h2>
+            <span>Hệ thống quản lý</span>
           </div>
         </div>
 
         <nav class="menu">
-          <a href="home.html" class="menu-item"> <i class="fa-solid fa-house"></i> Trang chủ</a>
-          <a href="#" class="menu-item"> Sách của tôi</a>
+          <a href="home.html" class="menu-item"><i class="fa-solid fa-house"></i> Trang chủ</a>
           <a href="history.html" class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử mượn</a>
-          <a href="#" class="menu-item active"><i class="fa-solid fa-bookmark"></i> Lịch sử đặt trước</a>
-           <a href="#" class="menu-item"> <i class="fa-solid fa-person"></i> Danh mục</a>
+          <a href="lichsudattruoc.html" class="menu-item active"><i class="fa-solid fa-bookmark"></i> Lịch sử đặt trước</a>
         </nav>
       </div>
 
       <div class="sidebar-bottom">
-        <a href="#" class="menu-item settings-link"> Cài đặt</a>
+        <div class="support-box" style="background-color: #fee2e2; border-left: 4px solid #dc3545;">
+          <p style="color: #dc3545; font-weight: bold;">TÀI KHOẢN</p>
+          <button onclick="dangXuat()" style="background-color: #dc3545; color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; padding: 8px;">
+             Đăng xuất <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
 
-        <div class="upgrade-box">
-          <p>GÓI HIỆN TẠI</p>
-          <strong>Thành viên Bạc</strong>
-          <button>Nâng cấp</button>
+        <div class="user-card">
+          <img src="https://ui-avatars.com/api/?name=Reader&background=random" alt="avatar" id="sidebar-avatar" />
+          <div>
+            <strong id="sidebar-name">Đang tải...</strong>
+            <span>Độc giả</span>
+          </div>
         </div>
       </div>
     </aside>
@@ -134,6 +138,7 @@
     </aside>
   </div>
   <script src="js/api.js"></script>
-  <script src="js/history.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/lichsudattruoc.js"></script>
 </body>
 </html>

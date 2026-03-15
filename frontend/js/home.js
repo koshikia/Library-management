@@ -118,3 +118,16 @@ async function xuLyDatTruoc(maDauSach) {
         alert("Không thể đặt trước: " + error.message);
     }
 }
+function dangXuat() {
+    if (confirm("Bạn có chắc chắn muốn thoát khỏi hệ thống?")) {
+        // 1. Xóa sạch vé đăng nhập và thông tin user trong Local Storage
+        localStorage.removeItem('user');
+        localStorage.removeItem('vaiTro');
+        
+        // (Tùy chọn) Nếu Backend của bạn có API logout để xóa session, hãy gọi nó ở đây
+        // await apiFetch('/api/logout', { method: 'POST' });
+
+        // 2. Đá thẳng về trang đăng nhập
+        window.location.href = 'login.html';
+    }
+}
