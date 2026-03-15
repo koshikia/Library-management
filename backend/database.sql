@@ -73,6 +73,7 @@ CREATE TABLE DatTruoc (
     maDauSach VARCHAR(20) NOT NULL,
     ngayDat DATETIME DEFAULT CURRENT_TIMESTAMP,
     trangThai ENUM('CHO', 'DA_CO_SACH', 'HUY', 'HOAN_THANH') DEFAULT 'CHO',
+    maVach VARCHAR(50) NULL,
 
     FOREIGN KEY (nguoiDungId)
         REFERENCES NguoiDung(id)

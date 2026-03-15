@@ -15,7 +15,10 @@ exports.datTruocSach = async (req, res) => {
             datTruocId: datTruocId
         });
     } catch (error) {
-        if (error.message.includes('không tồn tại') || error.message.includes('đang trong hàng đợi')) {
+        // Thêm chuỗi 'đang mượn' vào điều kiện bắt lỗi 400
+        if (error.message.includes('không tồn tại') || 
+            error.message.includes('đang chờ') || 
+            error.message.includes('đang mượn')) {
             return res.status(400).json({ message: error.message });
         }
         console.error(error);

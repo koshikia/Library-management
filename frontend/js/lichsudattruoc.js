@@ -9,33 +9,52 @@ async function taiLichSuDatTruoc() {
     try {
         tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Đang tải dữ liệu...</td></tr>';
 
-        // Gọi API lấy lịch sử đặt trước (đã có isLoggedIn bảo vệ ở backend)
+        // Giữ nguyên đường dẫn API /api/dattruoc/lichsu của bạn
         const data = await apiFetch('/api/dattruoc/lichsu');
         
         tableBody.innerHTML = '';
 
-        // Đề phòng trường hợp API trả về data.data hoặc mảng trực tiếp
         const danhSach = Array.isArray(data) ? data : (data.data || []);
 
         if (danhSach.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Bạn chưa có lịch sử đặt trước nào.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; color: #666;">Bạn chưa có lịch sử đặt trước nào.</td></tr>';
             return;
         }
 
         danhSach.forEach(item => {
-            // Định dạng ngày giờ Việt Nam
             const ngayDat = new Date(item.ngayDat).toLocaleDateString('vi-VN');
             
-            // Hàm helper để xử lý trạng thái và màu sắc
-            const statusInfo = getStatusInfo(item.trangThai);
+            // GOM LOGIC XỬ LÝ TRẠNG THÁI VÀ NÚT BẤM VÀO ĐÂY (Sửa lỗi ReferenceError)
+            let badgeClass = 'status-warning'; // Mặc định màu cam
+            let textTrangThai = 'Đang chờ';
+            let nutHanhDong = '';
             
-            // Xử lý thông tin sách (Nếu backend JOIN bảng DauSach)
-            // Nếu backend của bạn chưa JOIN, nó sẽ chỉ in ra maDauSach
+            if (item.trangThai === 'CHO') {
+                nutHanhDong = `<button onclick="huyDatTruoc(${item.id})" style="padding: 6px 12px; border: 1px solid #dc2626; background: transparent; color: #dc2626; border-radius: 4px; cursor: pointer;">Hủy</button>`;
+            } else if (item.trangThai === 'DA_CO_SACH') {
+                badgeClass = 'status-success'; // Màu xanh lá
+                textTrangThai = 'Sách đã về (Đến lấy ngay)';
+                nutHanhDong = '⋯';
+            } else if (item.trangThai === 'HUY') {
+                badgeClass = 'status-danger'; // Màu đỏ
+                textTrangThai = 'Đã hủy';
+                nutHanhDong = '⋯';
+            } else if (item.trangThai === 'HOAN_THANH') {
+                badgeClass = 'status-primary'; // Màu xanh dương
+                textTrangThai = 'Đã mượn';
+                nutHanhDong = '⋯';
+            }
+
             const tenSach = item.tenSach || item.maDauSach || 'Đang cập nhật';
             const tacGia = item.tacGia || 'Không rõ';
             const hinhAnh = item.hinhAnh || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=200&auto=format&fit=crop&q=60';
 
-            // Tạo dòng (row)
+            // LOGIC HIỂN THỊ MÃ VẠCH 
+            const hienThiMaVach = item.maVach 
+                ? `<span style="display:inline-block; margin-top:5px; font-size:12px; padding:2px 8px; background:#f1f5f9; border-radius:4px; color:#334155; border: 1px dashed #cbd5e1;">Mã sách: <strong style="color: #0f172a;">${item.maVach}</strong></span>` 
+                : `<span style="display:inline-block; margin-top:5px; font-size:12px; color:#94a3b8; font-style: italic;">(Đang chờ xếp sách)</span>`;
+
+            // IN RA GIAO DIỆN
             const tr = document.createElement('tr');
             tr.innerHTML = `
                 <td>
@@ -44,21 +63,15 @@ async function taiLichSuDatTruoc() {
                         <div>
                             <strong>${tenSach}</strong>
                             <p style="font-size: 12px; color: #666; margin: 4px 0 0;">${tacGia}</p>
+                            ${hienThiMaVach}
                         </div>
                     </div>
                 </td>
                 <td>${ngayDat}</td>
-                <td>
-                    <span style="padding: 4px 10px; border-radius: 20px; font-size: 12px; background-color: ${statusInfo.bg}; color: ${statusInfo.color};">
-                        ${statusInfo.text}
-                    </span>
-                </td>
-                <td class="action-cell">
-                    ${item.trangThai === 'CHO' 
-                        ? `<button onclick="huyDatTruoc(${item.id})" style="padding: 6px 12px; border: 1px solid #dc2626; background: transparent; color: #dc2626; border-radius: 4px; cursor: pointer;">Hủy</button>` 
-                        : '⋯'}
-                </td>
+                <td><span class="status ${badgeClass}">${textTrangThai}</span></td>
+                <td class="action-cell">${nutHanhDong}</td>
             `;
+            
             tableBody.appendChild(tr);
         });
 
