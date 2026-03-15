@@ -10,7 +10,7 @@ const dauSachRoutes = require('./routes/dausach.routes');
 const banSaoRoutes = require('./routes/bansaosach.routes');
 const datTruocRoutes = require('./routes/dattruoc.routes');
 const phieuMuonRoutes = require('./routes/borrow.routes');
-const phieuTraRoutes = require('./routes/borrow.routes');
+const phieuTraRoutes = require('./routes/returnRoutes');
 const app = express();
 
 app.use(cors({
@@ -43,7 +43,7 @@ app.use('/api/dausach', dauSachRoutes);
 app.use('/api/bansaosach', banSaoRoutes);
 app.use('/api/dattruoc', datTruocRoutes);
 app.use('/api/phieumuon', phieuMuonRoutes);
-
+app.use('/api/phieumuon', phieuTraRoutes);
 // Chạy server
 const PORT = 3000;
 app.listen(PORT, () => {
