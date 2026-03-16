@@ -59,6 +59,7 @@ CREATE TABLE GiaHan (
     phieuMuonId INT NOT NULL,
     soNgayGiaHan INT NOT NULL,
     lyDo TEXT,
+    lyDoTuChoi TEXT,
     trangThai ENUM('CHO_DUYET', 'DA_DUYET', 'TU_CHOI') DEFAULT 'CHO_DUYET',
     ngayYeuCau DATETIME DEFAULT CURRENT_TIMESTAMP,
 

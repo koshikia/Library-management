@@ -59,6 +59,9 @@
         <a class="nav-link active" data-target="section-muontra">Quản lý Mượn / Trả</a>
         <a class="nav-link" data-target="section-sach">Quản lý Đầu sách & Bản sao</a>
         <a class="nav-link" data-target="section-dattruoc">Yêu cầu Đặt trước</a>
+        
+        <a class="nav-link" data-target="section-giahan">Yêu cầu Gia hạn</a>
+        
         <a class="logout-btn" id="btnLogout">Đăng Xuất</a>
     </div>
 
@@ -175,6 +178,26 @@
                     <tbody id="bangDatTruoc">
                         <!-- Dữ liệu JS sẽ đổ vào đây -->
                     </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="section-giahan" class="content-section">
+            <div class="card">
+                <h3>Danh sách Yêu cầu Gia hạn (Đang chờ duyệt)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã YC</th>
+                            <th>Độc Giả</th>
+                            <th>Tên Sách</th>
+                            <th>Hạn Trả Hiện Tại</th>
+                            <th>Xin thêm</th>
+                            <th style="width: 25%;">Lý Do</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bangGiaHan">
+                        </tbody>
                 </table>
             </div>
         </div>
