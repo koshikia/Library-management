@@ -1,159 +1,209 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-    <title>Phiếu mượn của tôi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Trị Thư Viện</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; display: flex; height: 100vh; background-color: #f4f6f9; }
+        
+        /* Cột menu bên trái */
+        .sidebar { width: 250px; background-color: #343a40; color: white; display: flex; flex-direction: column; }
+        .sidebar h2 { text-align: center; padding: 20px 0; margin: 0; border-bottom: 1px solid #4f5962; }
+        .sidebar a { color: #c2c7d0; text-decoration: none; padding: 15px 20px; display: block; border-bottom: 1px solid #4f5962; cursor: pointer; }
+        .sidebar a:hover, .sidebar a.active { background-color: #007bff; color: white; }
+        .sidebar .logout-btn { margin-top: auto; background-color: #dc3545; text-align: center; cursor: pointer; }
+        .sidebar .logout-btn:hover { background-color: #c82333; }
+
+        /* Nội dung chính bên phải */
+        .main-content { flex: 1; padding: 20px; overflow-y: auto; }
+        .header-top { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        
+        /* Các section nội dung (Dùng để ẩn hiện tab) */
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+
+        /* Card form */
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-submit { background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-submit:hover { background-color: #218838; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        /* Style cho Table Quản lý sách */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        table, th, td { border: 1px solid #ddd; }
+        th, td { padding: 12px; text-align: left; }
+        th { background-color: #007bff; color: white; }
+        .btn-small { padding: 5px 10px; font-size: 12px; background-color: #17a2b8; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        .btn-small:hover { background-color: #138496; }
+
+        /* --- CSS CHO CỬA SỔ QUẢN LÝ BẢN SAO (MODAL) --- */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
+        .modal-content { background-color: white; padding: 20px; width: 60%; max-height: 80vh; overflow-y: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; font-weight: bold; cursor: pointer; color: #666; }
+        .close-btn:hover { color: red; }
+        .badge { padding: 5px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; color: white; }
+        .bg-cosan { background-color: #28a745; }
+        .bg-dangmuon { background-color: #ffc107; color: black; }
+        .bg-huhong { background-color: #dc3545; }
+    </style>
 </head>
 <body>
 
-<h1>Phiếu mượn của tôi</h1>
+    <div class="sidebar">
+        <h2>THƯ VIỆN ADMIN</h2>
+        <a class="nav-link active" data-target="section-muontra">Quản lý Mượn / Trả</a>
+        <a class="nav-link" data-target="section-sach">Quản lý Đầu sách & Bản sao</a>
+        <a class="nav-link" data-target="section-dattruoc">Yêu cầu Đặt trước</a>
+        <a class="logout-btn" id="btnLogout">Đăng Xuất</a>
+    </div>
 
-<h3 id="userName"></h3>
+    <div class="main-content">
+        <div class="header-top">
+            <h1 id="pageTitle" style="margin: 0;">Quản lý Mượn / Trả Sách</h1>
+            <span id="adminNameDisplay" style="font-weight: bold; font-size: 18px; color: #333;">Xin chào, Thủ thư</span>
+        </div>
 
-<button onclick="logout()">Đăng xuất</button>
+        <div id="section-muontra" class="content-section active">
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Thủ tục Cho Mượn</h3>
+                    <div class="form-group">
+                        <label>Mã vạch trên sách:</label>
+                        <input type="text" id="muon_maVach" placeholder="VD: MV_IT001_01">
+                    </div>
+                    <div class="form-group">
+                        <label>ID Độc giả (Thẻ thư viện):</label>
+                        <input type="number" id="muon_nguoiDungId" placeholder="VD: 2">
+                    </div>
+                    <button class="btn-submit" onclick="xuLyMuonSach()">Tạo Phiếu Mượn</button>
+                </div>
 
-<hr>
+                <div class="card">
+                    <h3>Thủ tục Nhận Trả</h3>
+                    <div class="form-group">
+                        <label>Mã vạch trên sách:</label>
+                        <input type="text" id="tra_maVach" placeholder="VD: MV_IT001_01">
+                    </div>
+                    <button class="btn-submit" style="background-color: #17a2b8;" onclick="xuLyTraSach()">Ghi nhận Trả Sách</button>
+                </div>
+            </div>
+        <div class="card" style="margin-top: 20px;">
+            <h3>Danh sách Phiếu Mượn Toàn Hệ Thống</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Phiếu</th>
+                        <th>Độc Giả</th>
+                        <th>Tên Sách (Mã Vạch)</th>
+                        <th>Ngày Mượn</th>
+                        <th>Hạn Trả</th>
+                        <th>Trạng Thái</th>
+                    </tr>
+                </thead>
+                <tbody id="bangTatCaPhieuMuon">
+                    <!-- Dữ liệu JS sẽ đổ vào -->
+                </tbody>
+            </table>
+        </div>
+        </div>
 
-<table border="1">
-<thead>
-<tr>
-<th>ID</th>
-<th>Tên sách</th>
-<th>Mã vạch</th>
-<th>Ngày mượn</th>
-<th>Hạn trả</th>
-<th>Trạng thái</th>
-<th>Gia hạn</th>
-</tr>
-</thead>
+        <div id="section-sach" class="content-section">
+            <div class="card">
+                <h3>Thêm Đầu Sách Mới</h3>
+                    <form id="formThemSach" class="grid-2">
+                    <div class="form-group"><label>Mã Đầu Sách:</label><input type="text" id="maDauSach" required></div>
+                    <div class="form-group"><label>Tên Sách:</label><input type="text" id="tenSach" required></div>
+                    <div class="form-group"><label>Tác Giả:</label><input type="text" id="tacGia"></div>
+                    <div class="form-group"><label>Thể Loại:</label><input type="text" id="theLoai"></div>
+                    <div class="form-group"><label>Nhà Xuất Bản:</label><input type="text" id="nhaXuatBan"></div>
+                    <div class="form-group"><label>Năm Xuất Bản:</label><input type="number" id="namXuatBan"></div>
+                    
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Link Hình Ảnh (URL):</label>
+                        <input type="text" id="hinhAnh" placeholder="Nhập link ảnh bìa sách (nếu có)...">
+                    </div>
 
-<tbody id="borrowTable"></tbody>
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Mô tả sách:</label>
+                        <textarea id="moTa" rows="3" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" placeholder="Nhập tóm tắt nội dung sách..."></textarea>
+                    </div>
 
-</table>
+                    <div style="grid-column: span 2;">
+                        <button type="submit" class="btn-submit">Thêm Đầu Sách</button>
+                    </div>
+                </form>
+            </div>
 
+            <div class="card">
+                <h3>Danh sách Đầu sách trong Kho</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã Đầu Sách</th>
+                            <th>Tên Sách</th>
+                            <th>Tác Giả</th>
+                            <th>Tổng số lượng</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bangDanhSachSach">
+                        </tbody>
+                </table>
+            </div>
+        </div>
 
-<script>
+        <div id="section-dattruoc" class="content-section">
+            <div class="card">
+                <h3>Danh sách Yêu cầu Đặt trước</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã YC</th>
+                            <th>Độc Giả</th>
+                            <th>Tên Sách</th>
+                            <th>Sẵn Có</th> 
+                            <th>Ngày Đặt</th>
+                            <th>Trạng Thái</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bangDatTruoc">
+                        <!-- Dữ liệu JS sẽ đổ vào đây -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-// =====================
-// LẤY USER
-// =====================
+    </div>
+    <div id="modalBanSao" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="dongModal()">&times;</span>
+            <h2 id="modalTitle">Chi tiết bản sao</h2>
+            
+            <div style="margin-bottom: 15px; display: flex; gap: 10px;">
+                <input type="text" id="inputMaVachMoi" placeholder="Nhập mã vạch mới..." style="padding: 8px; width: 200px; border: 1px solid #ccc; border-radius: 4px;">
+                <button class="btn-submit" onclick="themBanSaoTuModal()">+ Nhập Bản Sao Mới</button>
+            </div>
 
-async function getUser(){
-
-    const res = await fetch("/api/me",{
-        credentials:"include"
-    });
-
-    if(res.status !== 200){
-        window.location.href = "login.html";
-        return;
-    }
-
-    const user = await res.json();
-
-    document.getElementById("userName").innerText =
-        "Xin chào: " + user.hoTen;
-
-}
-
-getUser();
-
-
-// =====================
-// LOAD PHIẾU MƯỢN
-// =====================
-
-async function loadBorrows(){
-
-    const res = await fetch("/api/borrows/my",{
-        credentials:"include"
-    });
-
-    const data = await res.json();
-
-    let html = "";
-
-    data.forEach(b => {
-
-        let renewBtn = "";
-
-        if(b.trangThai === "DANG_MUON"){
-            renewBtn =
-            `<button onclick="requestRenew(${b.id})">
-                Yêu cầu gia hạn
-            </button>`;
-        }
-
-        html += `
-        <tr>
-        <td>${b.id}</td>
-        <td>${b.tenSach}</td>
-        <td>${b.maVach}</td>
-        <td>${b.ngayMuon}</td>
-        <td>${b.hanTra}</td>
-        <td>${b.trangThai}</td>
-        <td>${renewBtn}</td>
-        </tr>
-        `;
-    });
-
-    document.getElementById("borrowTable").innerHTML = html;
-
-}
-
-loadBorrows();
-
-
-// =====================
-// YÊU CẦU GIA HẠN
-// =====================
-
-async function requestRenew(phieuMuonId){
-
-    const lyDo = prompt("Nhập lý do gia hạn:");
-
-    if(!lyDo) return;
-
-    const res = await fetch("/api/renew/request",{
-
-        method:"POST",
-
-        headers:{
-            "Content-Type":"application/json"
-        },
-
-        credentials:"include",
-
-        body:JSON.stringify({
-            phieuMuonId,
-            lyDo
-        })
-
-    });
-
-    const data = await res.json();
-
-    alert(data.message || data.error);
-
-    loadBorrows();
-}
-
-
-// =====================
-// LOGOUT
-// =====================
-
-async function logout(){
-
-    await fetch("/api/logout",{
-        method:"POST",
-        credentials:"include"
-    });
-
-    window.location.href = "login.html";
-
-}
-
-</script>
-
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã Vạch</th>
+                        <th>Trạng Thái</th>
+                        <th>Hành Động</th>
+                    </tr>
+                </thead>
+                <tbody id="bangChiTietBanSao">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
 </body>
 </html>

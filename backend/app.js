@@ -1,38 +1,53 @@
 const express = require('express');
-const session = require("express-session");
+const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path');
-
+const session = require('express-session');
+// Import Routes
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require("./routes/user.routes");
-const bookRoutes = require('./routes/book.routes');
-
-//nam
-const borrowRoutes = require('./routes/borrowRoutes');
-const renewRoutes = require('./routes/renewRoutes'); // thêm dòng này
-const returnRoutes = require('./routes/returnRoutes');
 const { isAdmin } = require('./middleware/auth.middleware');
-
-
+const dauSachRoutes = require('./routes/dausach.routes');
+const banSaoRoutes = require('./routes/bansaosach.routes');
+const datTruocRoutes = require('./routes/dattruoc.routes');
+const phieuMuonRoutes = require('./routes/borrow.routes');
+const phieuTraRoutes = require('./routes/returnRoutes');
+const giaHanRoutes = require('./routes/renewRoutes');
 const app = express();
 
-// middleware
+app.use(cors({
+    origin: ['http://127.0.0.1:5500', 'http://localhost:5500'], 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true 
+}));
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/pics', express.static('pics'));
-
-
-
-app.use(cors({
-    origin: true,
-    credentials: true
-}));
+app.use(bodyParser.json());
 
 app.use(session({
     secret: "secret_key_library",
     resave: false,
     saveUninitialized: false
 }));
+
+// Sử dụng Routes
+app.use('/api', authRoutes);
+app.use("/api", userRoutes);
+
+// route admin
+app.get('/admin', isAdmin, (req, res) => {
+    res.sendFile(__dirname + "/protected/admin.html");
+});
+app.use('/api/dausach', dauSachRoutes);
+app.use('/api/bansaosach', banSaoRoutes);
+app.use('/api/dattruoc', datTruocRoutes);
+app.use('/api/phieumuon', phieuMuonRoutes);
+app.use('/api/phieumuon', phieuTraRoutes);
+app.use('/api/giahan', giaHanRoutes);
+
+const path = require("path");
 
 // frontend
 app.use(express.static(path.join(__dirname, "../frontend")));
@@ -41,17 +56,8 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/login.html"));
 });
 
-// routes
-app.use('/api', authRoutes);
-app.use('/api', bookRoutes);
-app.use("/api", userRoutes);
-app.use('/api/borrows', borrowRoutes);
-app.use('/api/renew', renewRoutes); // thêm dòng này
-app.use('/api/returns', returnRoutes);
-
-// route admin
-app.get('/admin', isAdmin, (req, res) => {
-    res.sendFile(__dirname + "/protected/admin.html");
+// Chạy server
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server đang chạy tại http://localhost:${PORT}`);
 });
-
-module.exports = app;

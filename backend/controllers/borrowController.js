@@ -42,7 +42,7 @@ exports.createBorrow = async (req, res) => {
         }
 
 
-        // 3. kiểm tra sách tồn tại
+        // 3. Kiểm tra sách tồn tại và trạng thái
         const [[book]] = await conn.query(
             `SELECT maDauSach, trangThai
              FROM BanSaoSach
@@ -54,38 +54,55 @@ exports.createBorrow = async (req, res) => {
             throw new Error("Không tìm thấy bản sao sách");
         }
 
-        if (book.trangThai !== 'CO_SAN') {
-            throw new Error("Sách hiện không sẵn sàng để mượn");
+        // Chấp nhận cả sách CÓ SẴN và ĐANG GIỮ CHỖ
+        if (book.trangThai !== 'CO_SAN' && book.trangThai !== 'DANG_GIU_CHO') {
+            throw new Error(`Sách hiện không sẵn sàng để mượn (Trạng thái: ${book.trangThai})`);
         }
 
+        // 4. Kiểm tra quyền ưu tiên Đặt trước
+        if (book.trangThai === 'DANG_GIU_CHO') {
+            // Trường hợp 1: Sách đang được giữ -> Phải kiểm tra đúng ID độc giả không
+            const [reserves] = await conn.query(
+                `SELECT id 
+                 FROM DatTruoc
+                 WHERE maDauSach = ? AND nguoiDungId = ? AND trangThai IN ('DA_CO_SACH', 'CHO')
+                 LIMIT 1`,
+                [book.maDauSach, docGiaId]
+            );
 
-        // 4. kiểm tra đặt trước
-        const [reserves] = await conn.query(
-            `SELECT id, nguoiDungId
-             FROM DatTruoc
-             WHERE maDauSach = ?
-             AND trangThai = 'CHO'
-             ORDER BY ngayDat ASC
-             LIMIT 1`,
-            [book.maDauSach]
-        );
-
-
-        if (reserves.length > 0) {
-
-            const reserve = reserves[0];
-
-            if (reserve.nguoiDungId !== docGiaId) {
-                throw new Error("Sách đã được người khác đặt trước");
+            if (reserves.length === 0) {
+                // Nếu không tìm thấy vé đặt trước của người này
+                throw new Error("Từ chối: Bản sao này đang được giữ chỗ cho một Độc giả khác!");
             }
 
-            // cập nhật đặt trước
+            // Đúng người rồi -> Cập nhật phiếu đặt trước thành HOÀN THÀNH
             await conn.query(
-                `UPDATE DatTruoc
-                 SET trangThai = 'DA_CO_SACH'
-                 WHERE id = ?`,
-                [reserve.id]
+                `UPDATE DatTruoc SET trangThai = 'HOAN_THANH' WHERE id = ?`,
+                [reserves[0].id]
             );
+
+        } else if (book.trangThai === 'CO_SAN') {
+            // Trường hợp 2: Sách có sẵn -> Kiểm tra xem có ai khác đang xếp hàng chờ không
+            const [reserves] = await conn.query(
+                `SELECT id, nguoiDungId
+                 FROM DatTruoc
+                 WHERE maDauSach = ? AND trangThai = 'CHO'
+                 ORDER BY ngayDat ASC
+                 LIMIT 1`,
+                [book.maDauSach]
+            );
+
+            if (reserves.length > 0) {
+                const reserve = reserves[0];
+                if (reserve.nguoiDungId !== parseInt(docGiaId)) {
+                    throw new Error("Từ chối: Sách này đang có người khác đặt trước. Hãy giao cho người đặt trước!");
+                }
+                // Nếu đúng là người đang đứng đầu hàng chờ -> Cho mượn & chốt phiếu đặt trước
+                await conn.query(
+                    `UPDATE DatTruoc SET trangThai = 'HOAN_THANH' WHERE id = ?`,
+                    [reserve.id]
+                );
+            }
         }
 
 

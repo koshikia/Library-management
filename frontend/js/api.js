@@ -1,75 +1,41 @@
-const API = "http://localhost:3000/api";
+// Thay đổi port này nếu Backend của bạn chạy ở port khác
+const BASE_URL = 'http://localhost:3000'; 
 
-// LOGIN
-async function login(email, matKhau) {
-
-    const res = await fetch(`${API}/login`, {
-        method: "POST",
+/**
+ * Hàm gọi API dùng chung cho toàn bộ dự án
+ * Tự động đính kèm thông tin Session (credentials: 'include')
+ */
+async function apiFetch(endpoint, options = {}) {
+    // Thiết lập cấu hình mặc định
+    const defaultOptions = {
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
-        credentials: "include",
-        body: JSON.stringify({
-            email,
-            matKhau
-        })
-    });
+        credentials: 'include' // RẤT QUAN TRỌNG: Để gửi Cookie Session lên Backend
+    };
 
-    return res.json();
-}
-
-
-// MƯỢN SÁCH
-async function borrowBook(docGiaId, maVach) {
-
-    const res = await fetch(`${API}/borrows`, {
-        method: "POST",
+    // Gộp cấu hình mặc định với cấu hình người dùng truyền vào
+    const finalOptions = {
+        ...defaultOptions,
+        ...options,
         headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include",
-        body: JSON.stringify({
-            docGiaId,
-            maVach
-        })
-    });
+            ...defaultOptions.headers,
+            ...(options.headers || {})
+        }
+    };
 
-    return res.json();
-}
+    try {
+        const response = await fetch(`${BASE_URL}${endpoint}`, finalOptions);
+        const data = await response.json();
 
+        // Nếu HTTP status trả về không phải 2xx (ví dụ: 401, 403, 404, 500)
+        if (!response.ok) {
+            throw new Error(data.message || 'Có lỗi xảy ra từ server!');
+        }
 
-// TRẢ SÁCH
-async function returnBook(maVach) {
-
-    const res = await fetch(`${API}/returns`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include",
-        body: JSON.stringify({
-            maVach
-        })
-    });
-
-    return res.json();
-}
-
-
-// GIA HẠN
-async function renewBook(phieuMuonId, lyDo) {
-
-    const res = await fetch(`${API}/renew`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        credentials: "include",
-        body: JSON.stringify({
-            phieuMuonId,
-            lyDo
-        })
-    });
-
-    return res.json();
+        return data;
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error; // Ném lỗi ra để các file JS khác bắt được và hiển thị lên giao diện
+    }
 }

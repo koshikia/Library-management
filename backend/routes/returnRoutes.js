@@ -5,6 +5,6 @@ const returnController = require('../controllers/returnController');
 const { isThuThu } = require('../middleware/auth.middleware');
 
 // trả sách (thủ thư thực hiện)
-router.post('/', isThuThu, returnController.returnBook);
+router.put('/tra', isThuThu, returnController.returnBorrow);
 
 module.exports = router;
