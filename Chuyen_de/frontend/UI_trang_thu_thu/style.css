@@ -1,10 +1,10 @@
 /* Sử dụng biến để dễ quản lý màu sắc */
 :root {
-    --sidebar-bg: linear-gradient(180deg, #7c3aed, #8356cc);
-    --main-bg: #f5f3ff;
-    --primary: #7c3aed;
-    --primary-light: #ede9fe;
-    --text-dark: #4c1d95;
+    --sidebar-bg: linear-gradient(180deg, #e8a8b8, #d98fa4); /* sidebar hồng pastel */
+    --main-bg: #f3d5e9; /* nền xám hồng nhạt */
+    --primary: #b42b4b; /* màu chính */
+    --primary-light: #f6d6de; /* hồng rất nhạt */
+    --text-dark: #7a3b4b; /* chữ đậm */
     --white: #ffffff;
 }
 
@@ -23,12 +23,9 @@ body {
 }
 
 /* Sidebar */
-.sidebar {
-    width: 260px;
-    background: var(--sidebar-bg);
-    color: white;
-    padding: 25px 15px;
-    border-radius: 0 24px 24px 0;
+.sidebar ul li:hover {
+    background: rgba(179, 93, 133, 0.35);
+    transform: translateX(6px);
 }
 
 /* Logo */
@@ -57,7 +54,7 @@ body {
 
 /* Hover */
 .sidebar ul li:hover {
-    background: rgba(104, 158, 224, 0.2);
+    background: rgba(15, 25, 37, 0.2);
     transform: translateX(6px);
 }
 
@@ -97,7 +94,7 @@ body {
 }
 
 .card {
-    background: linear-gradient(135deg, #ede9fe, #ffffff);
+    background: linear-gradient(135deg, #e36784, #ffffff);
     padding: 28px;
     border-radius: 22px;
     box-shadow: 0 12px 25px rgba(124, 58, 237, 0.15);
@@ -111,7 +108,7 @@ body {
 .card h3 {
     font-size: 0.85rem;
     text-transform: uppercase;
-    color: #6b7280;
+    color: #ae3c55;
     margin-bottom: 10px;
 }
 
