@@ -67,8 +67,10 @@ function setupChuyenTab() {
                 taiDanhSachDauSach();
             } else if (targetId === 'section-muontra') {
                 taiDanhSachPhieuMuon(); 
-            } else if (targetId === 'section-giahan') { 
+            } else if (targetId === 'section-giahan') {
                 taiDanhSachGiaHan();
+            } else if (targetId === 'section-user') { 
+                taiDanhSachUser();
             }
         });
     });
@@ -618,5 +620,89 @@ async function tuChoiGiaHan(giaHanId) {
         taiDanhSachGiaHan(); // Cập nhật lại bảng gia hạn
     } catch (error) {
         alert("Lỗi từ chối: " + error.message);
+    }
+}
+
+// ==========================================
+// QUẢN LÝ ĐỘC GIẢ / NGƯỜI DÙNG
+// ==========================================
+
+async function taiDanhSachUser() {
+    const tbody = document.getElementById('bangUser');
+    if (!tbody) return;
+
+    try {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Đang tải danh sách...</td></tr>';
+        
+        // Gọi API lấy danh sách User (Kiểm tra lại route API của bạn nhé, ví dụ: /api/users)
+        const data = await apiFetch('/api/users'); 
+        const danhSach = Array.isArray(data) ? data : (data.data || []);
+
+        tbody.innerHTML = '';
+        if (danhSach.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Không có người dùng nào.</td></tr>';
+            return;
+        }
+
+        danhSach.forEach(user => {
+            let badgeTrangThai = '';
+            let nutKhoaMo = '';
+
+            // Mặc định những user cũ chưa có trangThai sẽ là HOAT_DONG
+            const trangThai = user.trangThai || 'HOAT_DONG'; 
+
+            if (trangThai === 'HOAT_DONG') {
+                badgeTrangThai = '<span class="badge bg-cosan">Hoạt động</span>';
+                nutKhoaMo = `<button class="btn-small" style="background-color: #dc3545;" onclick="doiTrangThaiUser(${user.id}, 'BI_KHOA')">Khóa TK</button>`;
+            } else {
+                badgeTrangThai = '<span class="badge bg-huhong">Bị Khóa</span>';
+                nutKhoaMo = `<button class="btn-small" style="background-color: #28a745;" onclick="doiTrangThaiUser(${user.id}, 'HOAT_DONG')">Mở Khóa</button>`;
+            }
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>#${user.id}</strong></td>
+                <td>${user.hoTen}</td>
+                <td>${user.email || 'N/A'}</td>
+                <td><strong>${user.vaiTro}</strong></td>
+                <td>${badgeTrangThai}</td>
+                <td>
+                    ${nutKhoaMo}
+                    <button class="btn-small" style="background-color: #6c757d; margin-left: 5px;" onclick="xoaUser(${user.id})">Xóa</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } catch (error) {
+        tbody.innerHTML = `<tr><td colspan="6" style="color:red;text-align:center;">Lỗi: ${error.message}</td></tr>`;
+    }
+}
+
+async function doiTrangThaiUser(id, trangThaiMoi) {
+    const hanhDong = trangThaiMoi === 'BI_KHOA' ? 'KHÓA' : 'MỞ KHÓA';
+    if (!confirm(`Bạn có chắc chắn muốn ${hanhDong} tài khoản người dùng #${id}?`)) return;
+
+    try {
+        // Kiểm tra lại route API của bạn (Ví dụ: /api/users/1/status)
+        await apiFetch(`/api/users/${id}/status`, {
+            method: 'PUT',
+            body: JSON.stringify({ trangThai: trangThaiMoi })
+        });
+        
+        taiDanhSachUser(); // Load lại bảng
+    } catch (error) {
+        alert("Lỗi: " + error.message);
+    }
+}
+
+async function xoaUser(id) {
+    if (!confirm(`CẢNH BÁO: Bạn có muốn XÓA VĨNH VIỄN người dùng #${id}? Hành động này không thể hoàn tác!`)) return;
+
+    try {
+        await apiFetch(`/api/users/${id}`, { method: 'DELETE' });
+        alert("Đã xóa người dùng thành công!");
+        taiDanhSachUser();
+    } catch (error) {
+        alert("Lỗi xóa người dùng: " + error.message);
     }
 }

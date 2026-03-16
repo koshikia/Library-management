@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const session = require('express-session');
+const path = require("path");
 // Import Routes
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require("./routes/user.routes");
@@ -46,6 +47,12 @@ app.use('/api/dattruoc', datTruocRoutes);
 app.use('/api/phieumuon', phieuMuonRoutes);
 app.use('/api/phieumuon', phieuTraRoutes);
 app.use('/api/giahan', giaHanRoutes);
+// frontend
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/login.html"));
+});
 // Chạy server
 const PORT = 3000;
 app.listen(PORT, () => {
