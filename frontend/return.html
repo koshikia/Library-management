@@ -1,0 +1,21 @@
+<h2>Trả sách</h2>
+
+<input id="maVach" placeholder="Mã vạch sách">
+
+<button onclick="handleReturn()">Trả sách</button>
+
+<script src="js/api.js"></script>
+
+<script>
+
+async function handleReturn(){
+
+    const maVach = document.getElementById("maVach").value;
+
+    const data = await returnBook(maVach);
+
+    alert(data.message);
+
+}
+
+</script>

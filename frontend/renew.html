@@ -1,0 +1,26 @@
+<h2>Gia hạn sách</h2>
+
+<input id="phieuMuonId" placeholder="ID phiếu mượn">
+<br><br>
+
+<input id="lyDo" placeholder="Lý do">
+<br><br>
+
+<button onclick="handleRenew()">Gia hạn</button>
+
+<script src="js/api.js"></script>
+
+<script>
+
+async function handleRenew(){
+
+    const phieuMuonId = document.getElementById("phieuMuonId").value;
+    const lyDo = document.getElementById("lyDo").value;
+
+    const data = await renewBook(phieuMuonId, lyDo);
+
+    alert(data.message);
+
+}
+
+</script>

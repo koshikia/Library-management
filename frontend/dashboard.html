@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phiếu mượn của tôi</title>
+</head>
+<body>
+
+<h1>Phiếu mượn của tôi</h1>
+
+<h3 id="userName"></h3>
+
+<button onclick="logout()">Đăng xuất</button>
+
+<hr>
+
+<table border="1">
+<thead>
+<tr>
+<th>ID</th>
+<th>Tên sách</th>
+<th>Mã vạch</th>
+<th>Ngày mượn</th>
+<th>Hạn trả</th>
+<th>Trạng thái</th>
+<th>Gia hạn</th>
+</tr>
+</thead>
+
+<tbody id="borrowTable"></tbody>
+
+</table>
+
+
+<script>
+
+// =====================
+// LẤY USER
+// =====================
+
+async function getUser(){
+
+    const res = await fetch("/api/me",{
+        credentials:"include"
+    });
+
+    if(res.status !== 200){
+        window.location.href = "login.html";
+        return;
+    }
+
+    const user = await res.json();
+
+    document.getElementById("userName").innerText =
+        "Xin chào: " + user.hoTen;
+
+}
+
+getUser();
+
+
+// =====================
+// LOAD PHIẾU MƯỢN
+// =====================
+
+async function loadBorrows(){
+
+    const res = await fetch("/api/borrows/my",{
+        credentials:"include"
+    });
+
+    const data = await res.json();
+
+    let html = "";
+
+    data.forEach(b => {
+
+        let renewBtn = "";
+
+        if(b.trangThai === "DANG_MUON"){
+            renewBtn =
+            `<button onclick="requestRenew(${b.id})">
+                Yêu cầu gia hạn
+            </button>`;
+        }
+
+        html += `
+        <tr>
+        <td>${b.id}</td>
+        <td>${b.tenSach}</td>
+        <td>${b.maVach}</td>
+        <td>${b.ngayMuon}</td>
+        <td>${b.hanTra}</td>
+        <td>${b.trangThai}</td>
+        <td>${renewBtn}</td>
+        </tr>
+        `;
+    });
+
+    document.getElementById("borrowTable").innerHTML = html;
+
+}
+
+loadBorrows();
+
+
+// =====================
+// YÊU CẦU GIA HẠN
+// =====================
+
+async function requestRenew(phieuMuonId){
+
+    const lyDo = prompt("Nhập lý do gia hạn:");
+
+    if(!lyDo) return;
+
+    const res = await fetch("/api/renew/request",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        credentials:"include",
+
+        body:JSON.stringify({
+            phieuMuonId,
+            lyDo
+        })
+
+    });
+
+    const data = await res.json();
+
+    alert(data.message || data.error);
+
+    loadBorrows();
+}
+
+
+// =====================
+// LOGOUT
+// =====================
+
+async function logout(){
+
+    await fetch("/api/logout",{
+        method:"POST",
+        credentials:"include"
+    });
+
+    window.location.href = "login.html";
+
+}
+
+</script>
+
+</body>
+</html>
