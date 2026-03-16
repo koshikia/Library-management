@@ -405,20 +405,19 @@
         })
       });
 
-      // Backend cần trả về object chứa { user: {...}, vaiTro: "..." }
-      localStorage.setItem("user", JSON.stringify(data.user || {}));
-      localStorage.setItem("vaiTro", data.vaiTro || "");
+      const vaiTroNguoiDung = data.user.vaiTro; 
 
-      // Chuyển hướng theo vai trò
-      switch (data.vaiTro) {
+      localStorage.setItem("user", JSON.stringify(data.user || {}));
+      localStorage.setItem("vaiTro", vaiTroNguoiDung || ""); // Lưu đúng quyền ra ngoài để các trang khác dễ check
+
+      // 2. Sửa ở đây: Truyền biến vừa lấy vào hàm switch
+      switch (vaiTroNguoiDung) {
         case "DOCGIA":
           window.location.href = "home.html";
           break;
         case "THUTHU":
-          window.location.href = "thuthu.html";
-          break;
         case "ADMIN":
-          window.location.href = "admin.html";
+          window.location.href = "dashboard.html"; // Bạn nhớ kiểm tra lại tên file trang admin nhé
           break;
         default:
           window.location.href = "home.html";

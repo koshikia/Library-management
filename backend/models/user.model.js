@@ -1,60 +1,98 @@
 const db = require('../config/db');
 
-exports.createUser = (hoTen, email, matKhau, callback) => {
-    const sql = `
-        INSERT INTO NguoiDung (hoTen, email, matKhau)
-        VALUES (?, ?, ?)
-    `;
-    db.query(sql, [hoTen, email, matKhau], callback);
-};
+// ============================
+// TẠO USER
+// ============================
+exports.createUser = async (hoTen, email, matKhau) => {
 
-exports.findByEmail = (email, callback) => {
-    const sql = "SELECT * FROM NguoiDung WHERE email = ?";
-    db.query(sql, [email], callback);
-};
+    const [result] = await db.query(
+        `INSERT INTO NguoiDung (hoTen, email, matKhau)
+         VALUES (?, ?, ?)`,
+        [hoTen, email, matKhau]
+    );
 
-// lấy tất cả user
-exports.getAllUsers = (callback) => {
-    db.query("SELECT * FROM NguoiDung", callback);
-};
-
-// thêm user
-exports.addUser = (data, callback) => {
-
-    const sql = `
-    INSERT INTO NguoiDung
-    (hoTen, email, matKhau, vaiTro)
-    VALUES (?, ?, ?, ?)`;
-
-    db.query(sql, [
-        data.hoTen,
-        data.email,
-        data.matKhau,
-        data.vaiTro
-    ], callback);
+    return result;
 };
 
 
-// sửa user
-exports.updateUser = (id, data, callback) => {
+// ============================
+// TÌM USER THEO EMAIL
+// ============================
+exports.findByEmail = async (email) => {
 
-    const sql = `
-    UPDATE NguoiDung
-    SET hoTen=?, email=?, vaiTro=?
-    WHERE id=?`;
+    const [rows] = await db.query(
+        "SELECT * FROM NguoiDung WHERE email = ?",
+        [email]
+    );
 
-    db.query(sql, [
-        data.hoTen,
-        data.email,
-        data.vaiTro,
-        id
-    ], callback);
+    return rows;
 };
 
 
-// xóa user
-exports.deleteUser = (id, callback) => {
+// ============================
+// LẤY TẤT CẢ USER
+// ============================
+exports.getAllUsers = async () => {
 
-    db.query("DELETE FROM NguoiDung WHERE id=?", [id], callback);
+    const [rows] = await db.query(
+        "SELECT * FROM NguoiDung"
+    );
 
+    return rows;
+};
+
+
+// ============================
+// THÊM USER
+// ============================
+exports.addUser = async (data) => {
+
+    const [result] = await db.query(
+        `INSERT INTO NguoiDung
+        (hoTen, email, matKhau, vaiTro)
+        VALUES (?, ?, ?, ?)`,
+        [
+            data.hoTen,
+            data.email,
+            data.matKhau,
+            data.vaiTro
+        ]
+    );
+
+    return result;
+};
+
+
+// ============================
+// UPDATE USER
+// ============================
+exports.updateUser = async (id, data) => {
+
+    const [result] = await db.query(
+        `UPDATE NguoiDung
+         SET hoTen=?, email=?, vaiTro=?
+         WHERE id=?`,
+        [
+            data.hoTen,
+            data.email,
+            data.vaiTro,
+            id
+        ]
+    );
+
+    return result;
+};
+
+
+// ============================
+// DELETE USER
+// ============================
+exports.deleteUser = async (id) => {
+
+    const [result] = await db.query(
+        "DELETE FROM NguoiDung WHERE id=?",
+        [id]
+    );
+
+    return result;
 };
