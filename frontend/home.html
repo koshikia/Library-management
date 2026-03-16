@@ -1,55 +1,139 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Quản lý sách</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>library-management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+
 </head>
 <body>
-    <h2>Thêm sách</h2>
-    <input type="text" id="title" placeholder="Tên sách"><br><br>
-    <input type="text" id="author" placeholder="Tác giả"><br><br>
-    <input type="number" id="year" placeholder="Năm xuất bản"><br><br>
-    <button onclick="addBook()">Thêm sách</button>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+          <div>
+            <h2>Thư Viện Số</h2>
+            <span>Hệ thống quản lý</span>
+          </div>
+        </div>
 
-    <hr>
+        <nav class="menu">
+          <a href="home.html" class="menu-item active"><i class="fa-solid fa-house"></i> Trang chủ</a>
+          <a href="history.html" class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử mượn</a>
+          <a href="lichsudattruoc.html" class="menu-item"><i class="fa-solid fa-bookmark"></i> Lịch sử đặt trước</a>
+        </nav>
+      </div>
 
-    <h2>Danh sách sách</h2>
-    <button onclick="loadBooks()">Hiển thị sách</button>
+      <div class="sidebar-bottom">
+        <div class="support-box" style="background-color: #fee2e2; border-left: 4px solid #dc3545;">
+          <p style="color: #dc3545; font-weight: bold;">TÀI KHOẢN</p>
+          <button onclick="dangXuat()" style="background-color: #dc3545; color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; padding: 8px;">
+             Đăng xuất <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
 
-    <ul id="bookList"></ul>
+        <div class="user-card">
+          <img src="https://ui-avatars.com/api/?name=Reader&background=random" alt="avatar" id="sidebar-avatar" />
+          <div>
+            <strong id="sidebar-name">Đang tải...</strong>
+            <span>Độc giả</span>
+          </div>
+        </div>
+      </div>
+    </aside>
 
-    <script>
-        function addBook() {
-            fetch('/api/book', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    title: document.getElementById('title').value,
-                    author: document.getElementById('author').value,
-                    year: document.getElementById('year').value
-                })
-            })
-            .then(res => res.json())
-            .then(data => {
-                alert(data.message);
-            });
-        }
 
-        function loadBooks() {
-            fetch('/api/book')
-            .then(res => res.json())
-            .then(data => {
-                const list = document.getElementById('bookList');
-                list.innerHTML = '';
-                data.forEach(book => {
-                    const li = document.createElement('li');
-                    li.textContent = `${book.title} - ${book.author} (${book.year})`;
-                    list.appendChild(li);
-                });
-            });
-        }
-    </script>
+    <main class="main-content">
+      <header class="topbar">
+        <div class="search-box">
+          <input type="text" placeholder="Tìm kiếm sách, tác giả hoặc mã ISBN..." />
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn"></button>
+          <button class="icon-btn"></button>
+        </div>
+      </header>
+
+      <section class="hero-banner">
+        <h1 id="hero-greeting">Chào mừng bạn trở lại!</h1> <p>Khám phá hơn 50,000 cuốn sách điện tử...</p>
+        <button class="primary-btn">Bắt đầu đọc ngay</button>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Sách mới cập nhật</h2>
+          <a href="#">Xem tất cả →</a>
+        </div>
+        <div class="book-grid" id="bookList">
+        </div>
+      </section>
+    </main>
+
+    <aside class="right-panel">
+      <div class="panel-card">
+        <h3><i class="fa-sharp fa-thin fa-sparkles"></i> Gợi ý cho bạn</h3>
+
+        <div class="suggest-item">
+          <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=200&auto=format&fit=crop&q=60" alt="">
+          <div>
+            <strong>Đắc Nhân Tâm</strong>
+            <p>Dale Carnegie</p>
+            <span>4.9/5</span>
+          </div>
+        </div>
+
+        <div class="suggest-item">
+          <img src="https://images.unsplash.com/photo-1511108690759-009324a90311?w=200&auto=format&fit=crop&q=60" alt="">
+          <div>
+            <strong>Thiết kế cuộc đời</strong>
+            <p>Bill Burnett</p>
+            <span> 4.7/5</span>
+          </div>
+        </div>
+
+        <div class="suggest-item">
+          <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=200&auto=format&fit=crop&q=60" alt="">
+          <div>
+            <strong>Tâm lý học về tiền</strong>
+            <p>Morgan Housel</p>
+            <span> 5.0/5</span>
+          </div>
+        </div>
+
+        <button class="secondary-btn full-width">Làm mới gợi ý</button>
+      </div>
+
+      <div class="panel-card">
+        <h3>Danh mục yêu thích</h3>
+        <div class="tag-list">
+          <span class="tag">Công nghệ</span>
+          <span class="tag">Văn học</span>
+          <span class="tag">Kinh tế</span>
+          <span class="tag">Tâm lý</span>
+          <span class="tag">Khoa học</span>
+          <span class="tag">Lịch sử</span>
+        </div>
+      </div>
+
+      <div class="panel-card progress-card">
+        <div class="progress-top">
+          <span>TIẾN ĐỘ ĐỌC</span>
+          <strong>68%</strong>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 68%;"></div>
+        </div>
+        <p>Bạn đã hoàn thành 12/15 mục tiêu đọc sách của tháng này!</p>
+      </div>
+    </aside>
+  </div>
+  <script src="js/api.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

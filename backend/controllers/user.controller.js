@@ -2,15 +2,19 @@ const userModel = require("../models/user.model");
 const db = require("../config/db");
 
 // lấy danh sách user
-exports.getUsers = (req,res)=>{
+exports.getUsers = async (req, res) => {
 
-userModel.getAllUsers((err,result)=>{
+try{
 
-if(err) return res.status(500).json({message:"Lỗi server"});
+const result = await userModel.getAllUsers();
 
 res.json(result);
 
-});
+}catch(err){
+
+res.status(500).json({message:"Lỗi server"});
+
+}
 
 };
 
