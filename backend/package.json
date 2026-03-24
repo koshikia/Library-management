@@ -6,7 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-<<<<<<< HEAD
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -14,17 +13,5 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "mysql2": "^3.16.2"
-=======
-    "bcrypt": "^6.0.0",
-    "cookie-parser": "~1.4.4",
-    "cors": "^2.8.6",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "express-session": "^1.19.0",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1",
-    "mysql2": "^3.19.1"
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
   }
 }

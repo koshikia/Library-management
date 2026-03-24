@@ -1,21 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-<<<<<<< HEAD
-
-// Import Routes
-const dauSachRoutes = require('./routes/dausach.routes');
-const banSaoRoutes = require('./routes/bansaosach.routes');
-const datTruocRoutes = require('./routes/dattruoc.routes');
-const app = express();
-
-// Middleware
-app.use(bodyParser.json());
-
-// Sử dụng Routes
-app.use('/api/dausach', dauSachRoutes);
-app.use('/api/bansaosach', banSaoRoutes);
-app.use('/api/dattruoc', datTruocRoutes);
-=======
 const cors = require('cors');
 const session = require('express-session');
 const path = require("path");
@@ -70,13 +54,8 @@ app.use('/api/dattruoc', datTruocRoutes);
 app.use('/api/phieumuon', phieuMuonRoutes);
 app.use('/api/phieumuon', phieuTraRoutes);
 app.use('/api/giahan', giaHanRoutes);
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 // Chạy server
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a

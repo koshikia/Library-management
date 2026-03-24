@@ -3,27 +3,12 @@ const db = require('../config/db');
 class DatTruocModel {
     // 1. DÀNH CHO ĐỘC GIẢ: Đặt trước một đầu sách
     static async taoDatTruoc(nguoiDungId, maDauSach) {
-<<<<<<< HEAD
-        // Kiểm tra xem đầu sách có tồn tại không
-=======
         // ... (Giữ nguyên kiểm tra đầu sách tồn tại) ...
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
         const [sach] = await db.query('SELECT maDauSach FROM DauSach WHERE maDauSach = ?', [maDauSach]);
         if (sach.length === 0) {
             throw new Error('Đầu sách không tồn tại.');
         }
 
-<<<<<<< HEAD
-        // Kiểm tra xem độc giả này đã đặt trước cuốn này và đang chờ chưa (tránh spam)
-        const [daDat] = await db.query(
-            'SELECT id FROM DatTruoc WHERE nguoiDungId = ? AND maDauSach = ? AND trangThai = "CHO"',
-            [nguoiDungId, maDauSach]
-        );
-        if (daDat.length > 0) {
-            throw new Error('Bạn đã đặt trước cuốn sách này và đang trong hàng đợi rồi.');
-        }
-
-=======
         // KIỂM TRA 1: Đã đặt và đang chờ/đã có sách chưa?
         const [daDat] = await db.query(
             'SELECT id FROM DatTruoc WHERE nguoiDungId = ? AND maDauSach = ? AND trangThai IN ("CHO", "DA_CO_SACH")',
@@ -46,17 +31,12 @@ class DatTruocModel {
         }
 
         // Tiến hành tạo đặt trước
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
         const sql = `INSERT INTO DatTruoc (nguoiDungId, maDauSach, trangThai) VALUES (?, ?, 'CHO')`;
         const [result] = await db.query(sql, [nguoiDungId, maDauSach]);
         return result.insertId;
     }
-<<<<<<< HEAD
-// 2. DÀNH CHO THỦ THƯ: Cập nhật trạng thái (Hệ thống TỰ ĐỘNG lấy 1 cuốn để giữ chỗ)
-=======
 
     // 2. DÀNH CHO THỦ THƯ: Cập nhật trạng thái
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
     static async capNhatTrangThai(datTruocId, trangThaiMoi) {
         const [thongTinDat] = await db.query('SELECT maDauSach FROM DatTruoc WHERE id = ?', [datTruocId]);
         if (thongTinDat.length === 0) throw new Error('Không tìm thấy phiếu đặt trước này.');
@@ -65,10 +45,6 @@ class DatTruocModel {
         let maVachDuocChon = null;
 
         if (trangThaiMoi === 'DA_CO_SACH') {
-<<<<<<< HEAD
-
-=======
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
             const [banSaoRanh] = await db.query(
                 'SELECT maVach FROM BanSaoSach WHERE maDauSach = ? AND trangThai = "CO_SAN" LIMIT 1', 
                 [maDauSach]
@@ -80,13 +56,6 @@ class DatTruocModel {
 
             maVachDuocChon = banSaoRanh[0].maVach;
 
-<<<<<<< HEAD
-            await db.query('UPDATE BanSaoSach SET trangThai = "DANG_GIU_CHO" WHERE maVach = ?', [maVachDuocChon]);
-        }
-
-        const sql = 'UPDATE DatTruoc SET trangThai = ? WHERE id = ?';
-        await db.query(sql, [trangThaiMoi, datTruocId]);
-=======
             // Đổi trạng thái bản sao thành Đang giữ chỗ
             await db.query('UPDATE BanSaoSach SET trangThai = "DANG_GIU_CHO" WHERE maVach = ?', [maVachDuocChon]);
             
@@ -96,7 +65,6 @@ class DatTruocModel {
             // Nếu là Hủy thì chỉ cập nhật trạng thái (và có thể phải nhả mã vạch ra nếu trước đó đã duyệt, phần này có thể bổ sung sau nếu cần)
             await db.query('UPDATE DatTruoc SET trangThai = ? WHERE id = ?', [trangThaiMoi, datTruocId]);
         }
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
         
         return maVachDuocChon; 
     }
@@ -115,11 +83,7 @@ class DatTruocModel {
 
     static async getLichSuCaNhan(nguoiDungId) {
         const sql = `
-<<<<<<< HEAD
-            SELECT dt.id, dt.ngayDat, dt.trangThai, ds.tenSach
-=======
             SELECT dt.id, dt.ngayDat, dt.trangThai, dt.maVach, ds.tenSach
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
             FROM DatTruoc dt
             JOIN DauSach ds ON dt.maDauSach = ds.maDauSach
             WHERE dt.nguoiDungId = ?

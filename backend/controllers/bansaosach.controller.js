@@ -1,10 +1,6 @@
 const BanSaoModel = require('../models/bansaosach.model');
 const DauSachModel = require('../models/dausach.model');
-<<<<<<< HEAD
-
-=======
 const db = require('../config/db');
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 exports.create = async (req, res) => {
     const { maVach, maDauSach } = req.body;
     try {
@@ -47,8 +43,6 @@ exports.delete = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-<<<<<<< HEAD
-=======
 };
 // Thêm hàm này vào cuối file controller
 exports.getByMaDauSach = async (req, res) => {
@@ -67,5 +61,4 @@ exports.getByMaDauSach = async (req, res) => {
         console.error("Lỗi lấy bản sao:", error);
         res.status(500).json({ message: 'Lỗi server khi lấy dữ liệu bản sao.' });
     }
->>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 };
