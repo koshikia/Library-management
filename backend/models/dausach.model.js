@@ -2,7 +2,22 @@ const db = require('../config/db');
 
 class DauSachModel {
     static getAll() {
+<<<<<<< HEAD
         return db.query('SELECT * FROM DauSach');
+=======
+        // Lấy toàn bộ thông tin gốc (có sẵn ds.tongSoLuong) 
+        // VÀ đếm thêm số bản sao đang rảnh (gán vào biến soLuongCoSan)
+        const sql = `
+            SELECT ds.*, 
+                   (SELECT COUNT(*) 
+                    FROM BanSaoSach bs 
+                    WHERE bs.maDauSach = ds.maDauSach 
+                    AND bs.trangThai = 'CO_SAN') AS soLuongCoSan
+            FROM DauSach ds
+            ORDER BY ds.maDauSach DESC
+        `;
+        return db.query(sql);
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
     }
 
     static getById(maDauSach) {

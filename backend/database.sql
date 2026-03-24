@@ -1,15 +1,22 @@
+<<<<<<< HEAD
 -- =========================
 -- TẠO DATABASE
 -- =========================
+=======
+
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 CREATE DATABASE IF NOT EXISTS library_db
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 
 USE library_db;
 
+<<<<<<< HEAD
 -- =========================
 -- NGƯỜI DÙNG (ĐỘC GIẢ / THỦ THƯ)
 -- =========================
+=======
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 CREATE TABLE NguoiDung (
     id INT AUTO_INCREMENT PRIMARY KEY,
     hoTen VARCHAR(255) NOT NULL,
@@ -19,9 +26,12 @@ CREATE TABLE NguoiDung (
     ngayTao DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+<<<<<<< HEAD
 -- =========================
 -- ĐẦU SÁCH
 -- =========================
+=======
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 CREATE TABLE DauSach (
     maDauSach VARCHAR(20) PRIMARY KEY,
     tenSach VARCHAR(255) NOT NULL,
@@ -34,9 +44,12 @@ CREATE TABLE DauSach (
     tongSoLuong INT DEFAULT 0
 ) ENGINE=InnoDB;
 
+<<<<<<< HEAD
 -- =========================
 -- BẢN SAO SÁCH
 -- =========================
+=======
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 CREATE TABLE BanSaoSach (
     maVach VARCHAR(50) PRIMARY KEY,
     maDauSach VARCHAR(20) NOT NULL,
@@ -47,9 +60,12 @@ CREATE TABLE BanSaoSach (
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+<<<<<<< HEAD
 -- =========================
 -- PHIẾU MƯỢN
 -- =========================
+=======
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 CREATE TABLE PhieuMuon (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nguoiDungId INT NOT NULL,
@@ -68,14 +84,21 @@ CREATE TABLE PhieuMuon (
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+<<<<<<< HEAD
 -- =========================
 -- GIA HẠN MƯỢN SÁCH
 -- =========================
+=======
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 CREATE TABLE GiaHan (
     id INT AUTO_INCREMENT PRIMARY KEY,
     phieuMuonId INT NOT NULL,
     soNgayGiaHan INT NOT NULL,
     lyDo TEXT,
+<<<<<<< HEAD
+=======
+    lyDoTuChoi TEXT,
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
     trangThai ENUM('CHO_DUYET', 'DA_DUYET', 'TU_CHOI') DEFAULT 'CHO_DUYET',
     ngayYeuCau DATETIME DEFAULT CURRENT_TIMESTAMP,
 
@@ -84,15 +107,22 @@ CREATE TABLE GiaHan (
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+<<<<<<< HEAD
 -- =========================
 -- ĐẶT TRƯỚC SÁCH
 -- =========================
+=======
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 CREATE TABLE DatTruoc (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nguoiDungId INT NOT NULL,
     maDauSach VARCHAR(20) NOT NULL,
     ngayDat DATETIME DEFAULT CURRENT_TIMESTAMP,
     trangThai ENUM('CHO', 'DA_CO_SACH', 'HUY', 'HOAN_THANH') DEFAULT 'CHO',
+<<<<<<< HEAD
+=======
+    maVach VARCHAR(50) NULL,
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 
     FOREIGN KEY (nguoiDungId)
         REFERENCES NguoiDung(id)

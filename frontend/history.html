@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>library-management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+          <div>
+            <h2>Thư Viện Số</h2>
+            <span>Hệ thống quản lý</span>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <a href="home.html" class="menu-item"><i class="fa-solid fa-house"></i> Trang chủ</a>
+          <a href="history.html" class="menu-item active"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử mượn</a>
+          <a href="lichsudattruoc.html" class="menu-item"><i class="fa-solid fa-bookmark"></i> Lịch sử đặt trước</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="support-box" style="background-color: #fee2e2; border-left: 4px solid #dc3545;">
+          <p style="color: #dc3545; font-weight: bold;">TÀI KHOẢN</p>
+          <button onclick="dangXuat()" style="background-color: #dc3545; color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; padding: 8px;">
+             Đăng xuất <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+
+        <div class="user-card">
+          <img src="https://ui-avatars.com/api/?name=Reader&background=random" alt="avatar" id="sidebar-avatar" />
+          <div>
+            <strong id="sidebar-name">Đang tải...</strong>
+            <span>Độc giả</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <section class="page-header">
+        <h1>Lịch sử mượn sách</h1>
+        <p>Theo dõi và quản lý những cuốn sách bạn đã từng khám phá.</p>
+      </section>
+
+      <div class="history-toolbar">
+        <input type="text" placeholder="Tìm kiếm tên sách, tác giả..." />
+        <button class="toolbar-btn"> Tất cả thời gian</button>
+        <button class="toolbar-btn"> Lọc</button>
+      </div>
+
+      <section class="table-wrapper">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>TÊN SÁCH</th>
+              <th>NGÀY MƯỢN</th>
+              <th>NGÀY TRẢ THỰC TẾ</th>
+              <th>TRẠNG THÁI</th>
+              <th>HÀNH ĐỘNG</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <div class="table-footer">
+          <span>Hiển thị 4 trên 48 kết quả</span>
+          <div class="pagination">
+            <button>‹</button>
+            <button class="active-page">1</button>
+            <button>2</button>
+            <button>›</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="right-panel">
+      <div class="panel-card">
+        <h3>Thống kê đọc sách 2024</h3>
+
+        <div class="stats-box">
+          <span>TỔNG SỐ SÁCH ĐÃ ĐỌC</span>
+          <h2>24</h2>
+          <p>+4 cuốn so với năm ngoái</p>
+        </div>
+
+        <div class="goal-box">
+          <div class="goal-row">
+            <span>MỤC TIÊU NĂM</span>
+            <strong>60%</strong>
+          </div>
+          <p>24 / 40 cuốn</p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%;"></div>
+          </div>
+        </div>
+
+        <div class="chart-box">
+          <h4>Hoạt động hàng tháng</h4>
+          <div class="fake-chart">
+            <div class="bar" style="height: 30%;"></div>
+            <div class="bar" style="height: 15%;"></div>
+            <div class="bar" style="height: 45%;"></div>
+            <div class="bar" style="height: 22%;"></div>
+            <div class="bar" style="height: 68%;"></div>
+            <div class="bar active" style="height: 84%;"></div>
+          </div>
+          <div class="chart-labels">
+            <span>T1</span>
+            <span>T2</span>
+            <span>T3</span>
+            <span>T4</span>
+            <span>T5</span>
+            <span>T6</span>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <strong> Một sách chính hiệu</strong>
+          <p>Đã đọc sách liên tục 7 ngày</p>
+        </div>
+
+        <div class="tag-list">
+          <span class="tag">#TâmLýHọc</span>
+          <span class="tag">#KinhTế</span>
+          <span class="tag">#VănHọc</span>
+          <span class="tag">#KỹNăng</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <div id="giaHanModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; padding: 24px; border-radius: 12px; width: 400px; max-width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+        <h3 style="margin-top: 0; color: #1e293b; font-size: 18px;">Yêu cầu gia hạn sách</h3>
+        <p style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Vui lòng nhập lý do bạn muốn gia hạn (thêm 7 ngày). Lưu ý: Mỗi cuốn sách chỉ được gia hạn 1 lần.</p>
+        
+        <textarea id="lyDoGiaHan" rows="4" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; resize: none; font-family: inherit;" placeholder="Ví dụ: Mình chưa đọc xong, xin thư viện cho mượn thêm vài ngày..."></textarea>
+        
+        <input type="hidden" id="giaHanPhieuMuonId" />
+        
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <button onclick="dongModalGiaHan()" style="padding: 8px 16px; background: #f1f5f9; color: #475569; border: none; border-radius: 6px; font-weight: 500; cursor: pointer;">Hủy</button>
+            <button onclick="guiYeuCauGiaHan()" style="padding: 8px 16px; background: #0284c7; color: white; border: none; border-radius: 6px; font-weight: 500; cursor: pointer;">Gửi yêu cầu</button>
+        </div>
+    </div>
+  </div>
+  <script src="js/api.js"></script>
+  <script src="js/history.js"></script>
+</body>
+</html>

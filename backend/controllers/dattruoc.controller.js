@@ -2,7 +2,11 @@ const DatTruocModel = require('../models/dattruoc.model');
 
 exports.datTruocSach = async (req, res) => {
     const { maDauSach } = req.body;
+<<<<<<< HEAD
     const nguoiDungId = req.user.id; // Lấy từ token đăng nhập
+=======
+    const nguoiDungId = req.session.user.id; // Dùng session nên phải thêm session, thông thường dùng jwt thì k cần
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
 
     try {
         if (!maDauSach) {
@@ -15,7 +19,14 @@ exports.datTruocSach = async (req, res) => {
             datTruocId: datTruocId
         });
     } catch (error) {
+<<<<<<< HEAD
         if (error.message.includes('không tồn tại') || error.message.includes('đang trong hàng đợi')) {
+=======
+        // Thêm chuỗi 'đang mượn' vào điều kiện bắt lỗi 400
+        if (error.message.includes('không tồn tại') || 
+            error.message.includes('đang chờ') || 
+            error.message.includes('đang mượn')) {
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
             return res.status(400).json({ message: error.message });
         }
         console.error(error);
@@ -58,7 +69,11 @@ exports.getAllDatTruoc = async (req, res) => {
 
 exports.layLichSuCaNhan = async (req, res) => {
     try {
+<<<<<<< HEAD
         const nguoiDungId = req.user.id;
+=======
+        const nguoiDungId = req.session.user.id;
+>>>>>>> 92ef0a0620a1cb62b89e1c08ec9842dca647ba7a
         const lichSu = await DatTruocModel.getLichSuCaNhan(nguoiDungId);
         res.status(200).json(lichSu);
     } catch (error) {
