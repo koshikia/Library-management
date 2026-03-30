@@ -1,7 +1,5 @@
 const db = require('../config/db');
-const PhieuMuon = require('../models/PhieuMuon');
 
-// Ghi nhận trả sách (Thủ thư)
 exports.returnBorrow = async (req, res) => {
     const { maVach } = req.body;
 
@@ -14,38 +12,58 @@ exports.returnBorrow = async (req, res) => {
     try {
         await conn.beginTransaction();
 
-        // 1. Tìm xem cuốn sách này có đang được ai mượn không
+        // 1. Lấy phiếu mượn
         const [[phieuMuon]] = await conn.query(
-            `SELECT id FROM PhieuMuon 
-             WHERE maVach = ? AND trangThai = 'DANG_MUON' 
+            `SELECT id, hanTra 
+             FROM PhieuMuon 
+             WHERE maVach = ? AND trangThai = 'DANG_MUON'
              LIMIT 1`,
             [maVach]
         );
 
         if (!phieuMuon) {
-            throw new Error("Mã vạch này không có ai mượn, hoặc đã được trả trước đó rồi!");
+            throw new Error("Mã vạch này không có ai mượn hoặc đã trả rồi!");
         }
 
-        // 2. Cập nhật phiếu mượn thành ĐÃ TRẢ
-        // (Nếu nhóm bạn có thiết kế cột ngayTra trong CSDL thì có thể thêm: ngayTra = CURDATE() vào lệnh UPDATE này)
+        const today = new Date();
+        const hanTra = new Date(phieuMuon.hanTra);
+
+        let soNgayTre = 0;
+        let tienPhat = 0;
+
+        // 2. Kiểm tra quá hạn
+        if (today > hanTra) {
+            const diffTime = today - hanTra;
+            soNgayTre = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            const tienPhatMoiNgay = 5000;
+            tienPhat = soNgayTre * tienPhatMoiNgay;
+        }
+
+        // 3. Cập nhật phiếu mượn
         await conn.query(
-            `UPDATE PhieuMuon 
-             SET trangThai = 'DA_TRA' 
+            `UPDATE PhieuMuon
+             SET trangThai = 'DA_TRA',
+                 ngayTra = CURDATE()
              WHERE id = ?`,
             [phieuMuon.id]
         );
 
-        // 3. Trả sách lại vào kho (Cập nhật thành CÓ SẴN)
+        // 4. Cập nhật trạng thái sách
         await conn.query(
-            `UPDATE BanSaoSach 
-             SET trangThai = 'CO_SAN' 
+            `UPDATE BanSaoSach
+             SET trangThai = 'CO_SAN'
              WHERE maVach = ?`,
             [maVach]
         );
 
         await conn.commit();
 
-        res.status(200).json({ message: "Ghi nhận trả sách thành công! Sách đã vào kho." });
+        res.status(200).json({
+            message: "Trả sách thành công",
+            soNgayTre,
+            tienPhat
+        });
 
     } catch (error) {
         await conn.rollback();
