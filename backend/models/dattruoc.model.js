@@ -1,15 +1,12 @@
 const db = require('../config/db');
 
 class DatTruocModel {
-    // 1. DÀNH CHO ĐỘC GIẢ: Đặt trước một đầu sách
     static async taoDatTruoc(nguoiDungId, maDauSach) {
-        // ... (Giữ nguyên kiểm tra đầu sách tồn tại) ...
         const [sach] = await db.query('SELECT maDauSach FROM DauSach WHERE maDauSach = ?', [maDauSach]);
         if (sach.length === 0) {
             throw new Error('Đầu sách không tồn tại.');
         }
 
-        // KIỂM TRA 1: Đã đặt và đang chờ/đã có sách chưa?
         const [daDat] = await db.query(
             'SELECT id FROM DatTruoc WHERE nguoiDungId = ? AND maDauSach = ? AND trangThai IN ("CHO", "DA_CO_SACH")',
             [nguoiDungId, maDauSach]
@@ -17,8 +14,6 @@ class DatTruocModel {
         if (daDat.length > 0) {
             throw new Error('Bạn đã đặt cuốn sách này và đang chờ lấy sách rồi.');
         }
-
-        // KIỂM TRA 2: Đang mượn cuốn này chưa?
         const [dangMuon] = await db.query(`
             SELECT pm.id 
             FROM PhieuMuon pm
@@ -29,44 +24,53 @@ class DatTruocModel {
         if (dangMuon.length > 0) {
             throw new Error('Bạn đang mượn cuốn sách này rồi! Hãy trả sách trước khi muốn mượn/đặt lại.');
         }
-
-        // Tiến hành tạo đặt trước
         const sql = `INSERT INTO DatTruoc (nguoiDungId, maDauSach, trangThai) VALUES (?, ?, 'CHO')`;
         const [result] = await db.query(sql, [nguoiDungId, maDauSach]);
         return result.insertId;
     }
 
-    // 2. DÀNH CHO THỦ THƯ: Cập nhật trạng thái
     static async capNhatTrangThai(datTruocId, trangThaiMoi) {
-        const [thongTinDat] = await db.query('SELECT maDauSach FROM DatTruoc WHERE id = ?', [datTruocId]);
-        if (thongTinDat.length === 0) throw new Error('Không tìm thấy phiếu đặt trước này.');
-        
-        const maDauSach = thongTinDat[0].maDauSach;
-        let maVachDuocChon = null;
-
-        if (trangThaiMoi === 'DA_CO_SACH') {
-            const [banSaoRanh] = await db.query(
-                'SELECT maVach FROM BanSaoSach WHERE maDauSach = ? AND trangThai = "CO_SAN" LIMIT 1', 
-                [maDauSach]
+        const conn = await db.getConnection(); 
+        try {
+            await conn.beginTransaction();
+            const [[thongTinDat]] = await conn.query(
+                'SELECT maDauSach, trangThai FROM DatTruoc WHERE id = ? FOR UPDATE', 
+                [datTruocId]
             );
             
-            if (banSaoRanh.length === 0) {
-                throw new Error('Không thể Báo có sách! Hiện tại không có bản sao nào đang rảnh trong kho.');
-            }
-
-            maVachDuocChon = banSaoRanh[0].maVach;
-
-            // Đổi trạng thái bản sao thành Đang giữ chỗ
-            await db.query('UPDATE BanSaoSach SET trangThai = "DANG_GIU_CHO" WHERE maVach = ?', [maVachDuocChon]);
+            if (!thongTinDat) throw new Error('Không tìm thấy phiếu đặt trước này.');
+            if (thongTinDat.trangThai !== 'CHO') throw new Error('Phiếu này không ở trạng thái CHỜ để duyệt.');
             
-            // LƯU CẢ TRẠNG THÁI VÀ MÃ VẠCH VÀO PHIẾU ĐẶT TRƯỚC
-            await db.query('UPDATE DatTruoc SET trangThai = ?, maVach = ? WHERE id = ?', [trangThaiMoi, maVachDuocChon, datTruocId]);
-        } else {
-            // Nếu là Hủy thì chỉ cập nhật trạng thái (và có thể phải nhả mã vạch ra nếu trước đó đã duyệt, phần này có thể bổ sung sau nếu cần)
-            await db.query('UPDATE DatTruoc SET trangThai = ? WHERE id = ?', [trangThaiMoi, datTruocId]);
+            const maDauSach = thongTinDat.maDauSach;
+            let maVachDuocChon = null;
+
+            if (trangThaiMoi === 'DA_CO_SACH') {
+                const [banSaoRanh] = await conn.query(
+                    'SELECT maVach FROM BanSaoSach WHERE maDauSach = ? AND trangThai = "CO_SAN" LIMIT 1 FOR UPDATE', 
+                    [maDauSach]
+                );
+                
+                if (banSaoRanh.length === 0) {
+                    throw new Error('Không thể Báo có sách! Hiện tại không có bản sao nào đang rảnh trong kho.');
+                }
+
+                maVachDuocChon = banSaoRanh[0].maVach;
+                await conn.query('UPDATE BanSaoSach SET trangThai = "DANG_GIU_CHO" WHERE maVach = ?', [maVachDuocChon]);
+                
+                await conn.query('UPDATE DatTruoc SET trangThai = ?, maVach = ? WHERE id = ?', [trangThaiMoi, maVachDuocChon, datTruocId]);
+            } else {
+                await conn.query('UPDATE DatTruoc SET trangThai = ? WHERE id = ?', [trangThaiMoi, datTruocId]);
+            }
+            
+            await conn.commit();
+            return maVachDuocChon; 
+            
+        } catch (error) {
+            await conn.rollback();
+            throw error; 
+        } finally {
+            conn.release();
         }
-        
-        return maVachDuocChon; 
     }
     static async getAll() {
         const sql = `
