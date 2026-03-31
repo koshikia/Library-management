@@ -1,6 +1,4 @@
-// backend/config/db.js
 const mysql = require('mysql2/promise');
-
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -10,8 +8,6 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
 });
-
-// Kiểm tra kết nối
 async function testConnection() {
     try {
         const connection = await pool.getConnection();
@@ -21,7 +17,5 @@ async function testConnection() {
         console.error('Lỗi kết nối MySQL:', err.message);
     }
 }
-
 testConnection();
-
 module.exports = pool;

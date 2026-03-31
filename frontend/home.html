@@ -29,30 +29,13 @@
           <a href="lichsudattruoc.html" class="menu-item"><i class="fa-solid fa-bookmark"></i> Lịch sử đặt trước</a>
         </nav>
       </div>
-
-      <div class="sidebar-bottom">
-        <div class="support-box" style="background-color: #fee2e2; border-left: 4px solid #dc3545;">
-          <p style="color: #dc3545; font-weight: bold;">TÀI KHOẢN</p>
-          <button onclick="dangXuat()" style="background-color: #dc3545; color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; padding: 8px;">
-             Đăng xuất <i class="fa-solid fa-right-from-bracket"></i>
-          </button>
-        </div>
-
-        <div class="user-card">
-          <img src="https://ui-avatars.com/api/?name=Reader&background=random" alt="avatar" id="sidebar-avatar" />
-          <div>
-            <strong id="sidebar-name">Đang tải...</strong>
-            <span>Độc giả</span>
-          </div>
-        </div>
-      </div>
     </aside>
 
 
     <main class="main-content">
       <header class="topbar">
         <div class="search-box">
-          <input type="text" placeholder="Tìm kiếm sách, tác giả hoặc mã ISBN..." />
+          <input type="text" id="searchInput" placeholder="Tìm kiếm sách, tác giả hoặc mã ISBN..." />
         </div>
         <div class="topbar-actions">
           <button class="icon-btn"></button>
@@ -61,76 +44,59 @@
       </header>
 
       <section class="hero-banner">
-        <h1 id="hero-greeting">Chào mừng bạn trở lại!</h1> <p>Khám phá hơn 50,000 cuốn sách điện tử...</p>
-        <button class="primary-btn">Bắt đầu đọc ngay</button>
+        <h1 id="hero-greeting">Chào mừng bạn trở lại!</h1> <p>Khám phá hơn các cuốn sách điện tử.</p>
       </section>
 
       <section class="section">
         <div class="section-header">
           <h2>Sách mới cập nhật</h2>
-          <a href="#">Xem tất cả →</a>
+          <a href="#">Xem tất cả</a>
         </div>
-        <div class="book-grid" id="bookList">
+        <div id="bookGrid" class="book-grid" id="bookList">
         </div>
+        <div id="paginationContainer" style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 30px; margin-bottom: 20px; width: 100%;">
+            </div>
       </section>
     </main>
 
     <aside class="right-panel">
-      <div class="panel-card">
-        <h3><i class="fa-sharp fa-thin fa-sparkles"></i> Gợi ý cho bạn</h3>
-
-        <div class="suggest-item">
-          <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=200&auto=format&fit=crop&q=60" alt="">
-          <div>
-            <strong>Đắc Nhân Tâm</strong>
-            <p>Dale Carnegie</p>
-            <span>4.9/5</span>
-          </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 12px 16px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="" alt="avatar" id="header-avatar" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                <div style="display: flex; flex-direction: column;">
+                    <strong id="header-name" style="font-size: 14px; color: #1e293b;">Đang tải...</strong>
+                    <span style="font-size: 12px; color: #64748b;">Độc giả</span>
+                </div>
+            </div>
+            <button onclick="dangXuat()" style="background-color: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer; transition: 0.2s;">
+                Thoát <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
+        <div class="panel-card">
+            <h3>Gợi ý cho bạn</h3>
+            <div id="goiYSachContainer">
+                <p style="text-align: center; color: #666;">Đang tải gợi ý...</p>
+            </div>
+            <button class="btn-outline" onclick="hienThiGoiY()" style="width: 100%; margin-top: 10px; padding: 8px; border-radius: 6px; cursor: pointer; border: 1px solid #ccc; background: white;">Làm mới gợi ý</button>
         </div>
 
-        <div class="suggest-item">
-          <img src="https://images.unsplash.com/photo-1511108690759-009324a90311?w=200&auto=format&fit=crop&q=60" alt="">
-          <div>
-            <strong>Thiết kế cuộc đời</strong>
-            <p>Bill Burnett</p>
-            <span> 4.7/5</span>
-          </div>
+        <div class="panel-card" style="margin-top: 20px;">
+            <h3>Khám phá thể loại</h3>
+            <div class="tag-list" id="danhMucTags">
+                <span class="tag active" onclick="locTheoTheLoai('Tất cả', this)" style="cursor: pointer;">Tất cả</span>
+                <span class="tag" onclick="locTheoTheLoai('Công nghệ', this)" style="cursor: pointer;">Công nghệ</span>
+                <span class="tag" onclick="locTheoTheLoai('Kinh tế', this)" style="cursor: pointer;">Kinh tế</span>
+                <span class="tag" onclick="locTheoTheLoai('Tâm lý', this)" style="cursor: pointer;">Tâm lý</span>
+                <span class="tag" onclick="locTheoTheLoai('Văn học', this)" style="cursor: pointer;">Văn học</span>
+            </div>
         </div>
 
-        <div class="suggest-item">
-          <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=200&auto=format&fit=crop&q=60" alt="">
-          <div>
-            <strong>Tâm lý học về tiền</strong>
-            <p>Morgan Housel</p>
-            <span> 5.0/5</span>
-          </div>
+        <div class="panel-card" style="margin-top: 20px; border-left: 4px solid #007bff;">
+            <h3>Sách đang mượn</h3>
+            <div id="trangThaiMuonBox">
+                <p style="text-align: center; color: #666; font-size: 14px;">Đang kiểm tra túi sách của bạn...</p>
+            </div>
         </div>
-
-        <button class="secondary-btn full-width">Làm mới gợi ý</button>
-      </div>
-
-      <div class="panel-card">
-        <h3>Danh mục yêu thích</h3>
-        <div class="tag-list">
-          <span class="tag">Công nghệ</span>
-          <span class="tag">Văn học</span>
-          <span class="tag">Kinh tế</span>
-          <span class="tag">Tâm lý</span>
-          <span class="tag">Khoa học</span>
-          <span class="tag">Lịch sử</span>
-        </div>
-      </div>
-
-      <div class="panel-card progress-card">
-        <div class="progress-top">
-          <span>TIẾN ĐỘ ĐỌC</span>
-          <strong>68%</strong>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: 68%;"></div>
-        </div>
-        <p>Bạn đã hoàn thành 12/15 mục tiêu đọc sách của tháng này!</p>
-      </div>
     </aside>
   </div>
   <script src="js/api.js"></script>

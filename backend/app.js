@@ -13,6 +13,7 @@ const datTruocRoutes = require('./routes/dattruoc.routes');
 const phieuMuonRoutes = require('./routes/borrow.routes');
 const phieuTraRoutes = require('./routes/returnRoutes');
 const giaHanRoutes = require('./routes/renewRoutes');
+const reportRouters = require('./routes/reportRouters');
 const app = express();
 
 app.use(cors({
@@ -33,18 +34,15 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// frontend
 app.use(express.static(path.join(__dirname, "../frontend")));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/login.html"));
 });
 
-// Sử dụng Routes
 app.use('/api', authRoutes);
 app.use("/api", userRoutes);
 
-// route admin
 app.get('/admin', isAdmin, (req, res) => {
     res.sendFile(__dirname + "/protected/admin.html");
 });
@@ -54,7 +52,8 @@ app.use('/api/dattruoc', datTruocRoutes);
 app.use('/api/phieumuon', phieuMuonRoutes);
 app.use('/api/phieumuon', phieuTraRoutes);
 app.use('/api/giahan', giaHanRoutes);
-// Chạy server
+app.use('/api/thongke', reportRouters);
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);
