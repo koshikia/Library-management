@@ -27,17 +27,11 @@ exports.updateStatus = async (req, res) => {
 exports.delete = async (req, res) => {
     try {
         const [rows] = await BanSaoModel.getById(req.params.id);
-        if (rows.length === 0) {
-            return res.status(404).json({ message: 'Không tìm thấy bản sao' });
-        }
-        const banSao = rows[0];
-        if (banSao.trangThai !== 'CO_SAN') {
-            return res.status(400).json({ 
-                message: `Từ chối xóa! Bản sao này đang ở trạng thái "${banSao.trangThai}" (Có thể đang cho mượn hoặc thất lạc). Chỉ được xóa sách nằm trong kho.` 
-            });
-        }
-        const maDauSach = banSao.maDauSach;
+        if (rows.length === 0) return res.status(404).json({ message: 'Không tìm thấy bản sao' });
+        const maDauSach = rows[0].maDauSach;
+
         await BanSaoModel.delete(req.params.id);
+
         await DauSachModel.updateQuantity(maDauSach, -1);
         res.json({ message: 'Đã xóa bản sao thành công' });
     } catch (err) {

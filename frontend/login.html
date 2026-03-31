@@ -401,14 +401,14 @@
         method: "POST",
         body: JSON.stringify({
           email: email,
-          matKhau: password // Map biến password vào key matKhau cho backend
+          matKhau: password
         })
       });
-
+      
       const vaiTroNguoiDung = data.user.vaiTro; 
 
       localStorage.setItem("user", JSON.stringify(data.user || {}));
-      localStorage.setItem("vaiTro", vaiTroNguoiDung || ""); // Lưu đúng quyền ra ngoài để các trang khác dễ check
+      localStorage.setItem("vaiTro", vaiTroNguoiDung || "");
 
       // 2. Sửa ở đây: Truyền biến vừa lấy vào hàm switch
       switch (vaiTroNguoiDung) {

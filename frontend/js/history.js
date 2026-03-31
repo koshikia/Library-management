@@ -200,7 +200,7 @@ async function guiYeuCauGiaHan() {
             })
         });
 
-        alert("🎉 " + (result.message || "Gửi yêu cầu gia hạn thành công! Vui lòng chờ thủ thư duyệt."));
+        alert((result.message || "Gửi yêu cầu gia hạn thành công! Vui lòng chờ thủ thư duyệt."));
         dongModalGiaHan();
         
         // Load lại danh sách để cập nhật giao diện (nếu muốn)
