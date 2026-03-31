@@ -616,4 +616,227 @@ button {
     overflow-x: auto;
   }
 }
+/* ==========================================
+   CSS CHO TRANG CHI TIẾT SÁCH (BOOK DETAIL)
+   ========================================== */
 
+/* 1. Layout chính của trang */
+.book-detail-page {
+    background-color: #f8fafc;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.detail-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 2. Nội dung chính (Bên phải menu) */
+.detail-main {
+    flex-grow: 1;
+    padding: 30px;
+}
+
+/* 3. Thanh Topbar (Nút quay lại & Đặt trước) */
+.detail-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.topbar-link {
+    text-decoration: none;
+    color: #475569;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+}
+
+.topbar-link:hover {
+    color: #0f172a;
+}
+
+.detail-primary-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s;
+}
+
+.detail-primary-btn:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* 4. Khối Hero (Ảnh bìa + Tóm tắt) */
+.detail-hero {
+    display: flex;
+    gap: 40px;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+/* Khung chứa ảnh bìa */
+.detail-cover-card {
+    flex-shrink: 0;
+    width: 250px;
+}
+
+.detail-cover-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    aspect-ratio: 2/3; /* Ép tỷ lệ bìa sách chuẩn */
+}
+
+/* Khung chữ bên phải ảnh */
+.detail-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.detail-overline {
+    display: flex;
+    gap: 10px;
+}
+
+.detail-chip {
+    padding: 4px 10px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-title {
+    margin: 0 0 10px 0;
+    font-size: 32px;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.detail-subtitle {
+    margin: 0;
+    font-size: 16px;
+    color: #64748b;
+}
+
+.detail-availability {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #475569;
+}
+
+.detail-status-pill {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.detail-summary-text {
+    line-height: 1.6;
+    color: #334155;
+    margin: 0;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 20px;
+}
+
+/* 5. Các khối Section (Thông tin chi tiết, Mô tả, Bảng) */
+.detail-section {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.section-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #0f172a;
+}
+
+.section-header span {
+    font-size: 14px;
+    color: #64748b;
+}
+
+/* Lưới thông tin */
+.detail-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.detail-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.detail-field span {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-field strong {
+    font-size: 15px;
+    color: #0f172a;
+}
+
+/* 6. Bảng Bản Sao */
+.detail-copy-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.detail-copy-table th, .detail-copy-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.detail-copy-table th {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    background: #f8fafc;
+}
+
+/* Utils */
+.hidden { display: none !important; }
+.badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+.bg-cosan { background: #d4edda; color: #155724; }
+.bg-dangmuon { background: #fff3cd; color: #856404; }
+.bg-huhong { background: #f8d7da; color: #721c24; }
