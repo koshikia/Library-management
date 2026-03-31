@@ -96,14 +96,3 @@ exports.deleteUser = async (id) => {
 
     return result;
 };
-
-// ============================
-// CẬP NHẬT TRẠNG THÁI (KHÓA/MỞ KHÓA)
-// ============================
-exports.updateStatus = async (id, trangThai) => {
-    const [result] = await db.query(
-        "UPDATE NguoiDung SET trangThai = ? WHERE id = ?",
-        [trangThai, id]
-    );
-    return result;
-};

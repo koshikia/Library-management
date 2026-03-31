@@ -31,7 +31,7 @@ router.get(
 
 
 // ===============================
-// ĐỘC GIẢ XEM PHIẾU MƯỢN CỦA MÌNH
+// ĐỘC GIẢ XEM CỦA MÌNH
 // ===============================
 router.get(
     '/my',

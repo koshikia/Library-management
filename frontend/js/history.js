@@ -96,8 +96,12 @@ function hienThiThongTinTaiKhoan() {
     if (userStr) {
         const user = JSON.parse(userStr);
         const hoTen = user.hoTen || user.ten || 'Độc giả';
-        document.getElementById('sidebar-name').textContent = hoTen;
-        document.getElementById('sidebar-avatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(hoTen)}&background=random`;
+        
+        const headerName = document.getElementById('header-name');
+        const headerAvatar = document.getElementById('header-avatar');
+        
+        if (headerName) headerName.textContent = hoTen;
+        if (headerAvatar) headerAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(hoTen)}&background=random`;
     }
 }
 

@@ -33,6 +33,13 @@ app.use(session({
     saveUninitialized: false
 }));
 
+// frontend
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/login.html"));
+});
+
 // Sử dụng Routes
 app.use('/api', authRoutes);
 app.use("/api", userRoutes);
@@ -47,12 +54,6 @@ app.use('/api/dattruoc', datTruocRoutes);
 app.use('/api/phieumuon', phieuMuonRoutes);
 app.use('/api/phieumuon', phieuTraRoutes);
 app.use('/api/giahan', giaHanRoutes);
-// frontend
-app.use(express.static(path.join(__dirname, "../frontend")));
-
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/login.html"));
-});
 // Chạy server
 const PORT = 3000;
 app.listen(PORT, () => {

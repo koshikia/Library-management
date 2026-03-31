@@ -1,15 +1,21 @@
 const userModel = require("../models/user.model");
 const db = require("../config/db");
 
-// 1. Lấy danh sách user
+// lấy danh sách user
 exports.getUsers = async (req, res) => {
-    try {
-        const result = await userModel.getAllUsers();
-        res.json(result);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Lỗi server khi lấy danh sách User" });
-    }
+
+try{
+
+const result = await userModel.getAllUsers();
+
+res.json(result);
+
+}catch(err){
+
+res.status(500).json({message:"Lỗi server"});
+
+}
+
 };
 
 // 2. Cập nhật trạng thái (Khóa / Mở khóa)
