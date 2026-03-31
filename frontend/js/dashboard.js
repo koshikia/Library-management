@@ -512,27 +512,62 @@ async function xuLyMuonSach() {
 // 3. Xử lý nút "Ghi nhận Trả Sách"
 async function xuLyTraSach() {
     const maVach = document.getElementById('tra_maVach').value.trim();
-
     if (!maVach) {
         alert("Vui lòng nhập Mã vạch của cuốn sách cần trả!");
         return;
     }
 
     try {
-        // Gửi yêu cầu Trả sách (Ví dụ API: PUT /api/phieumuon/tra)
-        await apiFetch('/api/phieumuon/tra', {
+        const response = await apiFetch('/api/phieumuon/tra', {
             method: 'PUT',
             body: JSON.stringify({ maVach: maVach })
         });
 
-        alert("Ghi nhận Trả Sách thành công! Sách đã được nhập lại vào kho.");
         document.getElementById('tra_maVach').value = '';
-        taiDanhSachPhieuMuon();
+        taiDanhSachPhieuMuon(); // Tải lại bảng ngay lập tức
+
+        // KIỂM TRA XEM CÓ BỊ PHẠT KHÔNG
+        if (response.hasFine) {
+            // Bật Popup cảnh báo phạt
+            const fine = response.fineDetails;
+
+            document.getElementById('phat_docGia').textContent = fine.hoTen;
+            document.getElementById('phat_tenSach').textContent = fine.tenSach;
+            document.getElementById('phat_soNgayTre').textContent = fine.soNgayTre;
+            document.getElementById('phat_tongTien').textContent = fine.tongTien.toLocaleString('vi-VN');
+            document.getElementById('phat_id').value = fine.id;
+
+            document.getElementById('modalPhieuPhat').style.display = 'flex';
+        } else {
+            // Không bị phạt thì báo thành công bình thường
+            alert(response.message);
+        }
+
     } catch (error) {
         alert("Lỗi khi trả sách: " + error.message);
     }
 }
+<<<<<<< HEAD
 // ==========================================
+=======
+
+// Xử lý khi Thủ thư bấm "Xác nhận Đã Thu Tiền"
+async function xacNhanThanhToanPhat() {
+    const idPhieuPhat = document.getElementById('phat_id').value;
+
+    try {
+        await apiFetch(`/api/phieumuon/phieuphat/${idPhieuPhat}/thanhtoan`, {
+            method: 'PUT'
+        });
+
+        alert("Thu tiền phạt thành công! Phiếu mượn đã được hoàn tất.");
+        document.getElementById('modalPhieuPhat').style.display = 'none';
+
+    } catch (error) {
+        alert("Lỗi thanh toán: " + error.message);
+    }
+}
+>>>>>>> c6848717c56cc754f268c573378f0bc0e3ca04a8
 // QUẢN LÝ YÊU CẦU GIA HẠN
 // ==========================================
 

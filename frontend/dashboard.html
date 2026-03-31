@@ -179,7 +179,12 @@
                 </table>
             </div>
         </div>
+<<<<<<< HEAD
         <div id="section-giahan" class="content-section">
+=======
+    
+    <div id="section-giahan" class="content-section">
+>>>>>>> c6848717c56cc754f268c573378f0bc0e3ca04a8
             <div class="card">
                 <h3>Danh sách Yêu cầu Gia hạn (Đang chờ duyệt)</h3>
                 <table>
@@ -224,7 +229,33 @@
             </table>
         </div>
     </div>
+<<<<<<< HEAD
     <div id="giaHanModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+=======
+    <!-- MODAL TÍNH TIỀN PHẠT -->
+    <div id="modalPhieuPhat" class="modal">
+        <div class="modal-content" style="max-width: 450px; border-top: 6px solid #dc3545; text-align: center;">
+            <i class="fa-solid fa-triangle-exclamation" style="font-size: 40px; color: #dc3545; margin-bottom: 15px;"></i>
+            <h2 style="color: #dc3545; margin-top: 0;">CẢNH BÁO TRỄ HẠN!</h2>
+            <p>Độc giả <strong><span id="phat_docGia"></span></strong> đã trả sách trễ hạn.</p>
+            
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; text-align: left; border: 1px dashed #dc3545;">
+                <p style="margin: 5px 0;"><strong>Cuốn sách:</strong> <span id="phat_tenSach"></span></p>
+                <p style="margin: 5px 0;"><strong>Trễ hạn:</strong> <span id="phat_soNgayTre" style="color: red; font-weight: bold;"></span> ngày</p>
+                <p style="margin: 10px 0 5px 0; font-size: 18px;"><strong>Tổng phạt:</strong> <span id="phat_tongTien" style="color: #dc3545; font-weight: 900; font-size: 24px;"></span> VNĐ</p>
+            </div>
+            
+            <input type="hidden" id="phat_id">
+            
+            <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Độc giả có muốn thanh toán số tiền này ngay bây giờ không?</p>
+            
+            <button class="btn-submit" style="width: 100%; background-color: #28a745; font-size: 16px; padding: 12px; font-weight: bold; text-transform: uppercase;" onclick="xacNhanThanhToanPhat()">
+                <i class="fa-solid fa-check-circle"></i> Xác nhận Đã Thu Tiền
+            </button>
+        </div>
+    </div>
+     <div id="giaHanModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+>>>>>>> c6848717c56cc754f268c573378f0bc0e3ca04a8
     <div style="background: white; padding: 24px; border-radius: 12px; width: 400px; max-width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
         <h3 style="margin-top: 0; color: #1e293b; font-size: 18px;">Yêu cầu gia hạn sách</h3>
         <p style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Vui lòng nhập lý do bạn muốn gia hạn (thêm 7 ngày). Lưu ý: Mỗi cuốn sách chỉ được gia hạn 1 lần.</p>
@@ -238,7 +269,10 @@
             <button onclick="guiYeuCauGiaHan()" style="padding: 8px 16px; background: #0284c7; color: white; border: none; border-radius: 6px; font-weight: 500; cursor: pointer;">Gửi yêu cầu</button>
         </div>
     </div>
+<<<<<<< HEAD
   </div>
+=======
+>>>>>>> c6848717c56cc754f268c573378f0bc0e3ca04a8
     <script src="js/api.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
