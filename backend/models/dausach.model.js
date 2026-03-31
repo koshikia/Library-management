@@ -2,8 +2,6 @@ const db = require('../config/db');
 
 class DauSachModel {
     static getAll() {
-        // Lấy toàn bộ thông tin gốc (có sẵn ds.tongSoLuong) 
-        // VÀ đếm thêm số bản sao đang rảnh (gán vào biến soLuongCoSan)
         const sql = `
             SELECT ds.*, 
                    (SELECT COUNT(*) 
@@ -34,9 +32,7 @@ class DauSachModel {
         return db.query('DELETE FROM DauSach WHERE maDauSach = ?', [id]);
     }
 
-    // Hàm hỗ trợ tăng/giảm số lượng khi thêm/xóa bản sao
     static updateQuantity(maDauSach, change) {
-        // change là +1 hoặc -1
         const sql = 'UPDATE DauSach SET tongSoLuong = GREATEST(tongSoLuong + ?, 0) WHERE maDauSach = ?';
         return db.query(sql, [change, maDauSach]);
     }

@@ -2,7 +2,7 @@ const DatTruocModel = require('../models/dattruoc.model');
 
 exports.datTruocSach = async (req, res) => {
     const { maDauSach } = req.body;
-    const nguoiDungId = req.session.user.id; // Dùng session nên phải thêm session, thông thường dùng jwt thì k cần
+    const nguoiDungId = req.session.user.id; 
 
     try {
         if (!maDauSach) {
@@ -15,7 +15,6 @@ exports.datTruocSach = async (req, res) => {
             datTruocId: datTruocId
         });
     } catch (error) {
-        // Thêm chuỗi 'đang mượn' vào điều kiện bắt lỗi 400
         if (error.message.includes('không tồn tại') || 
             error.message.includes('đang chờ') || 
             error.message.includes('đang mượn')) {
