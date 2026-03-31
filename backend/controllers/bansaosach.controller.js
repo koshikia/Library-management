@@ -33,8 +33,7 @@ exports.delete = async (req, res) => {
         await BanSaoModel.delete(req.params.id);
 
         await DauSachModel.updateQuantity(maDauSach, -1);
-
-        res.json({ message: 'Đã xóa bản sao' });
+        res.json({ message: 'Đã xóa bản sao thành công' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
