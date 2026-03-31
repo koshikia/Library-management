@@ -59,6 +59,7 @@
         <a class="nav-link active" data-target="section-muontra">Quản lý Mượn / Trả</a>
         <a class="nav-link" data-target="section-sach">Quản lý Đầu sách & Bản sao</a>
         <a class="nav-link" data-target="section-dattruoc">Yêu cầu Đặt trước</a>
+        <a class="nav-link" data-target="section-giahan">Yêu cầu Gia hạn</a>
         <a class="logout-btn" id="btnLogout">Đăng Xuất</a>
     </div>
 
@@ -178,6 +179,26 @@
                 </table>
             </div>
         </div>
+        <div id="section-giahan" class="content-section">
+            <div class="card">
+                <h3>Danh sách Yêu cầu Gia hạn (Đang chờ duyệt)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã YC</th>
+                            <th>Độc Giả</th>
+                            <th>Tên Sách</th>
+                            <th>Hạn Trả Hiện Tại</th>
+                            <th>Xin thêm</th>
+                            <th style="width: 25%;">Lý Do</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bangGiaHan">
+                        </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
     <div id="modalBanSao" class="modal">
@@ -203,6 +224,21 @@
             </table>
         </div>
     </div>
+    <div id="giaHanModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: white; padding: 24px; border-radius: 12px; width: 400px; max-width: 90%; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+        <h3 style="margin-top: 0; color: #1e293b; font-size: 18px;">Yêu cầu gia hạn sách</h3>
+        <p style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Vui lòng nhập lý do bạn muốn gia hạn (thêm 7 ngày). Lưu ý: Mỗi cuốn sách chỉ được gia hạn 1 lần.</p>
+        
+        <textarea id="lyDoGiaHan" rows="4" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; resize: none; font-family: inherit;" placeholder="Ví dụ: Mình chưa đọc xong, xin thư viện cho mượn thêm vài ngày..."></textarea>
+        
+        <input type="hidden" id="giaHanPhieuMuonId" />
+        
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+            <button onclick="dongModalGiaHan()" style="padding: 8px 16px; background: #f1f5f9; color: #475569; border: none; border-radius: 6px; font-weight: 500; cursor: pointer;">Hủy</button>
+            <button onclick="guiYeuCauGiaHan()" style="padding: 8px 16px; background: #0284c7; color: white; border: none; border-radius: 6px; font-weight: 500; cursor: pointer;">Gửi yêu cầu</button>
+        </div>
+    </div>
+  </div>
     <script src="js/api.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
