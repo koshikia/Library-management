@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> b5a5769efafbba108092a06ef746ff55376bdb7d
 CREATE DATABASE IF NOT EXISTS library_db
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
