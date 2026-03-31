@@ -13,6 +13,7 @@ const datTruocRoutes = require('./routes/dattruoc.routes');
 const phieuMuonRoutes = require('./routes/borrow.routes');
 const phieuTraRoutes = require('./routes/returnRoutes');
 const giaHanRoutes = require('./routes/renewRoutes');
+const reportRouters = require('./routes/reportRouters');
 const app = express();
 
 app.use(cors({
@@ -54,6 +55,7 @@ app.use('/api/dattruoc', datTruocRoutes);
 app.use('/api/phieumuon', phieuMuonRoutes);
 app.use('/api/phieumuon', phieuTraRoutes);
 app.use('/api/giahan', giaHanRoutes);
+app.use('/api/thongke', reportRouters);
 // Chạy server
 const PORT = 3000;
 app.listen(PORT, () => {

@@ -70,6 +70,9 @@ function setupChuyenTab() {
             } else if (targetId === 'section-giahan') { 
                 taiDanhSachGiaHan()
             }
+            else if (targetId === 'section-thongke') {
+                taiDuLieuThongKe();
+            }
         });
     });
 }
@@ -547,7 +550,6 @@ async function xuLyTraSach() {
         alert("Lỗi khi trả sách: " + error.message);
     }
 }
-
 // Xử lý khi Thủ thư bấm "Xác nhận Đã Thu Tiền"
 async function xacNhanThanhToanPhat() {
     const idPhieuPhat = document.getElementById('phat_id').value;
@@ -648,5 +650,47 @@ async function tuChoiGiaHan(giaHanId) {
         taiDanhSachGiaHan(); // Cập nhật lại bảng gia hạn
     } catch (error) {
         alert("Lỗi từ chối: " + error.message);
+    }
+}
+// ==========================================
+// BÁO CÁO & THỐNG KÊ
+// ==========================================
+async function taiDuLieuThongKe() {
+    try {
+        // GỌI API THỐNG KÊ (Chú ý: Đổi URL nếu bạn có dùng tiền tố như /api/admin/thongke...)
+        const data = await apiFetch('/api/thongke');
+
+        // 1. Đổ dữ liệu vào 4 cái Card phía trên
+        document.getElementById('tk_tongSach').textContent = data.tongDauSach || 0;
+        document.getElementById('tk_tongDocGia').textContent = data.tongDocGia || 0;
+        document.getElementById('tk_dangMuon').textContent = data.dangChoMuon || 0;
+        document.getElementById('tk_doanhThu').textContent = (data.tongDoanhThu || 0).toLocaleString('vi-VN') + ' đ';
+
+        // 2. Đổ dữ liệu vào bảng Lịch sử nộp phạt
+        const tbody = document.getElementById('bangLichSuPhat');
+        tbody.innerHTML = '';
+
+        if (!data.lichSuPhat || data.lichSuPhat.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color: #666;">Thư viện chưa thu được đồng tiền phạt nào.</td></tr>';
+            return;
+        }
+
+        data.lichSuPhat.forEach(item => {
+            const ngayThu = new Date(item.ngayThanhToan).toLocaleString('vi-VN');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>#${item.maPhieuPhat}</strong></td>
+                <td>${item.tenDocGia}</td>
+                <td>${item.tenSach}</td>
+                <td style="color: #dc3545; font-weight: bold;">${item.soNgayTre} ngày</td>
+                <td style="color: #28a745; font-weight: bold; font-size: 16px;">+ ${item.tongTien.toLocaleString('vi-VN')} đ</td>
+                <td>${ngayThu}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error("Lỗi khi tải dữ liệu thống kê:", error);
+        alert("Không thể tải dữ liệu thống kê. Vui lòng kiểm tra lại API!");
     }
 }

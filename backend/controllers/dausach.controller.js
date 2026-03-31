@@ -53,9 +53,19 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const [result] = await DauSachModel.delete(req.params.id);
-        if (result.affectedRows === 0) return res.status(404).json({ message: 'Không tìm thấy sách' });
-        res.json({ message: 'Đã xóa sách và các bản sao' });
+        const maDauSach = req.params.id;
+        const [copies] = await BanSaoModel.getByDauSachId(maDauSach);
+        if (copies && copies.length > 0) {
+            return res.status(400).json({ 
+                message: `Không thể xóa! Đầu sách này vẫn còn ${copies.length} bản sao trong kho. Vui lòng xóa hết bản sao trước.` 
+            });
+        }
+        const [result] = await DauSachModel.delete(maDauSach);
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Không tìm thấy sách' });
+        }
+        
+        res.json({ message: 'Đã xóa đầu sách thành công' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
