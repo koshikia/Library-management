@@ -547,10 +547,6 @@ async function xuLyTraSach() {
         alert("Lỗi khi trả sách: " + error.message);
     }
 }
-<<<<<<< HEAD
-// ==========================================
-=======
-
 // Xử lý khi Thủ thư bấm "Xác nhận Đã Thu Tiền"
 async function xacNhanThanhToanPhat() {
     const idPhieuPhat = document.getElementById('phat_id').value;
@@ -567,7 +563,6 @@ async function xacNhanThanhToanPhat() {
         alert("Lỗi thanh toán: " + error.message);
     }
 }
->>>>>>> c6848717c56cc754f268c573378f0bc0e3ca04a8
 // QUẢN LÝ YÊU CẦU GIA HẠN
 // ==========================================
 
