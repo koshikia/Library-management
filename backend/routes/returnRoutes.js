@@ -6,5 +6,5 @@ const { isThuThu } = require('../middleware/auth.middleware');
 
 // trả sách (thủ thư thực hiện)
 router.put('/tra', isThuThu, returnController.returnBorrow);
-
+router.put('/phieuphat/:id/thanhtoan', isThuThu, returnController.payFine);
 module.exports = router;

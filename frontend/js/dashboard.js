@@ -66,7 +66,9 @@ function setupChuyenTab() {
             } else if (targetId === 'section-sach') {
                 taiDanhSachDauSach();
             } else if (targetId === 'section-muontra') {
-                taiDanhSachPhieuMuon(); // Gọi hàm tải Phiếu Mượn
+                taiDanhSachPhieuMuon(); 
+            } else if (targetId === 'section-giahan') { 
+                taiDanhSachGiaHan()
             }
         });
     });
@@ -510,23 +512,141 @@ async function xuLyMuonSach() {
 // 3. Xử lý nút "Ghi nhận Trả Sách"
 async function xuLyTraSach() {
     const maVach = document.getElementById('tra_maVach').value.trim();
-
     if (!maVach) {
         alert("Vui lòng nhập Mã vạch của cuốn sách cần trả!");
         return;
     }
 
     try {
-        // Gửi yêu cầu Trả sách (Ví dụ API: PUT /api/phieumuon/tra)
-        await apiFetch('/api/phieumuon/tra', {
+        const response = await apiFetch('/api/phieumuon/tra', {
             method: 'PUT',
             body: JSON.stringify({ maVach: maVach })
         });
 
-        alert("Ghi nhận Trả Sách thành công! Sách đã được nhập lại vào kho.");
         document.getElementById('tra_maVach').value = '';
-        taiDanhSachPhieuMuon();
+        taiDanhSachPhieuMuon(); // Tải lại bảng ngay lập tức
+
+        // KIỂM TRA XEM CÓ BỊ PHẠT KHÔNG
+        if (response.hasFine) {
+            // Bật Popup cảnh báo phạt
+            const fine = response.fineDetails;
+
+            document.getElementById('phat_docGia').textContent = fine.hoTen;
+            document.getElementById('phat_tenSach').textContent = fine.tenSach;
+            document.getElementById('phat_soNgayTre').textContent = fine.soNgayTre;
+            document.getElementById('phat_tongTien').textContent = fine.tongTien.toLocaleString('vi-VN');
+            document.getElementById('phat_id').value = fine.id;
+
+            document.getElementById('modalPhieuPhat').style.display = 'flex';
+        } else {
+            // Không bị phạt thì báo thành công bình thường
+            alert(response.message);
+        }
+
     } catch (error) {
         alert("Lỗi khi trả sách: " + error.message);
+    }
+}
+
+// Xử lý khi Thủ thư bấm "Xác nhận Đã Thu Tiền"
+async function xacNhanThanhToanPhat() {
+    const idPhieuPhat = document.getElementById('phat_id').value;
+
+    try {
+        await apiFetch(`/api/phieumuon/phieuphat/${idPhieuPhat}/thanhtoan`, {
+            method: 'PUT'
+        });
+
+        alert("Thu tiền phạt thành công! Phiếu mượn đã được hoàn tất.");
+        document.getElementById('modalPhieuPhat').style.display = 'none';
+
+    } catch (error) {
+        alert("Lỗi thanh toán: " + error.message);
+    }
+}
+// QUẢN LÝ YÊU CẦU GIA HẠN
+// ==========================================
+
+// 1. Tải danh sách yêu cầu gia hạn đang chờ
+async function taiDanhSachGiaHan() {
+    const tbody = document.getElementById('bangGiaHan');
+    if (!tbody) return;
+
+    try {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Đang tải danh sách...</td></tr>';
+        
+        // Gọi API lấy danh sách gia hạn chờ duyệt
+        const data = await apiFetch('/api/giahan');
+        const danhSach = Array.isArray(data) ? data : (data.data || []);
+
+        tbody.innerHTML = '';
+        if (danhSach.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color: #666;">Hiện tại không có yêu cầu gia hạn nào chờ duyệt.</td></tr>';
+            return;
+        }
+
+        danhSach.forEach(item => {
+            const hanTraCu = new Date(item.hanTra).toLocaleDateString('vi-VN');
+            const lyDo = item.lyDo || 'Không có lý do';
+            
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>#${item.id}</strong></td>
+                <td>${item.hoTen || 'Đang cập nhật'}</td>
+                <td><strong>${item.tenSach || 'Đang cập nhật'}</strong></td>
+                <td><span style="color: #d97706; font-weight: bold;">${hanTraCu}</span></td>
+                <td><span style="color: #0284c7; font-weight: bold;">+${item.soNgayGiaHan} ngày</span></td>
+                <td style="max-width: 250px; font-style: italic; color: #475569;">"${lyDo}"</td>
+                <td>
+                    <button class="btn-small" style="background-color: #28a745; margin-right: 5px;" onclick="duyetGiaHan(${item.id})">Duyệt</button>
+                    <button class="btn-small" style="background-color: #dc3545;" onclick="tuChoiGiaHan(${item.id})">Từ chối</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } catch (error) {
+        tbody.innerHTML = `<tr><td colspan="7" style="color:red;text-align:center;">Lỗi: ${error.message}</td></tr>`;
+    }
+}
+
+// 2. Xử lý Duyệt gia hạn
+async function duyetGiaHan(giaHanId) {
+    if (!confirm(`Bạn có chắc chắn muốn DUYỆT yêu cầu gia hạn #${giaHanId}? (Ngày trả sẽ tự động được cộng thêm).`)) return;
+
+    try {
+        await apiFetch('/api/giahan/approve', {
+            method: 'POST',
+            body: JSON.stringify({ giaHanId: giaHanId })
+        });
+        
+        alert("Duyệt thành công! Ngày trả của độc giả đã được gia hạn.");
+        taiDanhSachGiaHan(); // Cập nhật lại bảng gia hạn
+        taiDanhSachPhieuMuon(); // Cập nhật lại bảng phiếu mượn (để thấy hạn trả mới)
+    } catch (error) {
+        alert("Lỗi duyệt gia hạn: " + error.message);
+    }
+}
+
+// 3. Xử lý Từ chối gia hạn
+async function tuChoiGiaHan(giaHanId) {
+    // Hiện hộp thoại yêu cầu Thủ thư nhập lý do từ chối
+    const lyDoTuChoi = prompt("Vui lòng nhập lý do từ chối (Độc giả sẽ thấy lý do này):", "Sách đang có độc giả khác đặt trước chờ mượn.");
+    
+    // Nếu bấm Hủy ở hộp thoại prompt thì không làm gì cả
+    if (lyDoTuChoi === null) return; 
+
+    try {
+        await apiFetch('/api/giahan/reject', {
+            method: 'POST',
+            body: JSON.stringify({ 
+                giaHanId: giaHanId,
+                lyDoTuChoi: lyDoTuChoi.trim() 
+            })
+        });
+        
+        alert("Đã từ chối yêu cầu gia hạn!");
+        taiDanhSachGiaHan(); // Cập nhật lại bảng gia hạn
+    } catch (error) {
+        alert("Lỗi từ chối: " + error.message);
     }
 }
