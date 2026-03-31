@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Library Report Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+background:#f4f6fb;
+}
+
+/* Sidebar */
+
+.sidebar{
+width:230px;
+height:100vh;
+background:#ffd6e0;
+position:fixed;
+padding:20px;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li{
+padding:12px;
+margin-bottom:8px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.sidebar ul li:hover{
+background:#ffb3c6;
+}
+
+/* Main */
+
+.main{
+margin-left:250px;
+padding:30px;
+}
+
+/* Cards */
+
+.cards{
+display:flex;
+gap:20px;
+margin-bottom:30px;
+}
+
+.card{
+flex:1;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.card h3{
+color:#888;
+margin-bottom:10px;
+}
+
+/* Chart layout */
+
+.charts{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+margin-bottom:30px;
+}
+
+.chart-box{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Table */
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+border-radius:10px;
+overflow:hidden;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #eee;
+text-align:center;
+}
+
+th{
+background:#ffe5ec;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<h2>📚 Library</h2>
+
+<ul>
+<li>🏠 Dashboard</li>
+<li>📖 Quản lý sách</li>
+<li>👥 Người dùng</li>
+<li>🔄 Mượn trả</li>
+<li>📊 Báo cáo</li>
+</ul>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+<h2>📊 Thống kê & Báo cáo</h2>
+
+<!-- Cards -->
+
+<div class="cards">
+
+<div class="card">
+<h3>Tổng sách</h3>
+<h1>1350</h1>
+</div>
+
+<div class="card">
+<h3>Người dùng</h3>
+<h1>420</h1>
+</div>
+
+<div class="card">
+<h3>Sách đang mượn</h3>
+<h1>110</h1>
+</div>
+
+<div class="card">
+<h3>Sách quá hạn</h3>
+<h1>17</h1>
+</div>
+
+</div>
+
+<!-- Charts -->
+
+<div class="charts">
+
+<div class="chart-box">
+<h3>Số sách mượn theo tháng</h3>
+<canvas id="barChart"></canvas>
+</div>
+
+<div class="chart-box">
+<h3>Tỉ lệ sách theo thể loại</h3>
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="chart-box">
+<h3>Xu hướng mượn sách</h3>
+<canvas id="lineChart"></canvas>
+</div>
+
+<div class="chart-box">
+<h3>Người dùng theo khoa</h3>
+<canvas id="userChart"></canvas>
+</div>
+
+</div>
+
+<!-- Top books -->
+
+<h3>🏆 Top sách được mượn nhiều</h3>
+
+<table>
+
+<tr>
+<th>STT</th>
+<th>Tên sách</th>
+<th>Tác giả</th>
+<th>Lượt mượn</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Python cơ bản</td>
+<td>Nguyễn Văn A</td>
+<td>120</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>HTML CSS</td>
+<td>Trần Văn B</td>
+<td>95</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Lập trình Java</td>
+<td>Lê Văn C</td>
+<td>80</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Machine Learning</td>
+<td>John Smith</td>
+<td>75</td>
+</tr>
+
+</table>
+
+</div>
+
+<script>
+
+/* Bar chart */
+
+new Chart(document.getElementById("barChart"),{
+type:"bar",
+data:{
+labels:["T1","T2","T3","T4","T5","T6"],
+datasets:[{
+label:"Lượt mượn",
+data:[40,70,60,90,120,100],
+backgroundColor:"#ff8fab"
+}]
+}
+});
+
+/* Pie chart */
+
+new Chart(document.getElementById("pieChart"),{
+type:"pie",
+data:{
+labels:["CNTT","Kinh tế","Văn học","Khoa học"],
+datasets:[{
+data:[40,30,20,10],
+backgroundColor:[
+"#ff8fab",
+"#ffc2d1",
+"#ffb3c6",
+"#fb6f92"
+]
+}]
+}
+});
+
+/* Line chart */
+
+new Chart(document.getElementById("lineChart"),{
+type:"line",
+data:{
+labels:["T1","T2","T3","T4","T5","T6"],
+datasets:[{
+label:"Xu hướng mượn",
+data:[30,50,45,80,95,110],
+borderColor:"#ff4d6d",
+tension:0.4,
+fill:false
+}]
+}
+});
+
+/* User chart */
+
+new Chart(document.getElementById("userChart"),{
+type:"doughnut",
+data:{
+labels:["CNTT","Kinh tế","Ngoại ngữ","Luật"],
+datasets:[{
+data:[150,120,80,70],
+backgroundColor:[
+"#ff8fab",
+"#ffc2d1",
+"#ffb3c6",
+"#fb6f92"
+]
+}]
+}
+});
+
+</script>
+
+</body>
+</html>
