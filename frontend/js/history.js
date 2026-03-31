@@ -1,6 +1,3 @@
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
     // Gọi hàm lấy lịch sử mượn ngay khi trang vừa tải xong
     taiLichSuMuon();
