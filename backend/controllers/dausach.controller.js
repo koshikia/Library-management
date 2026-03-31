@@ -12,11 +12,18 @@ exports.getAll = async (req, res) => {
 
 exports.getDetail = async (req, res) => {
     try {
+
         const [book] = await DauSachModel.getById(req.params.id);
         if (book.length === 0) return res.status(404).json({ message: 'Không tìm thấy sách' });
-
         const [copies] = await BanSaoModel.getByDauSachId(req.params.id);
-        res.json({ ...book[0], danhSachBanSao: copies });
+        const soLuongCoSan = copies.filter(c => c.trangThai === 'CO_SAN').length;
+        res.json({ 
+            ...book[0], 
+            tongSoLuong: copies.length,
+            soLuongCoSan: soLuongCoSan, 
+            banSao: copies 
+        });
+
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

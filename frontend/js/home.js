@@ -76,9 +76,11 @@ function hienThiDanhSachSach(danhSach, trangHienTai = 1) {
         div.onmouseout = () => div.style.transform = "translateY(0)";
 
         div.innerHTML = `
-            <img src="${sach.hinhAnh || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=200'}" alt="${sach.tenSach}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
-            <h4 style="margin: 0 0 5px 0; font-size: 16px;">${sach.tenSach}</h4>
-            <p style="margin: 0 0 15px 0; color: #666; font-size: 13px; flex-grow: 1;">${sach.tacGia || 'Không rõ'}</p>
+            <div onclick="window.location.href='chitietsach.html?id=${sach.maDauSach}'" style="display: flex; flex-direction: column; flex-grow: 1; text-decoration: none; color: inherit;">
+                <img src="${sach.hinhAnh || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=200'}" alt="${sach.tenSach}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+                <h4 style="margin: 0 0 5px 0; font-size: 16px;">${sach.tenSach}</h4>
+                <p style="margin: 0 0 15px 0; color: #666; font-size: 13px; flex-grow: 1;">${sach.tacGia || 'Không rõ'}</p>
+            </div>
             ${nutHanhDong}
         `;
         grid.appendChild(div);
@@ -203,10 +205,10 @@ window.hienThiGoiY = function() {
     container.innerHTML = '';
     selected.forEach(sach => {
         container.innerHTML += `
-            <div style="display: flex; gap: 10px; margin-bottom: 15px; align-items: center;">
+            <div onclick="window.location.href='chitietsach.html?id=${sach.maDauSach}'" style="display: flex; gap: 10px; margin-bottom: 15px; align-items: center; cursor: pointer; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
                 <img src="${sach.hinhAnh || 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=100'}" style="width: 50px; height: 70px; object-fit: cover; border-radius: 4px;">
                 <div>
-                    <h5 style="margin: 0 0 5px 0; font-size: 14px;">${sach.tenSach}</h5>
+                    <h5 style="margin: 0 0 5px 0; font-size: 14px; color: #007bff;">${sach.tenSach}</h5>
                     <p style="margin: 0; font-size: 12px; color: #666;">${sach.tacGia || 'Không rõ'}</p>
                 </div>
             </div>
