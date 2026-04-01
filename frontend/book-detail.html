@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi tiết sách</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="book-detail-page">
+  <div class="layout detail-layout">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">
+          <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+          <div>
+            <h2>Thư Viện Số</h2>
+            <span>Hệ thống quản lý</span>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <a href="home.html" class="menu-item active"><i class="fa-solid fa-house"></i> Trang chủ</a>
+          <a href="history.html" class="menu-item"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử mượn</a>
+          <a href="lichsudattruoc.html" class="menu-item"><i class="fa-solid fa-bookmark"></i> Lịch sử đặt trước</a>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="support-box" style="background-color: #fee2e2; border-left: 4px solid #dc3545;">
+          <p style="color: #dc3545; font-weight: bold;">TÀI KHOẢN</p>
+          <button onclick="dangXuat()" style="background-color: #dc3545; color: white; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; padding: 8px;">
+            Đăng xuất <i class="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </div>
+
+        <div class="user-card">
+          <img src="https://ui-avatars.com/api/?name=Reader&background=random" alt="avatar" id="sidebar-avatar" />
+          <div>
+            <strong id="sidebar-name">Đang tải...</strong>
+            <span>Độc giả</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content detail-main">
+      <header class="detail-topbar">
+        <a href="home.html" class="topbar-link">
+          <i class="fa-solid fa-arrow-left"></i>
+          Quay lại danh sách sách
+        </a>
+        <button type="button" id="detailPrimaryAction" class="primary-btn detail-primary-btn">
+          Đang tải...
+        </button>
+      </header>
+
+      <div id="detailLoading" class="detail-state">Đang tải chi tiết sách...</div>
+
+      <div id="detailContent" class="detail-content hidden">
+        <section class="detail-hero">
+          <div class="detail-cover-card">
+            <img id="detailCover" src="" alt="Bìa sách" />
+          </div>
+
+          <div class="detail-summary">
+            <div class="detail-overline">
+              <span class="detail-chip" id="detailCategoryChip">Đang cập nhật</span>
+              <span class="detail-chip" id="detailCodeChip">Mã sách</span>
+            </div>
+
+            <div>
+              <h1 class="detail-title" id="detailTitle">Tên sách</h1>
+              <p class="detail-subtitle" id="detailSubtitle">Tác giả • Nhà xuất bản</p>
+            </div>
+
+            <div class="detail-availability">
+              <span class="detail-status-pill" id="detailStatusPill">Đang tải trạng thái</span>
+              <span id="detailAvailabilityText">Đang cập nhật số lượng.</span>
+            </div>
+
+            <p class="detail-summary-text" id="detailSummaryText">
+              Thông tin mô tả sách sẽ được hiển thị tại đây.
+            </p>
+          </div>
+        </section>
+
+        <section class="detail-section">
+          <div class="section-header compact">
+            <h2>Thông tin chi tiết</h2>
+            <span id="detailInventorySummary">Tổng quan kho sách</span>
+          </div>
+
+          <div class="detail-info-grid">
+            <article class="detail-field">
+              <span>Mã đầu sách</span>
+              <strong id="detailCode"></strong>
+            </article>
+            <article class="detail-field">
+              <span>Tên sách</span>
+              <strong id="detailName"></strong>
+            </article>
+            <article class="detail-field">
+              <span>Tác giả</span>
+              <strong id="detailAuthor"></strong>
+            </article>
+            <article class="detail-field">
+              <span>Thể loại</span>
+              <strong id="detailCategory"></strong>
+            </article>
+            <article class="detail-field">
+              <span>Nhà xuất bản</span>
+              <strong id="detailPublisher"></strong>
+            </article>
+            <article class="detail-field">
+              <span>Năm xuất bản</span>
+              <strong id="detailYear"></strong>
+            </article>
+            <article class="detail-field">
+              <span>Tổng số lượng</span>
+              <strong id="detailTotalQuantity"></strong>
+            </article>
+            <article class="detail-field">
+              <span>Số lượng có sẵn</span>
+              <strong id="detailAvailableQuantity"></strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="detail-section">
+          <div class="section-header compact">
+            <h2>Mô tả nội dung</h2>
+          </div>
+
+          <div class="detail-description" id="detailDescription"></div>
+        </section>
+
+        <section class="detail-section">
+          <div class="section-header compact">
+            <h2>Danh sách bản sao</h2>
+            <span id="detailCopiesSummary">Theo dõi tình trạng từng bản sao trong kho</span>
+          </div>
+
+          <div class="detail-copy-table-wrapper">
+            <table class="detail-copy-table">
+              <thead>
+                <tr>
+                  <th>MÃ VẠCH</th>
+                  <th>TRẠNG THÁI</th>
+                  <th>GHI CHÚ</th>
+                </tr>
+              </thead>
+              <tbody id="detailCopiesBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <aside class="right-panel detail-right-panel">
+      <div class="panel-card">
+        <h3>Tổng quan kho sách</h3>
+        <div class="detail-metric-grid">
+          <div class="detail-metric">
+            <span>Tổng bản sao</span>
+            <strong id="metricTotal">0</strong>
+          </div>
+          <div class="detail-metric">
+            <span>Có sẵn</span>
+            <strong id="metricAvailable">0</strong>
+          </div>
+          <div class="detail-metric">
+            <span>Đang mượn</span>
+            <strong id="metricBorrowed">0</strong>
+          </div>
+          <div class="detail-metric">
+            <span>Đang giữ chỗ</span>
+            <strong id="metricHolding">0</strong>
+          </div>
+          <div class="detail-metric">
+            <span>Hư hỏng</span>
+            <strong id="metricDamaged">0</strong>
+          </div>
+          <div class="detail-metric">
+            <span>Thất lạc</span>
+            <strong id="metricLost">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <h3>Phân bố trạng thái</h3>
+        <div class="detail-copy-summary" id="detailCopySummary"></div>
+      </div>
+
+      <div class="panel-card detail-panel-note">
+        <strong>Gợi ý sử dụng</strong>
+        <p id="detailAdviceText">Kiểm tra trạng thái bản sao để biết cuốn sách đang sẵn sàng phục vụ hay cần đặt trước.</p>
+      </div>
+    </aside>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/book-detail.js"></script>
+</body>
+</html>
